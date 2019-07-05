@@ -1,0 +1,11 @@
+Aplikacja ma słuzyć do zarządania przepisami (dodawanie, podglad, edycja), użytkownikami (opcja dostepna tylko dla roli administratora). Role będą ustalały poziom uprawnień zalogowanego użytkownika. Przy przeglądaniu przepisów, użytkownik powinien mieć  możliwość skorzystania filtrów wyszukiwania.
+
+Funkcje:
+Logowanie użytkownika – dostęp do aplikacji będą mieli tylko uwierzytelnieni użytkownicy,
+	- Zmiana funkcjonalności programu w zalezności roli jaką posiada użytkownik, np. Usuwanie przepisów dostępne tylko dla Administratora,
+	- Dodawanie nowych przepisów/składników, 
+	- Przeglądanie przepisow/składników
+	- Edycja przepisów – zmiana nazwy, typu, listy składników, instrukcji
+	- Edycja składników – zmiana nazwy, makroskładników, kaloryczności
+	- Usuwanie przepisów (tylko dla roli Administratora)
+	- Dodawanie, edytowanie użytkowników (tylko dla roli Administratora)
