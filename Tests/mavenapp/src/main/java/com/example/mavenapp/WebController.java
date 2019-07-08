@@ -10,6 +10,7 @@ public class WebController {
     @Autowired
     IUserRepository userRepository;
 
+    //region Messaging
     @RequestMapping("/hello")
     public String sayHello(){
         return "I'm saying hello";
@@ -19,27 +20,24 @@ public class WebController {
     public String error (){
         return "Error occurred";
     }
+    //endregion
 
-    @RequestMapping("/findall")
+
+    //region Getting users
+    @RequestMapping("/showall")
     public String findAll() {
-        String result = "<html>";
+        String result = "<html><table>";
+        result += "<tr> <td>Login</td> <td>Imię</td> <td>Nazwisko</td> <td>Hasło</td> <td>Aktywny</td> </tr>";
 
         for (User user : userRepository.findAll()) {
-            result += "<div>" + user.toString() + "</div>\n";
+            result += "<tr><td>" + user.getLogin() + "</td>" + "<td>" + user.getFirstName() + "</td>" + "<td>" + user.getLastName() + "</td>" +
+                    "<td>" + user.getPassword() + "</td>" + "<td>" + user.getIsActive() + "</td>" + "</tr>\n";
         }
-        return result + "</html>";
+        return result + "</table></html>";
     }
 
-    @RequestMapping("/save")
-    public String saveUser(){
-        try{
-            userRepository.save(new User("julisk", "Julia", "Iskiorka", "qwertyuiop", true));
-            return "Record added successfully";
-        } catch (Exception exc) { return "Error"; }
-    }
-
-    @RequestMapping("/findbylastname")
-    public String fetchDataByLastName(@RequestParam("lastName") String lastName){
+    @RequestMapping("/showbylastname")
+    public String getUserByLastName(@RequestParam("lastName") String lastName){
         String result = "";
 
         for(User user: userRepository.findByLastName(lastName)){
@@ -48,43 +46,75 @@ public class WebController {
         return result;
     }
 
-//    @GetMapping("/get")
-//    public Optional<User> getByID(@RequestParam String someID)
-//    {
-//        return userRepository.findById(Integer.parseInt(someID));
-//    }
+    @RequestMapping("/showbylogin")
+    public String showUserById(String login){
+        User user = getUserByLogin(login);
+        if (user != null){
+            return user.toString();
+        }
+        else {
+            return "User '"+ login +"' does not exist";
+        }
+    }
+    //endregion
+
+
+    //region Add new user
+    @RequestMapping("/add")
+    public String saveUser(@RequestParam("login") String login, @RequestParam("firstName") String firstName,
+                           @RequestParam("lastName") String lastName, @RequestParam("password") String password, boolean isActive){
+        try{
+            userRepository.save(new User(login, firstName, lastName, password, isActive));
+            return "Record added successfully";
+        } catch (Exception exc) { return "Error"; }
+    }
+    //endregion
+
+
+    //region Update user
+    @RequestMapping("/update")
+    public String updateUser(@RequestParam("login") String login, @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestParam("password") String password){
+        try{
+            userRepository.save(new User(login, firstName, lastName, password, true));
+            return "Record added successfully";
+        } catch (Exception exc) { return "Error"; }
+    }
+
+    @RequestMapping("/deactivate")
+    public String deactivateUser(@RequestParam("login") String login){
+        if (toggleIsActive(login, false)) return "User '"+ login +"' deactivated";
+        else return "User update failed";
+    }
+
+    @RequestMapping("/activate")
+    public String activateUser(@RequestParam("login") String login){
+        if (toggleIsActive(login, true)) return "User '"+ login +"' activated";
+        else return "User update failed";
+    }
+
+    private boolean toggleIsActive(String login, boolean isActive){
+        User userToUpdate = getUserByLogin(login);
+        if (userToUpdate != null) { //if user with given login exists
+            userToUpdate.setIsActive(isActive);
+            userRepository.save(userToUpdate);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    //endregion
+
+
+    //region Get user functions
+    private User getUserByLogin(@RequestParam("login") String login){
+        try{
+            User user = userRepository.findByLogin(login).get(0);
+            return user;
+        } catch (Exception exc){
+            System.out.printf(exc.getMessage());
+            return null;
+        }
+    }
+    //endregion
 }
-
-//    @RequestMapping(value = "/save",method = RequestMethod.GET )
-//    public String process(){
-//        try{
-//            userRepository.save(new User("Hubert", "Wawrzacz"));
-//            userRepository.save(new User("Szymon", "Lipiec"));
-//            return "Done";
-//        } catch (Exception exc) { return "Error"; }
-//    }
-//
-//    @RequestMapping("/hello")
-//    public String Hello(){
-//        return String.format("Welcome");
-//    }
-//
-//    @RequestMapping("/findall")
-//    public String findAll() {
-//        String result = "<html>";
-//
-//        for (User user : userRepository.findAll()) {
-//            result += "<div>" + user.toString() + "</div>\n";
-//        }
-//
-//        return result + "</html>";
-//    }
-//
-//    @RequestMapping("/findbyid")
-//    public Optional findById(@RequestParam("id") long id){
-//        Optional result;
-//        result = userRepository.findById(id);
-//        return result;
-//    }
-//}
-

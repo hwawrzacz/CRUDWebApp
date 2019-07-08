@@ -22,45 +22,45 @@ public class User{
     private String password;
 
     @Column(name="isactive")
-    private boolean isactive;
+    private boolean isActive;
     //endregion
 
     //region Getters and setters
     //login
+    public String getLogin() {
+        return login;
+    }
     public void setLogin(String login) {
         this.login = login;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
     //firstName
+    public String getFirstName() {
+        return firstName;
+    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     //lastName
+    public String getLastName() {
+        return lastName;
+    }
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
     //password
+    public String getPassword() {
+        return password;
+    }
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    //isActive
+    public boolean getIsActive() { return isActive; }
+    public void setIsActive(boolean isActive) { this.isActive = isActive; }
     //endregion
 
     //region Constuctors
@@ -71,7 +71,7 @@ public class User{
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.isactive = isActive;
+        this.isActive = isActive;
     }
     //endregion
 
