@@ -1,4 +1,4 @@
-package com.example.crudbackend;
+package com.example.crudbackend.Models;
 
 import javax.persistence.*;
 

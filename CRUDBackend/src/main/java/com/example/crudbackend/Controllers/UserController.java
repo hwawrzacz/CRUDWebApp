@@ -1,9 +1,12 @@
-package com.example.crudbackend;
+package com.example.crudbackend.Controllers;
 
+import com.example.crudbackend.Models.Admin;
+import com.example.crudbackend.Models.User;
+import com.example.crudbackend.Repositories.IUserRepository;
+import com.example.crudbackend.Repositories.IAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 @RestController
@@ -12,6 +15,9 @@ public class UserController {
 
     @Autowired
     private IUserRepository userRepository;
+
+    @Autowired
+    private IAdminRepository adminRepository;
 
     //region Messaging
     @RequestMapping("/hello")
@@ -23,7 +29,6 @@ public class UserController {
     public String error (){
         return "Error occurred";
     }
-    //endregion
 
     @RequestMapping("/showadmins")
     public String showAdmins(){
@@ -37,6 +42,20 @@ public class UserController {
 
         return result + "</table></html>";
     }
+
+//    @RequestMapping("/showadmins2")
+//    public String ShowAdmins2(){
+//        String result = "";
+//
+//        System.out.printf("Admin counting started");
+//        for (Admin admin: adminRepository.findAll()) {
+//            result += admin.getLogin()+"\n";
+//            System.out.printf("Admin: ", admin.getLogin());
+//        }
+//
+//        return result;
+//    }
+    //endregion
 
 
     //region Getting users
@@ -58,11 +77,11 @@ public class UserController {
     @RequestMapping("/showall")
     public String findAllUsers() {
         String result = "<html><table>";
-        result += "<tr> <td>Login</td> <td>Imię</td> <td>Nazwisko</td> <td>Hasło</td> <td>Aktywny</td> </tr>";
+        result += "<tr> <td>Login</td> <td>Imię</td> <td>Nazwisko</td> <td>Hasło</td> <td>Aktywny</td> <td>Administrator</td> </tr>";
 
         for (User user : userRepository.findAll()) {
-            result += "<tr><td>" + user.getLogin() + "</td>" + "<td>" + user.getFirstName() + "</td>" + "<td>" + user.getLastName() + "</td>" +
-                    "<td>" + user.getPassword() + "</td>" + "<td>" + user.getIsActive() + "</td> </tr>\n";
+            result += "<tr><td>"+ user.getLogin() +"</td><td>"+ user.getFirstName() +"</td><td>"+ user.getLastName() +"</td>" +
+                    "<td>"+ user.getPassword() +"</td><td>"+ user.getIsActive() +"</td><td>"+ user.getIsAdmin() +"</td> </tr>\n";
         }
 
         return result + "</table></html>";
@@ -135,6 +154,30 @@ public class UserController {
     public String activateUser(@RequestParam("login") String login){
         if (toggleIsActive(login, true)) return "User '"+ login +"' activated";
         else return "User update failed";
+    }
+
+    @RequestMapping("/grantadminaccess")
+    public String grantAdminAccess(@RequestParam("login") String login){
+        if (toggleIsAdmin(login, true)) return "Granted admin access for user '"+ login +"'";
+        else return "User update failed";
+    }
+
+    @RequestMapping("/revokeadminaccess")
+    public String revokeAdminAccess(@RequestParam("login") String login){
+        if (toggleIsAdmin(login, false)) return "Revoked admin access for user '"+ login +"'";
+        else return "User update failed";
+    }
+
+    private boolean toggleIsAdmin(String login, boolean isAdmin){
+        User userToUpdate = getUserByLogin(login);
+        if (userToUpdate != null) { //if user with given login exists
+            userToUpdate.setIsAdmin(isAdmin);
+            userRepository.save(userToUpdate);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     private boolean toggleIsActive(String login, boolean isActive){
