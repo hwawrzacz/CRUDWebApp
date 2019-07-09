@@ -22,9 +22,6 @@ public class User{
 
     @Column(name="isactive")
     private boolean isActive;
-
-    @Column(name="isadmin")
-    private boolean isAdmin;
     //endregion
 
     //region Getters and setters
@@ -63,22 +60,17 @@ public class User{
     //isActive
     public boolean getIsActive() { return isActive; }
     public void setIsActive(boolean isActive) { this.isActive = isActive; }
-
-    //isAdmin
-    public boolean getIsAdmin() { return isAdmin; }
-    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
     //endregion
 
     //region Constructors
     public User() {}
 
-    public User(String login, String firstName, String lastName, String password, boolean isAdmin, boolean isActive){
+    public User(String login, String firstName, String lastName, String password, boolean isActive){
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.password = password;
-        this.isAdmin = isAdmin;
         this.isActive = isActive;
     }
     //endregion

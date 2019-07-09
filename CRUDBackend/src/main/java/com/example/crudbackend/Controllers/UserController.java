@@ -1,70 +1,35 @@
 package com.example.crudbackend.Controllers;
 
 import com.example.crudbackend.Models.Admin;
+import com.example.crudbackend.Models.Product;
 import com.example.crudbackend.Models.User;
+import com.example.crudbackend.Repositories.IProductRepository;
 import com.example.crudbackend.Repositories.IUserRepository;
 import com.example.crudbackend.Repositories.IAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    private IUserRepository userRepository;
+    IAdminRepository adminRepository;
 
     @Autowired
-    private IAdminRepository adminRepository;
-
-    //region Messaging
-    @RequestMapping("/hello")
-    public String sayHello(){
-        return "I'm saying hello";
-    }
-
-    @RequestMapping("/error")
-    public String error (){
-        return "Error occurred";
-    }
-
-    @RequestMapping("/showadmins")
-    public String showAdmins(){
-        String result = "<html><table>";
-        result += "<tr> <td>Login</td> </tr>";
-
-        for (User user : userRepository.findAll()) {
-            if (user.getIsAdmin())
-                result += "<tr><td>" + user.getLogin() + "</td></tr>\n";
-        }
-
-        return result + "</table></html>";
-    }
-
-//    @RequestMapping("/showadmins2")
-//    public String ShowAdmins2(){
-//        String result = "";
-//
-//        System.out.printf("Admin counting started");
-//        for (Admin admin: adminRepository.findAll()) {
-//            result += admin.getLogin()+"\n";
-//            System.out.printf("Admin: ", admin.getLogin());
-//        }
-//
-//        return result;
-//    }
-    //endregion
+    private IUserRepository userRepository;
 
 
-    //region Getting users
-    @RequestMapping("/verify")
+    //region Get users
+    @RequestMapping("/verifyuser")
     public String verifyUser(@RequestParam("login") String login, @RequestParam("password") String password){
         User user = getUserByLogin(login);
         if (user != null){
             if (user.getPassword().equals(password)){
-                if (user.getIsAdmin()){
+                if (isAdmin(user.getLogin())){
                     return "Admin access granted";
                 }
                 return "User access granted";
@@ -74,14 +39,17 @@ public class UserController {
         else return "User '"+ login +"' does not exist";
     }
 
-    @RequestMapping("/showall")
+    @RequestMapping("/showallusers")
     public String findAllUsers() {
-        String result = "<html><table>";
-        result += "<tr> <td>Login</td> <td>Imię</td> <td>Nazwisko</td> <td>Hasło</td> <td>Aktywny</td> <td>Administrator</td> </tr>";
+        String result = "<html><table>" +
+                "<tr> <td>Login</td> <td>Imię</td> <td>Nazwisko</td> <td>Hasło</td> <td>Aktywny</td> <td>Administrator</td> </tr>";
+        String isAdmin;
 
         for (User user : userRepository.findAll()) {
+            isAdmin = "Nie";
+            if (isAdmin(user.getLogin())) isAdmin = "Tak";
             result += "<tr><td>"+ user.getLogin() +"</td><td>"+ user.getFirstName() +"</td><td>"+ user.getLastName() +"</td>" +
-                    "<td>"+ user.getPassword() +"</td><td>"+ user.getIsActive() +"</td><td>"+ user.getIsAdmin() +"</td> </tr>\n";
+                    "<td>"+ user.getPassword() +"</td><td>"+ user.getIsActive() +"</td><td>"+ isAdmin +"</td> </tr>\n";
         }
 
         return result + "</table></html>";
@@ -97,8 +65,7 @@ public class UserController {
 //        return userList;
 //    }
 
-
-    @RequestMapping("/showbylastname")
+    @RequestMapping("/showuserbylastname")
     public String getUserByLastName(@RequestParam("lastName") String lastName){
         String result = "";
 
@@ -108,7 +75,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping("/showbylogin")
+    @RequestMapping("/showuserbylogin")
     public String showUserById(String login){
         User user = getUserByLogin(login);
         if (user != null){
@@ -121,14 +88,61 @@ public class UserController {
     //endregion
 
 
+    //region Get admins
+    @RequestMapping("/showalladmins")
+    public String ShowAdmins(){
+        String result = "";
+        for (Admin admin: adminRepository.findAll()) {
+            result += admin.getLogin()+"\n";
+        }
+        return result;
+    }
+
+    @RequestMapping("/showadminbylogin")
+    public String ShowAdminsByLogin(@RequestParam("login") String login){
+        return getAdminByLogin(login).toString();
+    }
+
+    private boolean isAdmin(String login){
+        if (adminRepository.existsAdminByLogin(login)) return true;
+        return false;
+    }
+    //endregion
+
+
     //region Add new user
     @RequestMapping("/add")
     public String saveUser(@RequestParam("login") String login, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
-                           @RequestParam("password") String password, boolean isAdmin, boolean isActive){
+                           @RequestParam("password") String password, boolean isActive){
         try{
-            userRepository.save(new User(login, firstName, lastName, password, isAdmin, isActive));
+            userRepository.save(new User(login, firstName, lastName, password, isActive));
             return "Record added successfully";
         } catch (Exception exc) { return "Error"; }
+    }
+    //endregion
+
+
+    //region Update admin
+    @RequestMapping("/grantadminaccess")
+    public String grantAdminAccess(@RequestParam("login") String login){
+        try{
+            adminRepository.save(new Admin(login));
+            return "Granted admin access for user '"+ login +"'";
+        }
+        catch (Exception exc){
+            return "User update failed";
+        }
+    }
+
+    @RequestMapping("/revokeadminaccess")
+    public String revokeAdminAccess(@RequestParam("login") String login){
+        try{
+            adminRepository.deleteById(login);
+            return "Revoked admin access for user '"+ login +"'";
+        }
+        catch (Exception exc){
+            return "User update failed";
+        }
     }
     //endregion
 
@@ -137,9 +151,9 @@ public class UserController {
     //http://localhost:8080/users/update?login=hubwaw&firstname=Hubert&lastname=wawrzacz&password=qwertyuiop&isadmin=true&isactive=true
     @RequestMapping("/update")
     public String updateUser(@RequestParam("login") String login, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
-                             @RequestParam("password") String password, @RequestParam("isadmin") boolean isAdmin){
+                             @RequestParam("password") String password){
         try{
-            userRepository.save(new User(login, firstName, lastName, password, isAdmin, true));
+            userRepository.save(new User(login, firstName, lastName, password, true));
             return "Record added successfully";
         } catch (Exception exc) { return "Error"; }
     }
@@ -154,30 +168,6 @@ public class UserController {
     public String activateUser(@RequestParam("login") String login){
         if (toggleIsActive(login, true)) return "User '"+ login +"' activated";
         else return "User update failed";
-    }
-
-    @RequestMapping("/grantadminaccess")
-    public String grantAdminAccess(@RequestParam("login") String login){
-        if (toggleIsAdmin(login, true)) return "Granted admin access for user '"+ login +"'";
-        else return "User update failed";
-    }
-
-    @RequestMapping("/revokeadminaccess")
-    public String revokeAdminAccess(@RequestParam("login") String login){
-        if (toggleIsAdmin(login, false)) return "Revoked admin access for user '"+ login +"'";
-        else return "User update failed";
-    }
-
-    private boolean toggleIsAdmin(String login, boolean isAdmin){
-        User userToUpdate = getUserByLogin(login);
-        if (userToUpdate != null) { //if user with given login exists
-            userToUpdate.setIsAdmin(isAdmin);
-            userRepository.save(userToUpdate);
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     private boolean toggleIsActive(String login, boolean isActive){
@@ -195,8 +185,14 @@ public class UserController {
 
 
     //region Get user functions
-    private User getUserByLogin(@RequestParam("login") String login){
+    private User getUserByLogin(String login){
+
         return userRepository.findByLogin(login);
+    }
+
+    private Admin getAdminByLogin(String login){
+
+        return adminRepository.findByLogin(login);
     }
     //endregion
 }
