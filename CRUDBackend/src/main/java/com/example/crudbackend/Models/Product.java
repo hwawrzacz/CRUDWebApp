@@ -1,6 +1,8 @@
 package com.example.crudbackend.Models;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -10,6 +12,9 @@ public class Product {
     @Id
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    private List<ProductList> products;
 
     @Column(name = "protein")
     private double protein;
@@ -82,7 +87,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%s %.2f g protein %.2f g carbs, %.2f g fat, %d kcal", name, protein, carbs, fat, kcal);
+        return name +" "+ protein +" "+ carbs +" "+ fat +" "+ kcal;
     }
 
     public String toHtmlTableRow(){

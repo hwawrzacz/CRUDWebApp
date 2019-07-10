@@ -3,35 +3,64 @@ package com.example.crudbackend.Models;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@RestController
-@Table(name = "productLists")
-public class ProductList {
+@Entity
+@IdClass(ProductList.class)
+@Table(name = "productlists")
+public class ProductList implements Serializable {
 
     //region Fields
     @Id
-    @Column(name = "productID")
-    private int productID;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "productname")
+    private Product product;
+    //private String productName;
 
     @Id
-    @Column(name = "recipeID")
-    private int recipeID;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "recipeid")
+    private Recipe recipe;
+
+    @Column(name = "amount")
+    private double amount;
+
+    @Column(name = "unit")
+    private String unit;
     //endregion
 
 
     //region Getters and setters
-    public int getProductID() {
-        return productID;
+    //productName
+    public Product getProduct() {
+        return product;
     }
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public int getRecipeID() {
-        return recipeID;
+    //recipe
+    public Recipe getRecipe() {
+        return recipe;
     }
-    public void setRecipeID(int recipeID) {
-        this.recipeID = recipeID;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    //amount
+    public double getAmount() {
+        return amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    //unit
+    public String getUnit() {
+        return unit;
+    }
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
     //endregion
 
@@ -39,8 +68,17 @@ public class ProductList {
     //region Constructors
     public ProductList(){}
 
-    public ProductList(int productID, int recipeID){
-        this.productID = productID;
-        this.recipeID = recipeID;
+    public ProductList(Product product, Recipe recipe, double amount, String unit){
+        this.product = product;
+        this.recipe = recipe;
+        this.amount = amount;
+        this.unit = unit;
+    }
+    //endregion
+
+
+    @Override
+    public String toString(){
+        return product.getName() +" "+ amount +" "+ unit;
     }
 }

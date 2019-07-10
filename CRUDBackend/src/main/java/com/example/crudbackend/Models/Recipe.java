@@ -1,6 +1,8 @@
 package com.example.crudbackend.Models;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "recipes")
@@ -8,8 +10,11 @@ public class Recipe {
 
     //region Fields
     @Id
-    @Column(name = "recipeID")
-    private int recipeID;
+    @Column(name = "recipeid")
+    private int recipeid;
+
+    @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
+    private List<ProductList> recipes;
 
     @Column(name = "name")
     private String name;
@@ -23,9 +28,12 @@ public class Recipe {
 
 
     //region Getters and Setters
-    //id
-    public int getRecipeID() {
-        return recipeID;
+    //recipeid
+    public int getRecipeid() {
+        return recipeid;
+    }
+    public void setRecipeid(int recipeid) {
+        this.recipeid = recipeid;
     }
 
     //name
@@ -63,4 +71,9 @@ public class Recipe {
         this.type = type;
     }
     //endregion
+
+    @Override
+    public String toString(){
+        return recipeid +" "+ name +" "+ description +" "+ type;
+    }
 }
