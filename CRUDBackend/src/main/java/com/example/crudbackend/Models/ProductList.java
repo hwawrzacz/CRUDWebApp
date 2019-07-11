@@ -1,6 +1,6 @@
 package com.example.crudbackend.Models;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,14 +11,18 @@ import java.io.Serializable;
 public class ProductList implements Serializable {
 
     //region Fields
+    //get mapped field as foreign key from 'products' table
     @Id
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "productname")
     private Product product;
     //private String productName;
 
+    //get mapped field as foreign key from 'recipes' table
     @Id
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "recipeid")
     private Recipe recipe;
 

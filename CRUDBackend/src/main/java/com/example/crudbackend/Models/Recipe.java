@@ -1,5 +1,7 @@
 package com.example.crudbackend.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -13,8 +15,10 @@ public class Recipe {
     @Column(name = "recipeid")
     private int recipeid;
 
+    //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
-    private List<ProductList> recipes;
+    @JsonManagedReference
+    private List<ProductList> products;
 
     @Column(name = "name")
     private String name;
@@ -58,6 +62,11 @@ public class Recipe {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    //recipes
+    public List<ProductList> getProducts() {
+        return products;
     }
     //endregion
 

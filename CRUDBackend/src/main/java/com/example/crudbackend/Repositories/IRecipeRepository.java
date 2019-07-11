@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface IRecipeRepository extends JpaRepository<Recipe, Integer> {
+    Iterable<Recipe> findAllByNameContaining(String name);
     Recipe findById(int id);
 }

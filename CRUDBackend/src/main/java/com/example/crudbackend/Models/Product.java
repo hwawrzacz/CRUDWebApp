@@ -1,5 +1,7 @@
 package com.example.crudbackend.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +15,9 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<ProductList> products;
 
     @Column(name = "protein")
@@ -84,6 +88,7 @@ public class Product {
         this.kcal = kcal;
     }
     //endregion
+
 
     @Override
     public String toString() {
