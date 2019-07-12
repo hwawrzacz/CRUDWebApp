@@ -17,7 +17,6 @@ public class ProductList implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "productname")
     private Product product;
-    //private String productName;
 
     //get mapped field as foreign key from 'recipes' table
     @Id
@@ -35,36 +34,36 @@ public class ProductList implements Serializable {
 
 
     //region Getters and setters
-    //productName
-    public Product getProduct() {
-        return product;
-    }
+    //product
+//    public Product getProduct() {
+//        return product;
+//    }
     public void setProduct(Product product) {
         this.product = product;
     }
 
-    //recipe
-    public Recipe getRecipe() {
-        return recipe;
-    }
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    //productname
+    public String getProductname() {
+        return product.getName();
     }
 
+    //recipe
+//    public Recipe getRecipe() {
+//        return recipe;
+//    }
+
+    //recipeid
+    public int getRecipeid() {
+        return recipe.getRecipeid();
+    }
     //amount
     public double getAmount() {
         return amount;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     //unit
     public String getUnit() {
         return unit;
-    }
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
     //endregion
 

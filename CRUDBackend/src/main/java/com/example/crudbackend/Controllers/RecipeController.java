@@ -1,14 +1,17 @@
 package com.example.crudbackend.Controllers;
 
 import com.example.crudbackend.Models.Product;
-import com.example.crudbackend.Models.Recipe;
 import com.example.crudbackend.Models.ProductList;
+import com.example.crudbackend.Models.Recipe;
 import com.example.crudbackend.Repositories.IProductRepository;
 import com.example.crudbackend.Repositories.IRecipeRepository;
+import com.example.crudbackend.Repositories.IProductListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/recipes")
 public class RecipeController {
 
@@ -18,10 +21,13 @@ public class RecipeController {
     @Autowired
     private IRecipeRepository recipeRepository;
 
+    @Autowired
+    private IProductListRepository productListRepository;
+
 
     //region Products
     @GetMapping("/showproductbyname")
-    public String findProductByName(@RequestParam("name") String name){
+    public String showProductByName(@RequestParam("name") String name){
         String result = "<html><table><tr><td>Nazwa</td> <td>Białko (g)</td> <td>Węglowodany (g)</td> <td>Tłuszcz (g)</td> <td>kcal</td></tr>";
         getProductByName(name).toHtmlTableRow();
 
@@ -29,8 +35,9 @@ public class RecipeController {
     }
 
     @GetMapping("/getproductbyname")
-    public Product getProductByName(@RequestParam("name") String name){
-        return getProductByName(name);
+    public Product getProductByName(@RequestParam("name") String name)
+    {
+        return productRepository.findByName(name);
     }
 
     @GetMapping("/showallproductsbyname")
@@ -49,7 +56,7 @@ public class RecipeController {
     }
 
     //http://localhost:8080/recipes/updateproduct?name=szynka&protein=15&carbs=50&fat=9&kcal=355
-    @PutMapping("/updateproduct")
+    @GetMapping("/updateproduct")
     public String updateProduct(@RequestParam("name") String name, @RequestParam("protein") double protein,
                                 @RequestParam("carbs") double carbs, @RequestParam("fat") double fat, @RequestParam("kcal") int kcal){
         if (updateSaveProduct(new Product(name, protein, carbs, fat, kcal)))
@@ -58,7 +65,7 @@ public class RecipeController {
             return "Product update failed";
     }
 
-    @PutMapping("/addnewproduct")
+    @GetMapping("/addnewproduct")
     public String addNewProduct(@RequestParam("name") String name, @RequestParam("protein") double protein,
                                 @RequestParam("carbs") double carbs, @RequestParam("fat") double fat, @RequestParam("kcal") int kcal){
         if (!productExists(name)){
@@ -102,7 +109,7 @@ public class RecipeController {
         return recipeRepository.findAllByNameContaining(name);
     }
 
-    @PutMapping("/addrecipe")
+    @GetMapping("/addrecipe")
     public String addRecipe(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("type") String type){
         if (saveRecipe(new Recipe(name, description, type)))
             return "Recipe updated";
@@ -132,9 +139,19 @@ public class RecipeController {
         return result;
     }
 
-        @GetMapping("/getrecipebyid")
+    @GetMapping("/getrecipebyid")
     public Recipe getRecipeById(@RequestParam("id") int id) {
         return recipeRepository.findById(id);
     }
+    //endregion
+
+
+    //region ProductsInRecipes
+    @GetMapping("/getrecipesbyproduct")
+    public List<ProductList> getRecipesIdsByProductName(@RequestParam("name") String name){
+        Product product = getProductByName(name);
+        return productListRepository.findAllByProduct(product);
+    }
+
     //endregion
 }

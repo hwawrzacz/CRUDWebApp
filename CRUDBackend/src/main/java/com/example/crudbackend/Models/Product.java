@@ -17,8 +17,7 @@ public class Product {
 
     //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<ProductList> products;
+    private List<ProductList> recipes;
 
     @Column(name = "protein")
     private double protein;
@@ -39,41 +38,26 @@ public class Product {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
 
     //protein
     public double getProtein() {
         return protein;
-    }
-    public void setProtein(double protein) {
-        this.protein = protein;
     }
 
     //carbs
     public double getCarbs() {
         return carbs;
     }
-    public void setCarbs(double carbs) {
-        this.carbs = carbs;
-    }
-
     //fat
     public double getFat() {
         return fat;
-    }
-    public void setFat(double fat) {
-        this.fat = fat;
     }
 
     //kcal
     public int getKcal() {
         return kcal;
     }
-    public void setKcal(int kcal) {
-        this.kcal = kcal;
-    }
+
     //endregion
 
 

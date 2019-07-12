@@ -1,0 +1,37 @@
+<div>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">   
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="protein">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Białko (g) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.protein}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="carbohydrates">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Węglowodany (g) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.carbs}} </mat-cell>
+        </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="fat">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tłuszcz (g) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.fat}} </mat-cell>
+        </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="kcal">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Kalorie (kcal) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.kcal}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+    

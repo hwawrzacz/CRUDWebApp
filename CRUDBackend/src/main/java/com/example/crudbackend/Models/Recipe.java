@@ -1,6 +1,7 @@
 package com.example.crudbackend.Models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import net.bytebuddy.agent.builder.AgentBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,32 +37,20 @@ public class Recipe {
     public int getRecipeid() {
         return recipeid;
     }
-    public void setRecipeid(int recipeid) {
-        this.recipeid = recipeid;
-    }
 
     //name
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     //description
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     //type
     public String getType() {
         return type;
-    }
-    public void setType(String type) {
-        this.type = type;
     }
 
     //recipes
