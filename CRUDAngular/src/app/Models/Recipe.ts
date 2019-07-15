@@ -7,7 +7,6 @@ export interface Recipe{
     additiondate: Date;
     type: string;
     products: ProductList[];
-    productsNames: String[];
     description: string;
     
     // constructor(recipeid?: number, name?: string, additiondate?: Date, type?: string, products?: ProductList[], description?: string){

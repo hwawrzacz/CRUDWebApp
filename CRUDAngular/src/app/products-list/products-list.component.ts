@@ -25,7 +25,7 @@ export class ProductsListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    this.data.getRecipes().subscribe( 
+    this.data.getProducts().subscribe( 
       (data) => { this.products = data 
       this.dataSource = new MatTableDataSource<Product>(this.products);
       this.dataSource.paginator = this.paginator;
