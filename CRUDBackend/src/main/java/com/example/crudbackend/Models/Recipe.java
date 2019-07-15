@@ -28,6 +28,9 @@ public class Recipe {
 
     @Column(name = "type")
     private String type;
+
+    @Column(name = "additiondate")
+    private String additionDate;
     //endregion
 
 
@@ -67,6 +70,10 @@ public class Recipe {
     //recipes
     public List<ProductList> getProducts() {
         return products;
+    }
+
+    public String getAdditiondate() {
+        return additionDate;
     }
     //endregion
 

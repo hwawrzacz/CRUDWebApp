@@ -1,13 +1,13 @@
 import { ProductList } from './ProductList';
 
-export interface Recipe{    
+export class Recipe{    
 
     recipeid: number;
     name: string;
-    additiondate: Date;
     type: string;
+    additiondate: Date;
     products: ProductList[];
-    productsNames: String[];
+    productsNames: string[];
     description: string;
     
     // constructor(recipeid?: number, name?: string, additiondate?: Date, type?: string, products?: ProductList[], description?: string){

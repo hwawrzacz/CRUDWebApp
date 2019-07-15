@@ -18,7 +18,7 @@ export class ProductsListComponent implements OnInit {
 
   constructor(private data: ProductsService){}
 
-  displayedColumns: string[] = ['name', 'protein', 'carbohydrates', 'fat', 'kcal'];
+  displayedColumns: string[] = ['name', 'protein', 'carbs', 'fat', 'kcal'];
   dataSource: MatTableDataSource<Product>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

@@ -18,7 +18,7 @@ export class RecipesListComponent implements OnInit {
 
   constructor(private data: RecipesService){}
 
-  displayedColumns: string[] = ['name', 'ingredientAmount'];
+  displayedColumns: string[] = ['name', 'type', 'additiondate', 'details', 'edit', 'delete'];
   //dataSource = this.data.getRecipes();
   //dataSource = new MatTableDataSource<Recipe>(this.recipes);
   dataSource: MatTableDataSource<Recipe>;

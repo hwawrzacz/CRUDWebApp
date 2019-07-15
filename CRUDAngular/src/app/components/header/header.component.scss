@@ -1,0 +1,35 @@
+@import 'src/app/style/colors.scss';
+
+nav{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    
+    margin-bottom: 50px;
+}
+
+mat-toolbar{
+    height: 70px;
+    
+    //background-color: $main;
+}
+
+button{
+    margin: 0 20px;
+}
+
+p{
+    font-family: 'Courier New', Courier, monospace;
+    color: #666;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.button-logout{
+    margin-left: auto;
+
+    background-color: $redAction;
+    color: white;
+}

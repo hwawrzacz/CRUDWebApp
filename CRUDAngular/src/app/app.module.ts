@@ -5,12 +5,16 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
+
 import {
   MatToolbarModule, 
   MatButtonModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatIconModule,
+  MatInputModule
 } from '@angular/material';
+
 import {MatTableModule} from '@angular/material/table';
 import { RecipesListComponent } from './components/recipes-list/recipes-list.component';
 import { HttpClientModule } from "@angular/common/http";
@@ -21,7 +25,7 @@ import { ProductsListComponent } from './components/products-list/products-list.
     AppComponent,
     HeaderComponent,
     RecipesListComponent,
-    ProductsListComponent,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,9 @@ import { ProductsListComponent } from './components/products-list/products-list.
     MatTableModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    MatSortModule
+    MatSortModule,
+    MatIconModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

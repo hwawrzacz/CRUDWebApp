@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Recipe} from '../models/Recipe';
+import {Recipe} from './models/Recipe';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class RecipesService {
 
   constructor(private http: HttpClient) { }

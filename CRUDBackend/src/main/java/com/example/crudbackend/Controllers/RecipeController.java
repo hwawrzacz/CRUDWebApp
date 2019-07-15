@@ -59,6 +59,12 @@ public class RecipeController {
             return "Product update failed";
     }
 
+    @DeleteMapping("/deleteproduct")
+    public String deleteUser(@RequestParam("name") String name){
+        //productRepository.deleteById();
+        return "Product deletion called";
+    }
+
     @PutMapping("/addnewproduct")
     public String addNewProduct(@RequestParam("name") String name, @RequestParam("protein") double protein,
                                 @RequestParam("carbs") double carbs, @RequestParam("fat") double fat, @RequestParam("kcal") int kcal){
