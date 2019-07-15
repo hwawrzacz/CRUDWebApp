@@ -14,7 +14,6 @@ public class ProductList implements Serializable {
     //get mapped field as foreign key from 'products' table
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "productname")
     private Product product;
 

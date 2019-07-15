@@ -58,6 +58,14 @@ public class Product {
         return kcal;
     }
 
+    //recipes
+    public List<ProductList> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<ProductList> recipes) {
+        this.recipes = recipes;
+    }
     //endregion
 
 

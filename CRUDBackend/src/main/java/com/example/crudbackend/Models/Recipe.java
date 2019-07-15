@@ -18,7 +18,6 @@ public class Recipe {
 
     //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<ProductList> products;
 
     @Column(name = "name")
