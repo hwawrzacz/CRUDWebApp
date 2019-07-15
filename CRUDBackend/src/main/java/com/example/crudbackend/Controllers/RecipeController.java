@@ -8,6 +8,7 @@ import com.example.crudbackend.Repositories.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
