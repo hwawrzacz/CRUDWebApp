@@ -1,0 +1,22 @@
+<div class="ingredient-amount-dialog-container">
+  <h1 class="mat-h1">{{data.productname}}</h1>
+
+  <div class="flex-around" mat-dialog-content>
+    <mat-form-field>
+      <input matInput type="number" min="0" placeholder="Ilość" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Jednostka">
+        <mat-option *ngFor="let unit of units" [value]="unit">
+          {{unit}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="button-wrapper-center">
+    <button mat-flat-button color="primary" cdkFocusInitial>Dodaj</button>
+    <button mat-flat-button color="warn" [mat-dialog-close]="data" (click)="onNoClick()">Anuluj</button>
+  </div>
+</div>

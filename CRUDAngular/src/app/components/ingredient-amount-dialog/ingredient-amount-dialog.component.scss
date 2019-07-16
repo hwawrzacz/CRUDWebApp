@@ -1,0 +1,9 @@
+@import "src/app/styles/common.scss";
+
+mat-form-field{
+  width: 40%;
+  &:first-child{
+    //margin-right: 20;
+  }
+  //margin: 10px;
+}

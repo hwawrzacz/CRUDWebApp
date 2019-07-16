@@ -1,0 +1,6 @@
+CHANGELOG
+	created basic view features
+
+TODO
+	adding products to recipe
+	edit/create recipe

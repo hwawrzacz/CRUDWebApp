@@ -1,4 +1,4 @@
-@import 'src/app/style/colors.scss';
+@import 'src/app/styles/colors-fonts-themes.scss';
 
 nav{
     position: sticky;
@@ -29,7 +29,5 @@ p{
 
 .button-logout{
     margin-left: auto;
-
-    background-color: $redAction;
     color: white;
 }

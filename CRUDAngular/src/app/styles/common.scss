@@ -1,0 +1,18 @@
+.button-wrapper-center{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button{
+    margin: 0 10px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex-around{
+  display: flex;
+  justify-content: space-between;
+}

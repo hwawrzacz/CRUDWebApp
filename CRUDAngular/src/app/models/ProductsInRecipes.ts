@@ -1,6 +1,6 @@
 import { Recipe } from "./Recipe";
 
-export class ProductList{    
+export class ProductsInRecipes{
 
     productname: string;
     productid: string;

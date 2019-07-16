@@ -1,10 +1,11 @@
-import { Product } from 'src/app/Models/Product';
+import { Product } from 'src/app/models/Product';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from '../../services/products.service';
-import { Observable } from 'rxjs'; 
+import { Observable } from 'rxjs';
+import {Recipe} from "../../models/Recipe";
 
 @Component({
   selector: 'app-products-list',
@@ -16,7 +17,7 @@ export class ProductsListComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private data: ProductsService){}
+  constructor(private data: ProductsService) {}
 
   displayedColumns: string[] = ['name', 'protein', 'carbs', 'fat', 'kcal'];
   dataSource: MatTableDataSource<Product>;
@@ -25,11 +26,19 @@ export class ProductsListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    this.data.getProducts().subscribe( 
-      (data) => { this.products = data 
-      this.dataSource = new MatTableDataSource<Product>(this.products);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }); 
+      this.refreshDataSource('');
   }
+
+  applyNameFilter(filter: string) {
+    this.refreshDataSource(filter);
+  }
+  refreshDataSource(filter: string) {
+    this.data.getProducts(filter).subscribe(
+      (data) => { this.products = data;
+        this.dataSource = new MatTableDataSource<Product>(this.products);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+  }
+
 }

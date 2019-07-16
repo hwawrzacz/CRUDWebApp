@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Recipe} from './models/Recipe';
+import {Recipe} from '../models/Recipe';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class RecipesService {
 
   constructor(private http: HttpClient) { }
 
-  getRecipes(): Observable<Recipe[]>{
-    return this.http.get<Recipe[]>("http://localhost:8080/recipes/getallrecipesbyname?name=");
+  getRecipes(name: string): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>('http://localhost:8080/recipes/getallrecipesbyname?name=' + name);
   }
 }

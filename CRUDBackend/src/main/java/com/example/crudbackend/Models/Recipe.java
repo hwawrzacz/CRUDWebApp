@@ -18,7 +18,7 @@ public class Recipe {
     //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<ProductList> products;
+    private List<ProductList> ingredients;
 
     @Column(name = "name")
     private String name;
@@ -68,9 +68,7 @@ public class Recipe {
     }
 
     //recipes
-    public List<ProductList> getProducts() {
-        return products;
-    }
+    public List<ProductList> getIngredients() { return ingredients; }
 
     public String getAdditiondate() {
         return additionDate;

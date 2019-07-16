@@ -132,7 +132,7 @@ public class RecipeController {
         Recipe recipe = getRecipeById(id);
         String result = "<b>" + recipe.getName() + "</b><br></br>";
 
-        for (ProductList productList : recipe.getProducts()) {
+        for (ProductList productList : recipe.getIngredients()) {
             result += productList.toString() + "</br>";
         }
 

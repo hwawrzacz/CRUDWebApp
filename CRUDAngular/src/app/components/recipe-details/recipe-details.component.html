@@ -1,0 +1,13 @@
+<div class="recipe-details-container">
+  <h1 class="mat-h1 recipe-details-header">{{data.name}}</h1>
+  <h2 class="mat-h2" color="primary">Składniki</h2>
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let ingredient of data.ingredients">{{ingredient.productname}} {{ingredient.amount}} {{ingredient.unit}}</mat-list-item>
+  </mat-list>
+  <h2 class="mat-h2" color="primary">Opis</h2>
+  <p class="mat-body-2">
+    {{data.description}}
+    Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds
+  </p>
+  <button mat-flat-button color="primary" (click)="onNoClick()">Zamknij</button>
+</div>

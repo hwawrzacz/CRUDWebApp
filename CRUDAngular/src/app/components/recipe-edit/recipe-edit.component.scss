@@ -1,0 +1,35 @@
+@import 'src/app/styles/common.scss';
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  .recipe-name{
+    flex-grow: 1;
+  }
+
+  .mat-h2{
+    flex-grow: 1;
+  }
+
+  .drag-n-drop-element{
+    flex-grow: 5;
+  }
+
+  .button-wrapper-center{
+    flex-grow: 1;
+  }
+}
+
+.recipe-edit-container{
+  max-height: 90vh;
+}
+
+button{
+  display: block;
+  margin: 0 10px;
+}
+
+//position
+

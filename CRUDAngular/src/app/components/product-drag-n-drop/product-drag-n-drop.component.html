@@ -1,0 +1,29 @@
+<div class="product-drag-n-drop-container">
+  <div class="drag-n-drop-table-wrapper">
+  <h2 class="mat-h2">Wybrane składniki</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="selectedProducts"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="drag-n-drop-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="drag-n-drop-element" *ngFor="let item of selectedProducts" cdkDrag>{{item.name}}</div>
+  </div>
+</div>
+
+  <div class="drag-n-drop-table-wrapper">
+    <h2 class="mat-h2">Wszystkie produkty</h2>
+
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="allProducts"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="drag-n-drop-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="drag-n-drop-element" *ngFor="let item of allProducts" cdkDrag>{{item.name}}</div>
+    </div>
+  </div>
+</div>

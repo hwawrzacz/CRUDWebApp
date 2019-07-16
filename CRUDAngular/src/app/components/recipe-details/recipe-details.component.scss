@@ -1,0 +1,23 @@
+@import 'src/app/styles/colors-fonts-themes.scss';
+
+.recipe-details-container{
+
+  mat-list{
+    margin: 0 auto 20px;
+    padding: 0;
+
+    mat-list-item{
+      height: 25px;
+      padding: 0;
+
+      .mat-list-item-content{
+        padding: 0;
+      }
+    }
+  }
+
+  button{
+    display: block;
+    margin: 0 auto;
+  }
+}
