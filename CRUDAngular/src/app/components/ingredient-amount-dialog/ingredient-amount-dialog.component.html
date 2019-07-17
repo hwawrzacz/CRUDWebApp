@@ -3,11 +3,11 @@
 
   <div class="flex-around" mat-dialog-content>
     <mat-form-field>
-      <input matInput type="number" min="0" placeholder="Ilość" />
+      <input matInput type="number" min="0" placeholder="Ilość" value="{{data.amount}}" [(ngModel)]="data.amount"/>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Jednostka">
+      <mat-select placeholder="Jednostka" [(ngModel)]="data.unit">
         <mat-option *ngFor="let unit of units" [value]="unit">
           {{unit}}
         </mat-option>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="button-wrapper-center">
-    <button mat-flat-button color="primary" cdkFocusInitial>Dodaj</button>
-    <button mat-flat-button color="warn" [mat-dialog-close]="data" (click)="onNoClick()">Anuluj</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="returnIngredient(data)" cdkFocusInitial>Dodaj</button>
+    <button mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
 </div>

@@ -2,8 +2,20 @@
 
 .recipe-details-container{
 
+  .recipe-details-list-image-wrapper{
+    display: flex;
+    
+    mat-list{
+      width: 50%;
+    }
+    
+    img{
+      display: block;
+      width: 50%;
+    }
+  }
+
   mat-list{
-    margin: 0 auto 20px;
     padding: 0;
 
     mat-list-item{

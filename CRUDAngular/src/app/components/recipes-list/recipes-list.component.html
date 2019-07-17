@@ -1,8 +1,7 @@
 <div class="list-wrapper">
-    
     <h1 class="mat-h1">Przepisy</h1>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width" appearance="outline">
         <mat-icon matPrefix>search</mat-icon>
         <input matInput placeholder="Szukaj przepisu po nazwie" (keyup)="applyNameFilter($event.target.value)">
     </mat-form-field>
@@ -62,6 +61,6 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
 
     <div class="button-wrapper-center">
-      <button mat-raised-button color="primary">Dodaj nowy przepis <mat-icon>add</mat-icon></button>
+      <button mat-raised-button color="primary" (click)="showRecipeEditDialog()">Dodaj nowy przepis <mat-icon>add</mat-icon></button>
     </div>
 </div>

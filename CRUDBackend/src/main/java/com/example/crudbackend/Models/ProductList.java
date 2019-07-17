@@ -17,7 +17,6 @@ public class ProductList implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "productname")
     private Product product;
-    //private String productName;
 
     //get mapped field as foreign key from 'recipes' table
     @Id
@@ -36,6 +35,9 @@ public class ProductList implements Serializable {
 
     //region Getters and setters
     //productName
+    public String getProductname() { return product.getName(); }
+
+    //product
     public Product getProduct() {
         return product;
     }

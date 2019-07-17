@@ -14,8 +14,8 @@ export class RecipeDetailsComponent implements OnInit {
     public dialogRef: MatDialogRef<RecipeDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IRecipeDetails) {}
 
-  onNoClick(): void {
-    //this.dialogRef.close();
+  onClick(): void {
+    this.dialogRef.close();
   }
 
   ngOnInit() {

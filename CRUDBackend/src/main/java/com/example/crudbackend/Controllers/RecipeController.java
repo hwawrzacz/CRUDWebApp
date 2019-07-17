@@ -8,6 +8,9 @@ import com.example.crudbackend.Repositories.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/recipes")
@@ -47,6 +50,17 @@ public class RecipeController {
     @GetMapping("/getallproductsbyname")
     public Iterable<Product> getProductsContainingName(@RequestParam("name") String name) {
         return productRepository.findByNameContaining(name);
+    }
+
+    @GetMapping("/getallproductsname")
+    public ArrayList<String> getAllProductsName(@RequestParam("name") String name){
+        ArrayList<String> productNames = new ArrayList<String>();
+
+        for (Product product: getProductsContainingName("")) {
+            productNames.add(product.getName());
+        }
+
+        return productNames;
     }
 
     //http://localhost:8080/recipes/updateproduct?name=szynka&protein=15&carbs=50&fat=9&kcal=355

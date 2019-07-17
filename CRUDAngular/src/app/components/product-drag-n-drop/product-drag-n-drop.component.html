@@ -1,29 +1,47 @@
 <div class="product-drag-n-drop-container">
   <div class="drag-n-drop-table-wrapper">
-  <h2 class="mat-h2">Wybrane składniki</h2>
+    <h2 class="mat-h2">Wybrane składniki</h2>
 
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="selectedProducts"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="drag-n-drop-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="drag-n-drop-element" *ngFor="let item of selectedProducts" cdkDrag>{{item.name}}</div>
+    <div class="empty-space-as-searchbar">
+    </div>
+
+    <div class="drag-n-drop-list"
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="selectedProducts"
+      [cdkDropListConnectedTo]="[doneList]"
+      (cdkDropListDropped)="drop($event)">
+
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let item of selectedProducts" cdkDrag>
+        {{item.productname}} {{item.amount}} {{item.unit}}
+
+        <button mat-icon-button (click)="editSelectedItem(item)">
+          <mat-icon matSuffix>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="removeFromSelectedProducts(item)">
+          <mat-icon matSuffix>close</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
-</div>
 
   <div class="drag-n-drop-table-wrapper">
     <h2 class="mat-h2">Wszystkie produkty</h2>
 
-    <div
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Szukaj przepisu po nazwie" (keyup)="applyNameFilter($event.target.value)">
+    </mat-form-field>
+
+    <div class="drag-n-drop-list"
       cdkDropList
       #doneList="cdkDropList"
       [cdkDropListData]="allProducts"
       [cdkDropListConnectedTo]="[todoList]"
-      class="drag-n-drop-list"
+      cdkDropListSortingDisabled
       (cdkDropListDropped)="drop($event)">
-      <div class="drag-n-drop-element" *ngFor="let item of allProducts" cdkDrag>{{item.name}}</div>
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let item of allProducts" cdkDrag>{{item.name}}</div>
     </div>
   </div>
 </div>

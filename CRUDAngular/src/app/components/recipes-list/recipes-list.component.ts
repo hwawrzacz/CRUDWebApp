@@ -9,7 +9,7 @@ import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component
 import { Observable } from 'rxjs';
 import {IRecipeDetails} from '../../models/IRecipeDetails';
 import {Product} from '../../models/Product';
-import {RecipeEditComponent} from "../recipe-edit/recipe-edit.component";
+import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
 
 @Component({
   selector: 'app-recipes-list',
@@ -57,7 +57,7 @@ export class RecipesListComponent implements OnInit {
     });
   }
 
-  showRecipeEditDialog(recipe: Recipe): void {
+  showRecipeEditDialog(recipe?: Recipe): void {
     const editDialogRef = this.dialog.open(RecipeEditComponent, {
       width: '80%',
       data: {name: recipe.name, type: recipe.type, ingredients: recipe.ingredients,  description: recipe.description}

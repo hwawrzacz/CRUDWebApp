@@ -3,7 +3,6 @@ package com.example.crudbackend.Models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -14,6 +13,7 @@ public class Product {
     @Id
     @Column(name = "name")
     private String name;
+    private String productname;
 
     //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
@@ -36,12 +36,14 @@ public class Product {
 
     //region Getters and setters
     //name
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
     public void setName(String name) {
+        this.productname = name;
         this.name = name;
     }
+
+    public String getProductname() { return productname; }
+    public void setProductname(String productname) { this.productname = productname; }
 
     //protein
     public double getProtein() {

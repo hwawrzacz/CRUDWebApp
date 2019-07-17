@@ -13,7 +13,8 @@ import {
   MatInputModule,
   MatDialogModule,
   MatListModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -57,7 +58,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     DragDropModule,
     MatSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     RecipeDetailsComponent,

@@ -5,7 +5,7 @@ import {MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from '../../services/products.service';
 import { Observable } from 'rxjs';
-import {Recipe} from "../../models/Recipe";
+import {Recipe} from '../../models/Recipe';
 
 @Component({
   selector: 'app-products-list',
@@ -35,9 +35,9 @@ export class ProductsListComponent implements OnInit {
   refreshDataSource(filter: string) {
     this.data.getProducts(filter).subscribe(
       (data) => { this.products = data;
-        this.dataSource = new MatTableDataSource<Product>(this.products);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+                  this.dataSource = new MatTableDataSource<Product>(this.products);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
       });
   }
 

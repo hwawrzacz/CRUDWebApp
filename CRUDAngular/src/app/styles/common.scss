@@ -16,3 +16,23 @@
   display: flex;
   justify-content: space-between;
 }
+
+.flex-row{
+  flex-direction: row;
+}
+
+.flex-column{
+  flex-direction: column;
+}
+
+
+//.popup-container{
+//  position: sticky;
+//}
+//
+//.popup-header{
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  width: 100%;
+//}

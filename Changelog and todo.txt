@@ -1,6 +1,21 @@
 CHANGELOG
-	created basic view features
+	=== 16.07.19 ===
+	Created basic view features
+	
+	=== 17.07.19 ===
+	Ingredients drag'n'drop in edition
+	
+	
+DOING
+	=== 17.07.19 ===
+	Adding ingredient to recipe. The problem is, that it is needed to drag form list a object of Produt class, and drop it as ProductsInRecipe class. Do not know how to process that conversion.
+	
+	
 
 TODO
-	adding products to recipe
-	edit/create recipe
+	repair name values when dragging from all products in backend layer and database
+	adding products to recipe 
+	margin-bottom on dragndrop in recipe edition, list elements
+	recipe validation
+	creating recipe
+	creating product
