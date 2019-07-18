@@ -88,6 +88,10 @@ export class ProductDragNDropComponent implements OnInit {
   editSelectedProduct(item: TransferredIngredient) {
     this.showIngredientAmountDialog(item, this.getProductIndex(item));
   }
+
+  preventDrop(): boolean {
+    return false;
+  }
   // endregion
 
 

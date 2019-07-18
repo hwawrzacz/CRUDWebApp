@@ -1,7 +1,18 @@
 <form class="recipe-edit-container">
-  <mat-form-field class="full-width recipe-name">
-    <input matInput placeholder="Nazwa" value="{{recipe.name}}" required>
-  </mat-form-field>
+
+  <div class="recipe-name-and-type-wrapper full-width flex-row">
+    <mat-form-field class="recipe-name flex-grow-10 margin-right-10">
+      <input matInput placeholder="Nazwa" [(ngModel)]="recipe.name" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-form-field class="recipe-type flex-grow-2 margin-right-10">
+      <mat-select placeholder="Typ posiłku" [(ngModel)]="recipe.type" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let type of recipesTypes" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
   <h2 class="mat-h2" color="primary">Składniki</h2>
 
@@ -9,11 +20,11 @@
   <app-product-drag-n-drop class="drag-n-drop-element" [ingredientsInput]="recipe.ingredients" (ingredientsChanged)="updateIngredients($event)"></app-product-drag-n-drop>
 
   <mat-form-field class="full-width recipe-description">
-    <textarea matInput placeholder="Opis" value="{{recipe.description}}" required></textarea>
+    <textarea matInput placeholder="Opis" [(ngModel)]="recipe.description" value="{{recipe.description}}" [ngModelOptions]="{standalone: true}"></textarea>
   </mat-form-field>
 
   <div class="button-wrapper-center">
-    <button submit mat-flat-button color="primary" [mat-dialog-close]="recipe" cdkFocusInitial>Zapisz</button>
+    <button submit mat-flat-button color="primary" [mat-dialog-close]="returnRecipe(recipe)" [disabled]="!validateRecipe(recipe)">Zapisz</button>
     <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
 

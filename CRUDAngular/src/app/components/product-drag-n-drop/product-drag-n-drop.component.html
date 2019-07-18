@@ -1,5 +1,5 @@
 <div class="product-drag-n-drop-container">
-  <div class="drag-n-drop-table-wrapper">
+  <div class="drag-n-drop-list-wrapper margin-right-10">
     <h2 class="mat-h2">Wybrane składniki</h2>
 
     <div class="empty-space-as-searchbar">
@@ -12,8 +12,8 @@
       [cdkDropListConnectedTo]="[doneList]"
       (cdkDropListDropped)="drop($event)">
 
-      <div class="drag-n-drop-element mat-body-1" *ngFor="let selectedProduct of selectedProducts" cdkDrag>
-        <p class="product-details">{{selectedProduct.productname}} {{selectedProduct.amount}} {{selectedProduct.unit}}</p>
+      <div class="drag-n-drop-element mat-body-1 selected-ingredient" *ngFor="let selectedProduct of selectedProducts" cdkDrag>
+        <div class="product-details">{{selectedProduct.productname}} {{selectedProduct.amount}} {{selectedProduct.unit}}</div>
 
         <button mat-icon-button (click)="editSelectedProduct(selectedProduct)">
           <mat-icon matSuffix>edit</mat-icon>
@@ -26,12 +26,12 @@
     </div>
   </div>
 
-  <div class="drag-n-drop-table-wrapper">
+  <div class="drag-n-drop-list-wrapper margin-left-10">
     <h2 class="mat-h2">Wszystkie produkty</h2>
 
     <mat-form-field class="full-width" appearance="outline">
       <mat-icon matPrefix>search</mat-icon>
-      <input matInput placeholder="Szukaj przepisu po nazwie" (keyup)="applyNameFilter($event.target.value)">
+      <input matInput placeholder="Szukaj składnika po nazwie" (keyup)="applyNameFilter($event.target.value)">
     </mat-form-field>
 
     <div class="drag-n-drop-list"
@@ -40,6 +40,7 @@
       [cdkDropListData]="allProducts"
       [cdkDropListConnectedTo]="[todoList]"
       cdkDropListSortingDisabled
+      [cdkDropListEnterPredicate]="preventDrop"
       (cdkDropListDropped)="drop($event)">
       <div class="drag-n-drop-element mat-body-1" *ngFor="let product of allProducts" cdkDrag>{{product.productname}}</div>
     </div>

@@ -16,7 +16,7 @@
   </div>
 
   <div class="button-wrapper-center">
-    <button mat-flat-button color="primary" [mat-dialog-close]="returnIngredient(data)" [disabled]="!validateInputs(data)">Dodaj</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="data" [disabled]="!validateIngredient(data)">Dodaj</button>
     <button mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
 </form>

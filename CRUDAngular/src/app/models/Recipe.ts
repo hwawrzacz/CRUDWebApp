@@ -9,12 +9,11 @@ export class Recipe {
     ingredients: ProductsInRecipes[];
     description: string;
 
-    // constructor(recipeid?: number, name?: string, additiondate?: Date, type?: string, products?: ProductsInRecipes[], description?: string){
-    //     this.recipeid = recipeid;
-    //     this.name = name;
-    //     this.additiondate = additiondate;
-    //     this.type = type;
-    //     this.products = products;
-    //     this.description = description;
-    // }
+    constructor(name: string = '', additiondate: Date = new Date(), type: string = '', ingredients: ProductsInRecipes[] = [], description: string = '') {
+        this.name = name;
+        this.additiondate = additiondate;
+        this.type = type;
+        this.ingredients = ingredients;
+        this.description = description;
+    }
 }

@@ -1,12 +1,17 @@
 @import 'src/app/styles/common.scss';
 
-form{
+
+.recipe-edit-container{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  max-height: 90vh;
 
-  .recipe-name{
+  .recipe-name-and-type-wrapper{
+    display: flex;
+    justify-content: space-between;
     flex-grow: 1;
+    font-size: 1em;
   }
 
   .mat-h2{
@@ -20,10 +25,6 @@ form{
   .button-wrapper-center{
     flex-grow: 1;
   }
-}
-
-.recipe-edit-container{
-  max-height: 90vh;
 }
 
 button{

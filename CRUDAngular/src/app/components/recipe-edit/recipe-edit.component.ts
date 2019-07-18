@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Recipe} from '../../models/Recipe';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
-import {forEachComment} from 'tslint';
 import {ProductsInRecipes} from '../../models/ProductsInRecipes';
 @Component({
   selector: 'app-recipe-edit',
@@ -15,7 +14,10 @@ export class RecipeEditComponent implements OnInit {
   public dialogRef: MatDialogRef<RecipeEditComponent>,
   @Inject(MAT_DIALOG_DATA) public recipe: Recipe) {}
 
+  recipesTypes = ['Śniadanie', 'Obiad', 'Kolacja', 'Przekąska'];
+
   ngOnInit() {
+    console.log('id: ' + this.recipe.recipeid);
   }
 
   onNoClick(): void {
@@ -35,5 +37,20 @@ export class RecipeEditComponent implements OnInit {
     this.recipe.ingredients.forEach( (ingredient) => {
         console.log(ingredient.productname);
     });
+  }
+
+  validateRecipe(recipe: Recipe): boolean{
+    const regexName = /^[A-ZĄĆĘŁŃÓŚŻŹ][A-ZĄĆĘŁŃÓŚŻŹa-ząćęłńóśżź \,\-]{0,100}$/;
+    const isNameValid = regexName.test(recipe.name);
+    let isDescriptionValid = false;
+    let isIngredientListValid = false;
+    if (recipe.description.length > 0) { isDescriptionValid = true; }
+    if (recipe.ingredients.length > 0) { isIngredientListValid = true; }
+
+    return (isNameValid && isDescriptionValid && isIngredientListValid);
+  }
+
+  returnRecipe(recipe: Recipe): Recipe {
+    return recipe;
   }
 }

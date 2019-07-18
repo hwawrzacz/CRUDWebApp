@@ -11,7 +11,14 @@ CHANGELOG
 	Fixed no ingredient name on ingredient amount popup.
 	Fixed drop position - after drop, element is placed at certain index, not at the bottom.
 	Ingredient validation on adding or editing in recipe.
+	-- commit --
 	Ingredient list updated in recipe-edit component, when it has changed in drag'n'drop component.
+	Recipe vadiation.
+	Fixed ingredient selection one way.
+	Added recipe type selection.
+	Fixed drag'n'drop element appearance.
+	Added some layout improvements.
+	Display different image in recipe details window depending on what type of recipe is.
 	
 	
 DOING
@@ -23,12 +30,16 @@ DOING
 	Unifying product name field (productname) for backend and frontend.
 	Adding drag'n'drop sorting on selectedIngredient list.
 	Updating ingredients in edited recipe - transfering data between parent and child component
-	
+	Recipe validation.
+	Adding recipe type selection.
+	Fix drag'n'drop element appearance.
+	Fixing some layout issue.
 	
 	
 
 TODO
-	fix drag'n'drop element appearance
-	recipe validation
-	creating recipe
-	creating product
+	Transfer recipe id between list and edit recipe component
+	Refresh recipes list after update/create.
+	Fecipe validation.
+	Creating recipe.
+	Creating product.

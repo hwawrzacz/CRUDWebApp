@@ -1,12 +1,12 @@
-import { Recipe} from 'src/app/models/Recipe';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {Recipe} from 'src/app/models/Recipe';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { RecipesService } from '../../services/recipes.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {RecipesService} from '../../services/recipes.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {IRecipeDetails} from '../../models/IRecipeDetails';
 import {Product} from '../../models/Product';
 import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
@@ -22,9 +22,10 @@ export class RecipesListComponent implements OnInit {
   emptyRecipe: Recipe = new Recipe();
   recipes: Recipe[];
 
-  constructor(private data: RecipesService, public dialog: MatDialog) {}
+  constructor(private data: RecipesService, public dialog: MatDialog) {
+  }
 
-  displayedColumns: string[] = ['name', 'type', 'additiondate', 'details', 'edit', 'delete'];
+  displayedColumns: string[] = ['id', 'name', 'type', 'additiondate', 'details', 'edit', 'delete'];
   dataSource: MatTableDataSource<Recipe>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -40,10 +41,11 @@ export class RecipesListComponent implements OnInit {
 
   refreshDataSource(filter: string) {
     this.data.getRecipes(filter).subscribe(
-      (data) => { this.recipes = data;
-                  this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
-                  this.dataSource.paginator = this.paginator;
-                  this.dataSource.sort = this.sort;
+      (data) => {
+        this.recipes = data;
+        this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
   }
 
@@ -58,20 +60,26 @@ export class RecipesListComponent implements OnInit {
     });
   }
 
-  showRecipeEditDialog(recipe?: Recipe): void {
-    let recipeData = {};
-    if (Recipe === null) {
-      recipeData = {name: '', type: '', ingredients: [],  description: ''};
-    } else {
-      recipeData = {name: recipe.name, type: recipe.type, ingredients: recipe.ingredients,  description: recipe.description};
-    }
+  showRecipeEditDialog(recipe: Recipe): void {
     const editDialogRef = this.dialog.open(RecipeEditComponent, {
       width: '80%',
-      data: recipeData
+      data: {
+        recipeid: recipe.recipeid,
+        name: recipe.name,
+        type: recipe.type,
+        ingredients: recipe.ingredients,
+        description: recipe.description
+      }
     });
 
-    editDialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    editDialogRef.afterClosed().subscribe((result: Recipe) => {
+      if (result.recipeid > 0) {
+        this.updateRecipe(result.recipeid);
+      }
     });
+  }
+
+  updateRecipe(recipeid: number) {
+    console.log('Edit recipe ' + recipeid);
   }
 }

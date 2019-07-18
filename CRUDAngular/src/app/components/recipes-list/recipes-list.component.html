@@ -8,6 +8,12 @@
     
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">   
     
+        <!-- id column -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.recipeid}} </mat-cell>
+        </ng-container>
+
         <!-- name column -->
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa </mat-header-cell>

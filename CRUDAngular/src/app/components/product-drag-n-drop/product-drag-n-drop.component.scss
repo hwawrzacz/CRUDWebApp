@@ -4,16 +4,14 @@
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 20px;
+
+  .drag-n-drop-list-wrapper{
+    width: 50%;
+  }
 }
 
 h2{
   text-align: left;
-}
-
-.drag-n-drop-table-wrapper{
-  width: 50%;
-  padding: 0 20px;
-
 }
 
 .drag-n-drop-list {
@@ -27,7 +25,7 @@ h2{
 }
 
 .drag-n-drop-element {
-  padding: 20px 10px;
+  padding: 10px 10px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -38,7 +36,35 @@ h2{
   cursor: move;
   background: white;
   font-size: 14px;
+
+  .mat-icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 20px !important;
+    width: 20px !important;
+    font-size: 20px !important;
+
+  }
+
+  .mat-icon-button{
+    position: relative;
+    height: 30px !important;
+    width: 30px !important;
+  }
 }
+
+.selected-ingredient{
+
+  .product-details{
+    width: 70%;
+  }
+
+  button{
+    width: 15%;
+  }
+}
+
 
 .cdk-drag-preview {
   box-sizing: border-box;

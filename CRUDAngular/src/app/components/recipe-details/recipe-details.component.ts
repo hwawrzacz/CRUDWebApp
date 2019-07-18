@@ -12,7 +12,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<RecipeDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IRecipeDetails) {}
+    @Inject(MAT_DIALOG_DATA) public recipe: IRecipeDetails) {}
 
   onClick(): void {
     this.dialogRef.close();

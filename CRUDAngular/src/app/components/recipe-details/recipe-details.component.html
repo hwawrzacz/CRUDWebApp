@@ -1,18 +1,18 @@
 <div class="recipe-details-container">
-  <h1 class="mat-h1 recipe-details-header">{{data.name}}</h1>
+  <h1 class="mat-h1 recipe-details-header">{{recipe.name}}</h1>
 
   <div class="recipe-details-list-image-wrapper flex-around flex-row">
     <mat-list role="list">
       <h2 class="mat-h2 full-width" color="primary">Składniki</h2>
-      <mat-list-item role="listitem" *ngFor="let ingredient of data.ingredients"><strong>{{ingredient.productname}}&nbsp;</strong>  {{ingredient.amount}} {{ingredient.unit}}</mat-list-item>
+      <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients"><strong>{{ingredient.productname}}&nbsp;</strong>  {{ingredient.amount}} {{ingredient.unit}}</mat-list-item>
     </mat-list>
-    <img mat-card-image src="assets/images/breakfast.jpg"/>
+    <img mat-card-image src="assets/images/{{recipe.type}}.jpg"/>
   </div>
 
   <h2 class="mat-h2" color="primary">Opis</h2>
 
   <p class="mat-body-2">
-    {{data.description}}
+    {{recipe.description}}
     Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds Lorem ipsum dolor sit amet asuhaoisdds
   </p>
 
