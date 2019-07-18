@@ -12,14 +12,14 @@
       [cdkDropListConnectedTo]="[doneList]"
       (cdkDropListDropped)="drop($event)">
 
-      <div class="drag-n-drop-element mat-body-1" *ngFor="let item of selectedProducts" cdkDrag>
-        {{item.productname}} {{item.amount}} {{item.unit}}
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let selectedProduct of selectedProducts" cdkDrag>
+        <p class="product-details">{{selectedProduct.productname}} {{selectedProduct.amount}} {{selectedProduct.unit}}</p>
 
-        <button mat-icon-button (click)="editSelectedItem(item)">
+        <button mat-icon-button (click)="editSelectedProduct(selectedProduct)">
           <mat-icon matSuffix>edit</mat-icon>
         </button>
 
-        <button mat-icon-button (click)="removeFromSelectedProducts(item)">
+        <button mat-icon-button (click)="deleteProduct(selectedProduct)">
           <mat-icon matSuffix>close</mat-icon>
         </button>
       </div>
@@ -41,7 +41,7 @@
       [cdkDropListConnectedTo]="[todoList]"
       cdkDropListSortingDisabled
       (cdkDropListDropped)="drop($event)">
-      <div class="drag-n-drop-element mat-body-1" *ngFor="let item of allProducts" cdkDrag>{{item.productname}}</div>
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let product of allProducts" cdkDrag>{{product.productname}}</div>
     </div>
   </div>
 </div>

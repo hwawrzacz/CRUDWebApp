@@ -1,19 +1,19 @@
 <form class="recipe-edit-container">
   <mat-form-field class="full-width recipe-name">
-    <input matInput placeholder="Nazwa" value="{{data.name}}" required>
+    <input matInput placeholder="Nazwa" value="{{recipe.name}}" required>
   </mat-form-field>
 
   <h2 class="mat-h2" color="primary">Składniki</h2>
 
   <!-- Ingredient drag'n'drop -->
-  <app-product-drag-n-drop class="drag-n-drop-element" [ingredients]="data.ingredients"></app-product-drag-n-drop>
+  <app-product-drag-n-drop class="drag-n-drop-element" [ingredientsInput]="recipe.ingredients" (ingredientsChanged)="updateIngredients($event)"></app-product-drag-n-drop>
 
   <mat-form-field class="full-width recipe-description">
-    <textarea matInput placeholder="Opis" value="{{data.description}}" required></textarea>
+    <textarea matInput placeholder="Opis" value="{{recipe.description}}" required></textarea>
   </mat-form-field>
 
   <div class="button-wrapper-center">
-    <button submit mat-flat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Zapisz</button>
+    <button submit mat-flat-button color="primary" [mat-dialog-close]="recipe" cdkFocusInitial>Zapisz</button>
     <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
 

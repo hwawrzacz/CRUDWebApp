@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
+import {isRegExp} from "util";
 
 @Component({
   selector: 'app-ingredient-amount-dialog',
@@ -18,8 +19,19 @@ export class IngredientAmountDialogComponent {
 
   onNoClick(): any {
     this.dialogRef.close();
-    console.log('element not added');
   }
+
+
+  validateInputs(ingredient: TransferredIngredient): boolean {
+    const regexAmount = /^(?!\-)(([0-9]+[\.\,][0-9]+)|([1-9][0-9]*))$/;
+    const regexUnit = /^g|l|(szklanka)|(łyżeczka)|(łyżka stołowa)|(szczypta)$/;
+
+    const amountValid = regexAmount.test(ingredient.amount + '');
+    const unitValid = regexUnit.test(ingredient.unit);
+
+    return (amountValid && unitValid);
+  }
+
 
   returnIngredient(ingredient: TransferredIngredient): TransferredIngredient {
     return new TransferredIngredient(ingredient.productname, ingredient.amount, ingredient.unit);

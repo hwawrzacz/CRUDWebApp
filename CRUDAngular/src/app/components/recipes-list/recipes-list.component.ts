@@ -19,6 +19,7 @@ import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
 
 export class RecipesListComponent implements OnInit {
 
+  emptyRecipe: Recipe = new Recipe();
   recipes: Recipe[];
 
   constructor(private data: RecipesService, public dialog: MatDialog) {}
@@ -58,9 +59,15 @@ export class RecipesListComponent implements OnInit {
   }
 
   showRecipeEditDialog(recipe?: Recipe): void {
+    let recipeData = {};
+    if (Recipe === null) {
+      recipeData = {name: '', type: '', ingredients: [],  description: ''};
+    } else {
+      recipeData = {name: recipe.name, type: recipe.type, ingredients: recipe.ingredients,  description: recipe.description};
+    }
     const editDialogRef = this.dialog.open(RecipeEditComponent, {
       width: '80%',
-      data: {name: recipe.name, type: recipe.type, ingredients: recipe.ingredients,  description: recipe.description}
+      data: recipeData
     });
 
     editDialogRef.afterClosed().subscribe(result => {

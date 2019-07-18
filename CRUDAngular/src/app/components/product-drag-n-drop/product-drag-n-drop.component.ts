@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort} from '@angular/material';
 import {IngredientAmountDialogComponent} from '../ingredient-amount-dialog/ingredient-amount-dialog.component';
 import {ProductsService} from '../../services/products.service';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
-import {Product} from "../../models/Product";
+import {Product} from '../../models/Product';
 
 @Component({
   selector: 'app-product-drag-n-drop',
@@ -14,34 +14,29 @@ import {Product} from "../../models/Product";
 
 export class ProductDragNDropComponent implements OnInit {
 
-  @Input() ingredients: TransferredIngredient[];
-
+  // region Fields
   selectedProducts: TransferredIngredient[];
   allProducts: TransferredIngredient[] = [];
+  // endregion
 
-  constructor(private data: ProductsService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
-  }
+
+  // region Decorators
+  @Input() ingredientsInput: TransferredIngredient[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  @Output() ingredientsChanged = new EventEmitter<TransferredIngredient[]>();
+  // endregion
+
+
+  constructor(private data: ProductsService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
+  }
+
 
   ngOnInit(): void {
-    this.selectedProducts = this.ingredients;
+    this.selectedProducts = this.ingredientsInput;
     this.refreshDataSource('');
-  }
-
-
-  applyNameFilter(filter: string) {
-    this.refreshDataSource(filter);
-  }
-
-
-  refreshDataSource(filter: string) {
-    this.data.getProductsToTransfer(filter).subscribe(
-      (data) => {
-        this.allProducts = data;
-      });
   }
 
 
@@ -51,7 +46,7 @@ export class ProductDragNDropComponent implements OnInit {
     } else {
       const newProduct = event.previousContainer.data[event.previousIndex];
       if (!this.isProductAdded(newProduct)) {
-        this.showIngredientAmountDialog(newProduct);
+        this.showIngredientAmountDialog(newProduct, event.currentIndex);
       } else {
         this.openSnackBar('Składnik został już dodany', 'Ok');
       }
@@ -59,12 +54,13 @@ export class ProductDragNDropComponent implements OnInit {
   }
 
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {duration: 2000});
+  emitIngredientsChangedEvent() {
+    this.ingredientsChanged.emit(this.selectedProducts);
   }
 
 
-  showIngredientAmountDialog(ingredient: TransferredIngredient): void {
+  // region Functions | Dialog openers
+  showIngredientAmountDialog(ingredient: TransferredIngredient, index: number): void {
     const dialogRef = this.dialog.open(IngredientAmountDialogComponent, {
       width: 'auto',
       data: {productname: ingredient.productname, amount: ingredient.amount, unit: ingredient.unit}
@@ -73,28 +69,31 @@ export class ProductDragNDropComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: TransferredIngredient) => {
       if (result != null) {
         if (this.isProductAdded(result)) {
-          this.deleteItem(result);
+          this.replaceProduct(result, index);
+        } else {
+          this.insertProduct(result, index);
         }
-        this.selectedProducts.push(result);
       }
     });
   }
 
 
-  deleteItem(item: TransferredIngredient) {
-    const index = this.selectedProducts.indexOf(item);
-    this.selectedProducts.splice(index, 1);
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
   }
+  // endregion
 
 
-  editSelectedItem(item: TransferredIngredient) {
-    this.showIngredientAmountDialog(item);
+  // region Functions | Called from HTML
+  editSelectedProduct(item: TransferredIngredient) {
+    this.showIngredientAmountDialog(item, this.getProductIndex(item));
   }
+  // endregion
 
 
-  removeFromSelectedProducts(item) {
-    const index = this.selectedProducts.indexOf(item);
-    this.selectedProducts.splice(index, 1);
+  // region Functions | Helpers
+  getProductIndex(product: TransferredIngredient): number {
+    return this.selectedProducts.indexOf(product);
   }
 
 
@@ -114,4 +113,40 @@ export class ProductDragNDropComponent implements OnInit {
     console.log('product exists');
     return true;
   }
+  // endregion
+
+
+  // region Functions | Data manipulators
+  applyNameFilter(filter: string) {
+    this.refreshDataSource(filter);
+  }
+
+
+  refreshDataSource(filter: string) {
+    this.data.getProductsToTransfer(filter).subscribe(
+      (data) => {
+        this.allProducts = data;
+      });
+  }
+
+
+  insertProduct(product: TransferredIngredient, index: number) {
+    this.selectedProducts.splice(index, 0, product);
+    this.emitIngredientsChangedEvent();
+  }
+
+
+  replaceProduct(product: TransferredIngredient, index: number) {
+    this.selectedProducts.splice(index, 1, product);
+    this.emitIngredientsChangedEvent();
+  }
+
+
+  // this function does not get index as a parameter, because it is called from HTML
+  deleteProduct(product: TransferredIngredient) {
+    const index = this.getProductIndex(product);
+    this.selectedProducts.splice(index, 1);
+    this.emitIngredientsChangedEvent();
+  }
+  // endregion
 }

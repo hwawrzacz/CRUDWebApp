@@ -1,26 +1,34 @@
 CHANGELOG
 	=== 16.07.19 ===
-	Created basic view features
+	Created basic view features.
+	
 	
 	=== 17.07.19 ===
-	Ingredients drag'n'drop in edition
+	Ingredients drag'n'drop in edition.
+	
 	
 	=== 18.07.19 ===
-	Fixed no ingredient name on ingredient amount popup
+	Fixed no ingredient name on ingredient amount popup.
+	Fixed drop position - after drop, element is placed at certain index, not at the bottom.
+	Ingredient validation on adding or editing in recipe.
+	Ingredient list updated in recipe-edit component, when it has changed in drag'n'drop component.
 	
 	
 DOING
 	=== 17.07.19 ===
 	Adding ingredient to recipe. The problem is, that it is needed to drag form list a object of Produt class, and drop it as ProductsInRecipe class. Do not know how to process that conversion.
 	
+	
 	=== 18.07.19 ===
-	Unified product name field (productname) for backend and frontend, drag'n'drop works fine
+	Unifying product name field (productname) for backend and frontend.
+	Adding drag'n'drop sorting on selectedIngredient list.
+	Updating ingredients in edited recipe - transfering data between parent and child component
+	
 	
 	
 
 TODO
-	adding products to recipe 
-	margin-bottom on dragndrop in recipe edition, list elements
+	fix drag'n'drop element appearance
 	recipe validation
 	creating recipe
 	creating product
