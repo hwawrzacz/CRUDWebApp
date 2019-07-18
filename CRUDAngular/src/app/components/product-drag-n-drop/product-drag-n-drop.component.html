@@ -41,7 +41,7 @@
       [cdkDropListConnectedTo]="[todoList]"
       cdkDropListSortingDisabled
       (cdkDropListDropped)="drop($event)">
-      <div class="drag-n-drop-element mat-body-1" *ngFor="let item of allProducts" cdkDrag>{{item.name}}</div>
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let item of allProducts" cdkDrag>{{item.productname}}</div>
     </div>
   </div>
 </div>

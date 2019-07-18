@@ -35,7 +35,7 @@ public class ProductList implements Serializable {
 
     //region Getters and setters
     //productName
-    public String getProductname() { return product.getName(); }
+    public String getProductname() { return product.getProductname(); }
 
     //product
     public Product getProduct() {
@@ -85,6 +85,6 @@ public class ProductList implements Serializable {
 
     @Override
     public String toString(){
-        return product.getName() +" "+ amount +" "+ unit;
+        return product.getProductname() +" "+ amount +" "+ unit;
     }
 }

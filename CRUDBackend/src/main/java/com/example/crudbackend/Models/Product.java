@@ -11,8 +11,8 @@ public class Product {
 
     //region Fields
     @Id
-    @Column(name = "name")
-    private String name;
+    @Column(name = "productname")
+    //private String name;
     private String productname;
 
     //map foreign key in 'productlist' table
@@ -36,11 +36,11 @@ public class Product {
 
     //region Getters and setters
     //name
-    public String getName() { return name; }
-    public void setName(String name) {
-        this.productname = name;
-        this.name = name;
-    }
+//    public String getName() { return name; }
+//    public void setName(String name) {
+//        this.productname = name;
+//        this.name = name;
+//    }
 
     public String getProductname() { return productname; }
     public void setProductname(String productname) { this.productname = productname; }
@@ -82,8 +82,8 @@ public class Product {
     //region Constructors
     public Product() {}
 
-    public Product(String name, double protein, double carbs, double fat, int kcal) {
-        this.name = name;
+    public Product(String productname, double protein, double carbs, double fat, int kcal) {
+        this.productname = productname;
         this.protein = protein;
         this.carbs = carbs;
         this.fat = fat;
@@ -94,10 +94,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return name +" "+ protein +" "+ carbs +" "+ fat +" "+ kcal;
+        return productname +" "+ protein +" "+ carbs +" "+ fat +" "+ kcal;
     }
 
     public String toHtmlTableRow(){
-        return String.format("<tr><td>%s</td> <td>%.2f</td> <td>%.2f</td> <td>%.2f</td> <td>%d</td></tr>", name, protein, carbs, fat, kcal);
+        return String.format("<tr><td>%s</td> <td>%.2f</td> <td>%.2f</td> <td>%.2f</td> <td>%d</td></tr>", productname, protein, carbs, fat, kcal);
     }
 }

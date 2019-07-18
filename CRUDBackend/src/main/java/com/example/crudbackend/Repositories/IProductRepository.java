@@ -4,6 +4,6 @@ import com.example.crudbackend.Models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IProductRepository extends JpaRepository<Product, Integer> {
-    Iterable<Product> findByNameContaining(String name);
-    Product findByName(String name);
+    Iterable<Product> findByProductnameContaining(String name);
+    Product findByProductname(String name);
 }

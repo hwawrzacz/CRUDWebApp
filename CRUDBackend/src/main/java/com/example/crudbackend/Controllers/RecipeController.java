@@ -34,7 +34,7 @@ public class RecipeController {
 
     @GetMapping("/getproductbyname")
     public Product getProductByName(@RequestParam("name") String name){
-        return getProductByName(name);
+        return productRepository.findByProductname(name);
     }
 
     @GetMapping("/showallproductsbyname")
@@ -49,7 +49,7 @@ public class RecipeController {
 
     @GetMapping("/getallproductsbyname")
     public Iterable<Product> getProductsContainingName(@RequestParam("name") String name) {
-        return productRepository.findByNameContaining(name);
+        return productRepository.findByProductnameContaining(name);
     }
 
     @GetMapping("/getallproductsname")
@@ -57,7 +57,7 @@ public class RecipeController {
         ArrayList<String> productNames = new ArrayList<String>();
 
         for (Product product: getProductsContainingName("")) {
-            productNames.add(product.getName());
+            productNames.add(product.getProductname());
         }
 
         return productNames;
@@ -101,7 +101,7 @@ public class RecipeController {
     }
 
     private boolean productExists(String name){
-        if (productRepository.findByName(name) == null) return false;
+        if (productRepository.findByProductname(name) == null) return false;
         return true;
     }
     //endregion
