@@ -1,13 +1,13 @@
 <form class="ingredient-amount-dialog-container">
-  <h1 class="mat-h1">{{data.productname}}</h1>
+  <h1 class="mat-h1">{{ingredient.productname}}</h1>
 
-  <div class="flex-around" mat-dialog-content>
+  <div class="flex flex-around" mat-dialog-content>
     <mat-form-field>
-      <input matInput type="number" min="0" placeholder="Ilość" value="{{data.amount}}" [(ngModel)]="data.amount"  [ngModelOptions]="{standalone: true}" />
+      <input matInput type="number" min="0" placeholder="Ilość" value="{{ingredient.amount}}" [(ngModel)]="ingredient.amount"  [ngModelOptions]="{standalone: true}" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Jednostka" [(ngModel)]="data.unit" [ngModelOptions]="{standalone: true}">
+      <mat-select placeholder="Jednostka" [(ngModel)]="ingredient.unit" [ngModelOptions]="{standalone: true}">
         <mat-option *ngFor="let unit of units" [value]="unit">
           {{unit}}
         </mat-option>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="button-wrapper-center">
-    <button mat-flat-button color="primary" [mat-dialog-close]="data" [disabled]="!validateIngredient(data)">Dodaj</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="ingredient" [disabled]="!validateIngredient(ingredient)">Dodaj</button>
     <button mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
 </form>

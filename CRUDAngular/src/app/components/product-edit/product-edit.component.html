@@ -1,0 +1,36 @@
+<form class="product-edit-container">
+
+  <div class="product-name-and-type-wrapper full-width">
+    <mat-form-field class="product-name flex-grow-10 margin-right-10">
+      <input matInput placeholder="Nazwa" [(ngModel)]="product.productname" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+
+  <div class="macros-wrapper flex flex-around">
+    <mat-form-field>
+      <input matInput type="number" min="0" placeholder="Białko" value="{{product.protein}}"
+             [(ngModel)]="product.protein" [ngModelOptions]="{standalone: true}"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" min="0" placeholder="Węglowodany" value="{{product.carbs}}"
+             [(ngModel)]="product.carbs" [ngModelOptions]="{standalone: true}"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" min="0" placeholder="Tłuszcz" value="{{product.fat}}"
+             [(ngModel)]="product.fat" [ngModelOptions]="{standalone: true}"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" min="0" placeholder="Kalorie" value="{{product.kcal}}"
+             [(ngModel)]="product.kcal" [ngModelOptions]="{standalone: true}"/>
+    </mat-form-field>
+
+  </div>
+
+  <div class="button-wrapper-center">
+    <button submit mat-flat-button color="primary" [mat-dialog-close]="product"
+            [disabled]="!validateProduct(product)">Zapisz
+    </button>
+    <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
+  </div>
+
+</form>

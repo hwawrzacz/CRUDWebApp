@@ -25,10 +25,8 @@ export class RecipesListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'type', 'additiondate', 'details', 'edit', 'delete'];
   isLoading = true;
 
-
   constructor(private data: RecipesService, public dialog: MatDialog) {
   }
-
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

@@ -1,50 +1,76 @@
 <div class="list-wrapper">
-    
-    <h1 class="mat-h1">Produkty</h1>
 
-    <mat-form-field class="example-full-width" appearance="outline">
-        <mat-icon matPrefix>search</mat-icon>
-        <input matInput placeholder="Szukaj produktu po nazwie" (keyup)="applyNameFilter($event.target.value)">
-    </mat-form-field>
+  <h1 class="mat-h1">Produkty</h1>
 
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput placeholder="Szukaj produktu po nazwie" (keyup)="applyNameFilter($event.target.value)">
+  </mat-form-field>
 
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.productname}} </mat-cell>
-        </ng-container>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-        <ng-container matColumnDef="protein">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Białko (g) </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.protein}} </mat-cell>
-        </ng-container>
+    <!-- name column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.productname}} </mat-cell>
+    </ng-container>
 
-        <ng-container matColumnDef="carbs">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Węglowodany (g) </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.carbs}} </mat-cell>
-        </ng-container>
+    <!-- protein column -->
+    <ng-container matColumnDef="protein">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Białko (g)</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.protein}} </mat-cell>
+    </ng-container>
 
-        <ng-container matColumnDef="fat">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Tłuszcz (g) </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.fat}} </mat-cell>
-        </ng-container>
+    <!-- carbs column -->
+    <ng-container matColumnDef="carbs">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Węglowodany (g)</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.carbs}} </mat-cell>
+    </ng-container>
 
-        <ng-container matColumnDef="kcal">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Kalorie (kcal) </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.kcal}} </mat-cell>
-        </ng-container>
+    <!-- fat column -->
+    <ng-container matColumnDef="fat">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tłuszcz (g)</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fat}} </mat-cell>
+    </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <ng-container matColumnDef="kcal">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kalorie (kcal)</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.kcal}} </mat-cell>
+    </ng-container>
 
-    </table>
-    <mat-card *ngIf="isLoading" class="full-width flex flex-center">
-      <mat-spinner color="primary" mode="indeterminate"> </mat-spinner>
-    </mat-card>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
+    <!-- edit column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Edytuj</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-mini-fab class="button-edit bg-white" (click)="showProductEditDialog(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- delete column -->
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-mini-fab class="button-delete bg-white">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  </table>
+  <mat-card *ngIf="isLoading" class="full-width flex flex-center">
+    <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+  </mat-card>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
 
   <div class="button-wrapper-center">
-    <button mat-raised-button color="primary">Dodaj nowy produkt <mat-icon>add</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="showProductEditDialog(emptyProduct)">Dodaj nowy produkt
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 
 </div>

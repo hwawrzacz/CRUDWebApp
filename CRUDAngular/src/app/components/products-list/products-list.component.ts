@@ -6,6 +6,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ProductsService} from '../../services/products.service';
 import {Observable} from 'rxjs';
 import {Recipe} from '../../models/Recipe';
+import {RecipeEditComponent} from "../recipe-edit/recipe-edit.component";
+import {MatDialog} from "@angular/material";
+import {ProductEditComponent} from "../product-edit/product-edit.component";
 
 @Component({
   selector: 'app-products-list',
@@ -16,11 +19,12 @@ import {Recipe} from '../../models/Recipe';
 export class ProductsListComponent implements OnInit {
 
   products: Product[];
+  emptyProduct: Product = new Product('', 0, 0, 0, 0, []);
 
-  constructor(private data: ProductsService) {
+  constructor(private data: ProductsService, public dialog: MatDialog) {
   }
 
-  displayedColumns: string[] = ['name', 'protein', 'carbs', 'fat', 'kcal'];
+  displayedColumns: string[] = ['name', 'protein', 'carbs', 'fat', 'kcal', 'edit', 'delete'];
   dataSource: MatTableDataSource<Product>;
   isLoading = true;
 
@@ -47,4 +51,17 @@ export class ProductsListComponent implements OnInit {
       });
   }
 
+
+  showProductEditDialog(product: Product): void {
+    const editDialogRef = this.dialog.open(ProductEditComponent, {
+      width: '80%',
+      data: {
+        productname: product.productname,
+        protein: product.protein,
+        carbs: product.carbs,
+        fat: product.fat,
+        kcal: product.kcal
+      }
+    });
+  }
 }

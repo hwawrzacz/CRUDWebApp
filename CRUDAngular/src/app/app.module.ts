@@ -31,6 +31,7 @@ import {IngredientAmountDialogComponent} from './components/ingredient-amount-di
 import {RecipeEditComponent} from './components/recipe-edit/recipe-edit.component';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     RecipeDetailsComponent,
     ProductDragNDropComponent,
     IngredientAmountDialogComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   entryComponents: [
     RecipeDetailsComponent,
     RecipeEditComponent,
-    IngredientAmountDialogComponent
+    IngredientAmountDialogComponent,
+    ProductEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

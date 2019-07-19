@@ -26,6 +26,8 @@ CHANGELOG
 	Id is correctry transfered betwen list and edit recipe component
 	Added spinner on table loading
 	Improved header buttons
+	-- commit --
+	
 	
 	
 DOING

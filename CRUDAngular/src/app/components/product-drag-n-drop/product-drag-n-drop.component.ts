@@ -4,7 +4,6 @@ import {MatDialog, MatPaginator, MatSnackBar, MatSort} from '@angular/material';
 import {IngredientAmountDialogComponent} from '../ingredient-amount-dialog/ingredient-amount-dialog.component';
 import {ProductsService} from '../../services/products.service';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
-import {Product} from '../../models/Product';
 
 @Component({
   selector: 'app-product-drag-n-drop',

@@ -1,8 +1,8 @@
 <nav>
   <mat-toolbar mat-raised class="mat-elevation-z8" color="primary">
-    <button mat-button class="header-action-button"><strong> Stwórz nowy przepis </strong></button>
-    <button mat-button class="header-action-button"><strong> Stwórz nowy składnik </strong></button>
-    <button mat-button class="header-action-button"><strong> Wyszukiwanie zaawansowane </strong></button>
-    <button mat-raised-button class="button-logout" color="warn"><strong> Wyloguj </strong></button>
+    <button mat-button class="header-action-button" (click)="callAddNewRecipeButtonClicked()"><strong> Dodaj nowy przepis </strong></button>
+    <button mat-button class="header-action-button"(click)="callAddNewProductButtonClicked()"><strong> Dodaj nowy produkt </strong></button>
+    <button mat-button class="header-action-button"(click)="callAdvancedSearchButtonClicked()"><strong> Wyszukiwanie zaawansowane </strong></button>
+    <button mat-raised-button class="button-logout"(click)="callLogoutButtonClicked()" color="warn"><strong> Wyloguj </strong></button>
   </mat-toolbar>
 </nav>

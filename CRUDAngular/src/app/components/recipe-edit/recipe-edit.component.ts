@@ -17,7 +17,7 @@ export class RecipeEditComponent implements OnInit {
   recipesTypes = ['Śniadanie', 'Obiad', 'Kolacja', 'Przekąska'];
 
   ngOnInit() {
-    console.log('id: ' + this.recipe.recipeid);
+    console.log('Editing recipe with id: ' + this.recipe.recipeid);
   }
 
   onNoClick(): void {

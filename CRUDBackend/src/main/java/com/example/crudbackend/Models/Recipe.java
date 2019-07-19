@@ -12,6 +12,7 @@ public class Recipe {
 
     //region Fields
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "recipeid")
     private int recipeid;
 
