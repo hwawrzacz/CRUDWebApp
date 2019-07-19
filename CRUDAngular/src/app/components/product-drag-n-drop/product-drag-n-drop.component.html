@@ -12,12 +12,13 @@
          [cdkDropListConnectedTo]="[doneList]"
          (cdkDropListDropped)="drop($event)">
 
-      <div class="drag-n-drop-element mat-body-1 selected-ingredient" *ngFor="let selectedProduct of selectedProducts"
-           cdkDrag>
-        <div
-          class="product-details">{{selectedProduct.productname}} {{selectedProduct.amount}} {{selectedProduct.unit}}</div>
+      <div class="drag-n-drop-element mat-body-1 selected-ingredient"
+           *ngFor="let selectedProduct of selectedProducts" cdkDrag>
+        <div class="product-details">
+          {{selectedProduct.productname}} {{selectedProduct.amount}} {{selectedProduct.unit}}
+        </div>
 
-        <button mat-icon-button (click)="editSelectedProduct(selectedProduct)">
+        <button *ngIf="getDetails" mat-icon-button (click)="editSelectedProduct(selectedProduct)">
           <mat-icon matSuffix>edit</mat-icon>
         </button>
 

@@ -17,16 +17,19 @@ export class ProductDragNDropComponent implements OnInit {
   selectedProducts: TransferredIngredient[];
   allProducts: TransferredIngredient[] = [];
   isLoading = true;
+  getDetails = true;
   // endregion
 
 
   // region Decorators
   @Input() ingredientsInput: TransferredIngredient[];
+  @Input() details: boolean;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   @Output() ingredientsChanged = new EventEmitter<TransferredIngredient[]>();
+
   // endregion
 
 
@@ -36,17 +39,22 @@ export class ProductDragNDropComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedProducts = this.ingredientsInput;
+    this.getDetails = this.details;
     this.refreshDataSource('');
   }
 
 
   drop(event: CdkDragDrop<TransferredIngredient[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
+    if (event.previousContainer !== event.container) { // if element is dropped on another container
       const newProduct = event.previousContainer.data[event.previousIndex];
+
       if (!this.isProductAdded(newProduct)) {
-        this.showIngredientAmountDialog(newProduct, event.currentIndex);
+
+        if (this.getDetails) {
+          this.showIngredientAmountDialog(newProduct, event.currentIndex);
+        } else {
+          this.selectedProducts.push(newProduct);
+        }
       } else {
         this.openSnackBar('Składnik został już dodany', 'Ok');
       }
@@ -79,8 +87,9 @@ export class ProductDragNDropComponent implements OnInit {
 
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {duration: 2000});
+    this._snackBar.open(message, action, {duration: 3000});
   }
+
   // endregion
 
 
@@ -92,6 +101,7 @@ export class ProductDragNDropComponent implements OnInit {
   preventDrop(): boolean {
     return false;
   }
+
   // endregion
 
 
@@ -111,12 +121,11 @@ export class ProductDragNDropComponent implements OnInit {
     });
 
     if (check === 0) {
-      console.log('product does not exists');
       return false;
     }
-    console.log('product exists');
     return true;
   }
+
   // endregion
 
 
@@ -154,5 +163,6 @@ export class ProductDragNDropComponent implements OnInit {
     this.selectedProducts.splice(index, 1);
     this.emitIngredientsChangedEvent();
   }
+
   // endregion
 }

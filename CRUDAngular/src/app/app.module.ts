@@ -32,6 +32,7 @@ import {RecipeEditComponent} from './components/recipe-edit/recipe-edit.componen
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
+import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
     ProductDragNDropComponent,
     IngredientAmountDialogComponent,
     RecipeEditComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    AdvancedSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
     RecipeDetailsComponent,
     RecipeEditComponent,
     IngredientAmountDialogComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    AdvancedSearchComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

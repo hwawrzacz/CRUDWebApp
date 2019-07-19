@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Recipe} from '../../models/Recipe';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
 import {ProductsInRecipes} from '../../models/ProductsInRecipes';
+import {Validator} from "../../models/Validator";
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
@@ -33,21 +34,16 @@ export class RecipeEditComponent implements OnInit {
     });
 
     this.recipe.ingredients = convertedIngredients;
-
-    this.recipe.ingredients.forEach( (ingredient) => {
-        console.log(ingredient.productname);
-    });
   }
 
-  validateRecipe(recipe: Recipe): boolean{
-    const regexName = /^[A-ZĄĆĘŁŃÓŚŻŹ][A-ZĄĆĘŁŃÓŚŻŹa-ząćęłńóśżź \,\-]{0,100}$/;
-    const isNameValid = regexName.test(recipe.name);
-    let isDescriptionValid = false;
-    let isIngredientListValid = false;
-    if (recipe.description.length > 0) { isDescriptionValid = true; }
-    if (recipe.ingredients.length > 0) { isIngredientListValid = true; }
+  validateRecipe(recipe: Recipe): boolean {
+    const validator = new Validator();
+    const isNameValid = validator.isNameValid(recipe.name);
+    const isTypeValid = validator.isRecipeTypeValid(recipe.type);
+    const isIngredientListValid = validator.isIngredientListValid(recipe.ingredients);
+    const isDescriptionValid = validator.isDescriptionValid(recipe.description)
 
-    return (isNameValid && isDescriptionValid && isIngredientListValid);
+    return (isNameValid && isTypeValid && isDescriptionValid && isIngredientListValid);
   }
 
   returnRecipe(recipe: Recipe): Recipe {

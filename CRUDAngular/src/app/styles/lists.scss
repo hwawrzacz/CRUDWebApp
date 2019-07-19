@@ -9,10 +9,6 @@
        text-align: left; 
     }
 
-    mat-form-field{
-        width: 100%;
-    }
-
     table{
         width: 100%;
         margin: 0 auto;
@@ -20,16 +16,16 @@
         mat-cell, mat-header-cell{
             justify-content: center;
         }
-        
+
         .button-delete{
             color: $redAction;
             box-shadow: none;
         }
-    
+
         .button-edit{
             box-shadow: none;
         }
-    
+
         .bg-white{
             background-color: white;
         }

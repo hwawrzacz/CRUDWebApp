@@ -1,5 +1,6 @@
 <form class="recipe-edit-container">
 
+  <!--#region Name and type -->
   <div class="recipe-name-and-type-wrapper full-width flex-row">
     <mat-form-field class="recipe-name flex-grow-10 margin-right-10">
       <input matInput placeholder="Nazwa" [(ngModel)]="recipe.name" [ngModelOptions]="{standalone: true}">
@@ -13,19 +14,23 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <!--#endregion -->
 
   <h2 class="mat-h2" color="primary">Składniki</h2>
 
   <!-- Ingredient drag'n'drop -->
-  <app-product-drag-n-drop class="drag-n-drop-element" [ingredientsInput]="recipe.ingredients" (ingredientsChanged)="updateIngredients($event)"></app-product-drag-n-drop>
+  <app-product-drag-n-drop class="drag-n-drop-element" [details]="true" [ingredientsInput]="recipe.ingredients" (ingredientsChanged)="updateIngredients($event)"></app-product-drag-n-drop>
 
+  <!-- Description -->
   <mat-form-field class="full-width recipe-description">
     <textarea matInput placeholder="Opis" [(ngModel)]="recipe.description" value="{{recipe.description}}" [ngModelOptions]="{standalone: true}"></textarea>
   </mat-form-field>
 
+  <!--#region Sumbit buttons -->
   <div class="button-wrapper-center">
     <button submit mat-flat-button color="primary" [mat-dialog-close]="returnRecipe(recipe)" [disabled]="!validateRecipe(recipe)">Zapisz</button>
     <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
+  <!--#endregion -->
 
 </form>

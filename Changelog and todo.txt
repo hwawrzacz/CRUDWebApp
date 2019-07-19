@@ -1,10 +1,12 @@
 CHANGELOG
 	=== 16.07.19 ===
 	Created basic view features.
+	-- commit --
 	
 	
 	=== 17.07.19 ===
 	Ingredients drag'n'drop in edition.
+	-- commit --
 	
 	
 	=== 18.07.19 ===
@@ -12,6 +14,7 @@ CHANGELOG
 	Fixed drop position - after drop, element is placed at certain index, not at the bottom.
 	Ingredient validation on adding or editing in recipe.
 	-- commit --
+	
 	Ingredient list updated in recipe-edit component, when it has changed in drag'n'drop component.
 	Recipe vadiation.
 	Fixed ingredient selection one way.
@@ -20,6 +23,7 @@ CHANGELOG
 	Added some layout improvements.
 	Recipe validation.
 	Display different image in recipe details window depending on what type of recipe is.
+	-- commit --
 	
 	
 	=== 19.07.19 ===
@@ -28,32 +32,31 @@ CHANGELOG
 	Improved header buttons
 	-- commit --
 	
+	Created Validator class
+	Added recipe create/edit dialog
+	Added navigation from header
+	-- commit --	
+	
+	Advanced search dialog
+	Optimised search dialog for returning list of ingredients
+	
+	
+	
 	
 	
 DOING
-	=== 17.07.19 ===
-	Adding ingredient to recipe. The problem is, that it is needed to drag form list a object of Produt class, and drop it as ProductsInRecipe class. Do not know how to process that conversion.
-	
-	
-	=== 18.07.19 ===
-	Unifying product name field (productname) for backend and frontend.
-	Adding drag'n'drop sorting on selectedIngredient list.
-	Updating ingredients in edited recipe - transfering data between parent and child component
-	Recipe validation.
-	Adding recipe type selection.
-	Fix drag'n'drop element appearance.
-	Fixing some layout issue.
-	
-	
 	=== 19.07.19 ===
 	Transfering recipe id between list and edit recipe component
 	Adding spinner on table loading
 	Improving header buttons
-	
+	Creating Validator class
+	Adding recipe create/edit dialog
+	Adding navigation from header
+	Advanced search dialog
 	
 
 TODO
-	Create new product
+	Advanced search
 	Save recipe to database
 	Refresh recipes list after update/create.
 	Creating recipe.

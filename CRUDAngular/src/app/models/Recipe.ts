@@ -1,5 +1,4 @@
 import { ProductsInRecipes } from './ProductsInRecipes';
-
 export class Recipe {
 
     recipeid: number;
@@ -9,11 +8,22 @@ export class Recipe {
     ingredients: ProductsInRecipes[];
     description: string;
 
-    constructor(name: string = '', additiondate: Date = new Date(), type: string = '', ingredients: ProductsInRecipes[] = [], description: string = '') {
+    constructor(name: string = '', type: string = '', ingredients: ProductsInRecipes[] = [], description: string = '') {
         this.name = name;
-        this.additiondate = additiondate;
         this.type = type;
         this.ingredients = ingredients;
         this.description = description;
+    }
+
+    public toString(): string {
+      let result = this.name + ' ' + this.type + '\n';
+
+      this.ingredients.forEach( (ingredient) => {
+        result += '    ' + ingredient.productname + '\n';
+      });
+
+      result += this.description;
+
+      return result;
     }
 }

@@ -1,13 +1,21 @@
 <div class="list-wrapper">
   <h1 class="mat-h1">Przepisy</h1>
 
-  <mat-form-field class="example-full-width" appearance="outline">
-    <mat-icon matPrefix>search</mat-icon>
-    <input matInput placeholder="Szukaj przepisu po nazwie" (keyup)="applyNameFilter($event.target.value)">
-  </mat-form-field>
+  <!--#region Search bar -->
+  <div class="example-full-width flex flex-between">
+    <mat-form-field class="flex flex-grow-10" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Szukaj przepisu po nazwie" class="full-width" (keyup)="applyNameFilter($event.target.value)">
+    </mat-form-field>
 
+    <button mat-raised-button color="primary" class="flex flex-grow-2" (click)="showAdvancedSearchDialog(returnEmptyRecipe())">
+      Wyszukiwanie zaawansowane
+    </button>
+  </div>
+  <!--#endregion -->
+
+  <!--#region Recipes table -->
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
     <!-- id column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa</mat-header-cell>
@@ -62,7 +70,6 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-
   </table>
 
   <!-- spinner -->
@@ -70,12 +77,13 @@
     <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
   </mat-card>
 
-
   <!-- paginator -->
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
+  <!--#endregion -->
 
+  <!-- New recipe button -->
   <div class="button-wrapper-center">
-    <button mat-raised-button color="primary" (click)="showRecipeEditDialog(emptyRecipe)">Dodaj nowy przepis
+    <button mat-raised-button color="primary" (click)="showRecipeEditDialog(returnEmptyRecipe())">Dodaj nowy przepis
       <mat-icon>add</mat-icon>
     </button>
   </div>

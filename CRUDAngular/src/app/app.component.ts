@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   openAdvancedSearchDialog(value: boolean) {
-    console.log('Advanced search');
+    this.recipesList.showAdvancedSearchDialog(this.recipesList.emptyRecipe);
   }
 
   logout(value: boolean) {
