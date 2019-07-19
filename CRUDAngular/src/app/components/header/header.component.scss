@@ -1,33 +1,40 @@
 @import 'src/app/styles/colors-fonts-themes.scss';
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-nav{
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    
-    margin-bottom: 50px;
+nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  margin-bottom: 50px;
+  font-weight: bold;
 }
 
-mat-toolbar{
-    height: 70px;
-    
-    //background-color: $main;
+mat-toolbar {
+  height: 60px;
+
+  //background-color: $main;
 }
 
-button{
-    margin: 0 20px;
+button {
+  padding: 0 20px;
+
+  strong{
+    font-size: 14px;
+    font-weight: 600;
+  }
 }
 
-p{
-    font-family: 'Courier New', Courier, monospace;
-    color: #666;
-    font-weight: bold;
-    font-size: 30px;
+p {
+  font-family: 'Courier New', Courier, monospace;
+  color: #666;
+  font-weight: bold;
+  font-size: 30px;
 }
 
-.button-logout{
-    margin-left: auto;
-    color: white;
+.button-logout {
+  margin-left: auto;
+  color: white;
 }

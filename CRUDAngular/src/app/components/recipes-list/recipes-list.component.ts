@@ -21,12 +21,14 @@ export class RecipesListComponent implements OnInit {
 
   emptyRecipe: Recipe = new Recipe();
   recipes: Recipe[];
+  dataSource: MatTableDataSource<Recipe>;
+  displayedColumns: string[] = ['id', 'name', 'type', 'additiondate', 'details', 'edit', 'delete'];
+  isLoading = true;
+
 
   constructor(private data: RecipesService, public dialog: MatDialog) {
   }
 
-  displayedColumns: string[] = ['id', 'name', 'type', 'additiondate', 'details', 'edit', 'delete'];
-  dataSource: MatTableDataSource<Recipe>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -40,12 +42,14 @@ export class RecipesListComponent implements OnInit {
   }
 
   refreshDataSource(filter: string) {
+    this.isLoading = true;
     this.data.getRecipes(filter).subscribe(
       (data) => {
         this.recipes = data;
         this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.isLoading = false;
       });
   }
 

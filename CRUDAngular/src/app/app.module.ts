@@ -14,7 +14,9 @@ import {
   MatDialogModule,
   MatListModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatCardModule
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -59,7 +61,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatCardModule
   ],
   entryComponents: [
     RecipeDetailsComponent,

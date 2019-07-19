@@ -18,7 +18,14 @@ CHANGELOG
 	Added recipe type selection.
 	Fixed drag'n'drop element appearance.
 	Added some layout improvements.
+	Recipe validation.
 	Display different image in recipe details window depending on what type of recipe is.
+	
+	
+	=== 19.07.19 ===
+	Id is correctry transfered betwen list and edit recipe component
+	Added spinner on table loading
+	Improved header buttons
 	
 	
 DOING
@@ -36,10 +43,16 @@ DOING
 	Fixing some layout issue.
 	
 	
+	=== 19.07.19 ===
+	Transfering recipe id between list and edit recipe component
+	Adding spinner on table loading
+	Improving header buttons
+	
+	
 
 TODO
-	Transfer recipe id between list and edit recipe component
+	Create new product
+	Save recipe to database
 	Refresh recipes list after update/create.
-	Fecipe validation.
 	Creating recipe.
 	Creating product.

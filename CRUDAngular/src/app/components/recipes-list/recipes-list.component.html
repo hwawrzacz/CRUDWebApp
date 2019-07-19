@@ -1,72 +1,82 @@
 <div class="list-wrapper">
-    <h1 class="mat-h1">Przepisy</h1>
+  <h1 class="mat-h1">Przepisy</h1>
 
-    <mat-form-field class="example-full-width" appearance="outline">
-        <mat-icon matPrefix>search</mat-icon>
-        <input matInput placeholder="Szukaj przepisu po nazwie" (keyup)="applyNameFilter($event.target.value)">
-    </mat-form-field>
-    
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">   
-    
-        <!-- id column -->
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.recipeid}} </mat-cell>
-        </ng-container>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput placeholder="Szukaj przepisu po nazwie" (keyup)="applyNameFilter($event.target.value)">
+  </mat-form-field>
 
-        <!-- name column -->
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
-        
-        <!-- type column -->
-        <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Typ </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
-        </ng-container>
-        
-        <!-- addition data column -->
-        <ng-container matColumnDef="additiondate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Data dodania </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.additionDate}} </mat-cell>
-        </ng-container>
-        
-        <!-- details column -->
-        <ng-container matColumnDef="details">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Szczegóły</mat-header-cell>
-            <mat-cell *matCellDef="let element"> 
-                <button mat-raised-button color="primary" (click)="showRecipeDetailsDialog(element)"> Pokaż </button> </mat-cell>
-        </ng-container>
-        
-        <!-- edit column -->
-        <ng-container matColumnDef="edit">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Edytuj </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <button mat-mini-fab class="button-edit bg-white" (click)="showRecipeEditDialog(element)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-            </mat-cell>
-        </ng-container>
-        
-        <!-- delete column -->
-        <ng-container matColumnDef="delete">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń </mat-header-cell>
-            <mat-cell *matCellDef="let element"> 
-                <button mat-mini-fab class="button-delete bg-white">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-cell>
-        </ng-container>
-        
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        
-    </table>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
+    <!-- id column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.recipeid}} </mat-cell>
+    </ng-container>
 
-    <div class="button-wrapper-center">
-      <button mat-raised-button color="primary" (click)="showRecipeEditDialog(emptyRecipe)">Dodaj nowy przepis <mat-icon>add</mat-icon></button>
-    </div>
+    <!-- name column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- type column -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Typ</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+    </ng-container>
+
+    <!-- addition data column -->
+    <ng-container matColumnDef="additiondate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Data dodania</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.additionDate}} </mat-cell>
+    </ng-container>
+
+    <!-- details column -->
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Szczegóły</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="showRecipeDetailsDialog(element)"> Pokaż</button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- edit column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Edytuj</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-mini-fab class="button-edit bg-white" (click)="showRecipeEditDialog(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- delete column -->
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-mini-fab class="button-delete bg-white">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  </table>
+
+  <!-- spinner -->
+  <mat-card *ngIf="isLoading" class="full-width flex flex-center mat-elevation-z0">
+    <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+  </mat-card>
+
+
+  <!-- paginator -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
+
+  <div class="button-wrapper-center">
+    <button mat-raised-button color="primary" (click)="showRecipeEditDialog(emptyRecipe)">Dodaj nowy przepis
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>

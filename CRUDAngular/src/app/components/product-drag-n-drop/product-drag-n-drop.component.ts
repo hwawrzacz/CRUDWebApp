@@ -17,6 +17,7 @@ export class ProductDragNDropComponent implements OnInit {
   // region Fields
   selectedProducts: TransferredIngredient[];
   allProducts: TransferredIngredient[] = [];
+  isLoading = true;
   // endregion
 
 
@@ -127,9 +128,11 @@ export class ProductDragNDropComponent implements OnInit {
 
 
   refreshDataSource(filter: string) {
+    this.isLoading = true;
     this.data.getProductsToTransfer(filter).subscribe(
       (data) => {
         this.allProducts = data;
+        this.isLoading = false;
       });
   }
 
