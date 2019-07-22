@@ -39,24 +39,25 @@ CHANGELOG
 	
 	Advanced search dialog
 	Optimised search dialog for returning list of ingredients
+	-- commit --
+		
 	
-	
+	=== 22.07.19 ===
+	Fixed returning null when closing recipe/product edition dialog
+	Fixed displaying addition date in recipes list
 	
 	
 	
 DOING
-	=== 19.07.19 ===
-	Transfering recipe id between list and edit recipe component
-	Adding spinner on table loading
-	Improving header buttons
-	Creating Validator class
-	Adding recipe create/edit dialog
-	Adding navigation from header
-	Advanced search dialog
+	=== 22.07.19 ===
+	Adding product
 	
 
 TODO
-	Advanced search
+	Adding product
+	Adding recipe
+	Confirmation on delete ingredient from product
+	Fix advanced search button size and search bar position
 	Save recipe to database
 	Refresh recipes list after update/create.
 	Creating recipe.

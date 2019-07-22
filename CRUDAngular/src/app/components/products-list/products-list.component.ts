@@ -63,5 +63,15 @@ export class ProductsListComponent implements OnInit {
         kcal: product.kcal
       }
     });
+
+    editDialogRef.afterClosed().subscribe((result: Product) => {
+      if (result != null) {
+        this.updateProduct(result);
+      }
+    });
+  }
+
+  updateProduct(product: Product) {
+    console.log(this.data.saveProduct(product));
   }
 }

@@ -16,7 +16,8 @@ import {
   MatSelectModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatCardModule
+  MatCardModule,
+  MatSidenavModule, // for responsive header
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -33,6 +34,7 @@ import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
+import { FlexLayoutModule } from '@angular/flex-layout'; // for responsive header
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { AdvancedSearchComponent } from './components/advanced-search/advanced-s
     FormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule,
+    MatSidenavModule
   ],
   entryComponents: [
     RecipeDetailsComponent,

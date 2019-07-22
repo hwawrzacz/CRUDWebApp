@@ -67,10 +67,11 @@ public class RecipeController {
     @PutMapping("/updateproduct")
     public String updateProduct(@RequestParam("name") String name, @RequestParam("protein") double protein,
                                 @RequestParam("carbs") double carbs, @RequestParam("fat") double fat, @RequestParam("kcal") int kcal){
-        if (updateSaveProduct(new Product(name, protein, carbs, fat, kcal)))
+        if (saveProduct(new Product(name, protein, carbs, fat, kcal))) {
             return "Product updated successfully";
-        else
+        } else {
             return "Product update failed";
+        }
     }
 
     @DeleteMapping("/deleteproduct")
@@ -79,20 +80,21 @@ public class RecipeController {
         return "Product deletion called";
     }
 
-    @PutMapping("/addnewproduct")
-    public String addNewProduct(@RequestParam("name") String name, @RequestParam("protein") double protein,
-                                @RequestParam("carbs") double carbs, @RequestParam("fat") double fat, @RequestParam("kcal") int kcal){
-        if (!productExists(name)){
-            if (updateSaveProduct(new Product(name, protein, carbs, fat, kcal)))
+    @RequestMapping(value = "/addnewproduct/", method = RequestMethod.POST)
+    public String addNewProduct(@RequestBody Product product){
+        if (!productExists(product.getProductname())){
+            if (saveProduct(product)) {
                 return "Product added successfully";
-            else
-                return "Product add failed";
+            }
+            else {
+                return "Product addition failed";
+            }
         }
         else
             return "Product already exists";
     }
 
-    private boolean updateSaveProduct(Product product){
+    private boolean saveProduct(Product product){
         try{
             productRepository.save(product);
             return true;
@@ -101,7 +103,7 @@ public class RecipeController {
     }
 
     private boolean productExists(String name){
-        if (productRepository.findByProductname(name) == null) return false;
+        if (productRepository.findByProductname(name) == null) { return false; }
         return true;
     }
     //endregion

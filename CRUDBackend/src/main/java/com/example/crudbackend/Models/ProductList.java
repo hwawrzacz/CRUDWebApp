@@ -35,7 +35,7 @@ public class ProductList implements Serializable {
 
     //region Getters and setters
     //productName
-    public String getProductname() { return product.getProductname(); }
+    //public String getProductname() { return product.getProductname(); }
 
     //product
     public Product getProduct() {

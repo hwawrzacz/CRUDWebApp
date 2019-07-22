@@ -6,7 +6,7 @@
     </mat-form-field>
   </div>
 
-  <div class="macros-wrapper flex flex-around">
+  <div class="macros-wrapper flex flex-between">
     <mat-form-field>
       <input matInput type="number" min="0" placeholder="Białko" value="{{product.protein}}"
              [(ngModel)]="product.protein" [ngModelOptions]="{standalone: true}"/>
@@ -31,6 +31,6 @@
             [disabled]="!validateProduct(product)">Zapisz
     </button>
     <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
-  </div>
+  </div>  
 
 </form>

@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Recipe} from '../../models/Recipe';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
 import {ProductsInRecipes} from '../../models/ProductsInRecipes';
-import {Validator} from "../../models/Validator";
+import {Validator} from '../../models/Validator';
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',

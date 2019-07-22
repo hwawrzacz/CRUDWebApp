@@ -18,7 +18,7 @@ public class Product {
     //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<ProductList> products;
+    private List<ProductList> recipes;
 
     @Column(name = "protein")
     private double protein;

@@ -4,13 +4,14 @@ export class Recipe {
     recipeid: number;
     name: string;
     type: string;
-    additiondate: Date;
+    additiondate: string;
     ingredients: ProductsInRecipes[];
     description: string;
 
-    constructor(name: string = '', type: string = '', ingredients: ProductsInRecipes[] = [], description: string = '') {
+    constructor(name: string = '', type: string = '', additiondate: string, ingredients: ProductsInRecipes[] = [], description: string = '') {
         this.name = name;
         this.type = type;
+        this.additiondate = additiondate;
         this.ingredients = ingredients;
         this.description = description;
     }

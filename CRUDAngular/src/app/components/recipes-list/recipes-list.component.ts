@@ -40,7 +40,7 @@ export class RecipesListComponent implements OnInit {
   }
 
   returnEmptyRecipe(): Recipe {
-    return this.emptyRecipe = new Recipe('', '', [], '');
+    return this.emptyRecipe = new Recipe('', '', '', [], '');
   }
 
   // region Functions | Dialog openers
