@@ -1,18 +1,20 @@
 import { Recipe } from './Recipe';
 import { TransferredIngredient } from './TransferredIngredient';
+import {Product} from './Product';
 
 export class ProductsInRecipes {
 
+    //product: Product;
     productname: string;
-    productid: string;
+    //recipe: Recipe;
+    recipeid: string;
     amount: number;
     unit: string;
-    recipes: Recipe[];
 
-    constructor(data: TransferredIngredient) {
-      this.productname = data.productname;
-      this.amount = data.amount;
-      this.unit = data.unit;
+    constructor(ingredient: TransferredIngredient) {
+      this.productname = ingredient.productname;
+      this.amount = ingredient.amount;
+      this.unit = ingredient.unit;
     }
 
     // constructor(productname: string, amount: number, unit: string) {

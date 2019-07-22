@@ -19,7 +19,7 @@ import {ProductEditComponent} from "../product-edit/product-edit.component";
 export class ProductsListComponent implements OnInit {
 
   products: Product[];
-  emptyProduct: Product = new Product('', 0, 0, 0, 0, []);
+  emptyProduct: Product = new Product('', 0, 0, 0, 0);
 
   constructor(private data: ProductsService, public dialog: MatDialog) {
   }
@@ -66,12 +66,16 @@ export class ProductsListComponent implements OnInit {
 
     editDialogRef.afterClosed().subscribe((result: Product) => {
       if (result != null) {
-        this.updateProduct(result);
+        const newProduct = new Product(result.productname, result.protein, result.carbs, result.fat, result.kcal);
+        console.log("hereitis");
+        this.updateProduct(newProduct);
       }
     });
   }
 
   updateProduct(product: Product) {
-    console.log(this.data.saveProduct(product));
+    this.data.saveProduct(product).subscribe(response => {
+      console.log(response);
+    });
   }
 }

@@ -28,7 +28,7 @@
 
   <!--#region Sumbit buttons -->
   <div class="button-wrapper-center">
-    <button submit mat-flat-button color="primary" [mat-dialog-close]="returnRecipe(recipe)" [disabled]="!validateRecipe(recipe)">Zapisz</button>
+    <button submit mat-flat-button color="primary" [mat-dialog-close]="recipe" [disabled]="!validateRecipe(recipe)">Zapisz</button>
     <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>
   <!--#endregion -->

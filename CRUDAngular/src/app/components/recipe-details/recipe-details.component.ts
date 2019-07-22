@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {IRecipeDetails} from '../../models/IRecipeDetails';
+import {RecipeDetails} from '../../models/RecipeDetails';
 
 @Component({
   selector: 'app-recipe-details',
@@ -12,7 +12,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<RecipeDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public recipe: IRecipeDetails) {}
+    @Inject(MAT_DIALOG_DATA) public recipe: RecipeDetails) {}
 
   onClick(): void {
     this.dialogRef.close();

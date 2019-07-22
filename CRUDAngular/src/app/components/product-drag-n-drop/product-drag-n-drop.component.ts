@@ -49,7 +49,6 @@ export class ProductDragNDropComponent implements OnInit {
       const newProduct = event.previousContainer.data[event.previousIndex];
 
       if (!this.isProductAdded(newProduct)) {
-
         if (this.getDetails) {
           this.showIngredientAmountDialog(newProduct, event.currentIndex);
         } else {

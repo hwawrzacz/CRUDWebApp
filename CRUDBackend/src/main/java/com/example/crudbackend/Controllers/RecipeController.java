@@ -65,9 +65,8 @@ public class RecipeController {
 
     //http://localhost:8080/recipes/updateproduct?name=szynka&protein=15&carbs=50&fat=9&kcal=355
     @PutMapping("/updateproduct")
-    public String updateProduct(@RequestParam("name") String name, @RequestParam("protein") double protein,
-                                @RequestParam("carbs") double carbs, @RequestParam("fat") double fat, @RequestParam("kcal") int kcal){
-        if (saveProduct(new Product(name, protein, carbs, fat, kcal))) {
+    public String updateProduct(@RequestBody Product product){
+        if (saveProduct(product)) {
             return "Product updated successfully";
         } else {
             return "Product update failed";
@@ -80,8 +79,9 @@ public class RecipeController {
         return "Product deletion called";
     }
 
-    @RequestMapping(value = "/addnewproduct/", method = RequestMethod.POST)
+    @PostMapping("/addnewproduct")
     public String addNewProduct(@RequestBody Product product){
+        System.out.println("add new product");
         if (!productExists(product.getProductname())){
             if (saveProduct(product)) {
                 return "Product added successfully";

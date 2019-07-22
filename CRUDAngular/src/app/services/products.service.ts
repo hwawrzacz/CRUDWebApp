@@ -3,7 +3,12 @@ import {Product} from '../models/Product';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {TransferredIngredient} from '../models/TransferredIngredient';
-import {catchError} from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +29,12 @@ export class ProductsService {
   }
 
   saveProduct(product: Product): Observable<Product> {
-    console.log('saving product');
-    return this.http.post<Product>(this.baseUrl + 'addnewproduct/', product);
+    console.log(product.toString());
+
+    return this.http.post<Product>(this.baseUrl, product, httpOptions);
+
+    const jsonProduct = JSON.stringify(product);
+    console.log(jsonProduct);
+    return (this.http.put<Product>(this.baseUrl + 'addnewproduct', jsonProduct));
   }
 }

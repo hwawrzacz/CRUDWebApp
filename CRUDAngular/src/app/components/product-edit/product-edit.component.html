@@ -2,7 +2,7 @@
 
   <div class="product-name-and-type-wrapper full-width">
     <mat-form-field class="product-name flex-grow-10 margin-right-10">
-      <input matInput placeholder="Nazwa" [(ngModel)]="product.productname" [ngModelOptions]="{standalone: true}">
+      <input matInput placeholder="Nazwa" value="{{product.productname}}" [(ngModel)]="product.productname" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
   </div>
 
@@ -23,7 +23,6 @@
       <input matInput type="number" min="0" placeholder="Kalorie" value="{{product.kcal}}"
              [(ngModel)]="product.kcal" [ngModelOptions]="{standalone: true}"/>
     </mat-form-field>
-
   </div>
 
   <div class="button-wrapper-center">

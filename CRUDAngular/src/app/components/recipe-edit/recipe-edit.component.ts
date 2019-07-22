@@ -26,7 +26,6 @@ export class RecipeEditComponent implements OnInit {
   }
 
   updateIngredients(changedIngredients: TransferredIngredient[]) {
-    console.log('ingredients update');
     const convertedIngredients: ProductsInRecipes[] = [];
 
     changedIngredients.forEach( (ingredient) => {
@@ -38,10 +37,10 @@ export class RecipeEditComponent implements OnInit {
 
   validateRecipe(recipe: Recipe): boolean {
     const validator = new Validator();
-    const isNameValid = validator.isNameValid(recipe.name);
+    const isNameValid = validator.isRecipeNameValid(recipe.name);
     const isTypeValid = validator.isRecipeTypeValid(recipe.type);
     const isIngredientListValid = validator.isIngredientListValid(recipe.ingredients);
-    const isDescriptionValid = validator.isDescriptionValid(recipe.description)
+    const isDescriptionValid = validator.isDescriptionValid(recipe.description);
 
     return (isNameValid && isTypeValid && isDescriptionValid && isIngredientListValid);
   }

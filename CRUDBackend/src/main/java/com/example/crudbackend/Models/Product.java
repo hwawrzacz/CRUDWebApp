@@ -76,6 +76,11 @@ public class Product {
     public void setKcal(int kcal) {
         this.kcal = kcal;
     }
+
+    //recipes
+    public List<ProductList> getRecipes() {
+        return recipes;
+    }
     //endregion
 
 

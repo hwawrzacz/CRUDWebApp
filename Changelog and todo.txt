@@ -40,7 +40,7 @@ CHANGELOG
 	Advanced search dialog
 	Optimised search dialog for returning list of ingredients
 	-- commit --
-		
+	
 	
 	=== 22.07.19 ===
 	Fixed returning null when closing recipe/product edition dialog
@@ -50,6 +50,7 @@ CHANGELOG
 	
 DOING
 	=== 22.07.19 ===
+	Responsive navbar
 	Adding product
 	
 

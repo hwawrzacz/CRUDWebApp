@@ -9,8 +9,6 @@ import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component
 import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
 import {AdvancedSearchComponent} from '../advanced-search/advanced-search.component';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
-import {ProductsInRecipes} from '../../models/ProductsInRecipes';
-import {compilerSetStylingMode} from "@angular/compiler/src/render3/view/styling_state";
 
 @Component({
   selector: 'app-recipes-list',
@@ -119,7 +117,6 @@ export class RecipesListComponent implements OnInit {
 
   updateRecipe(recipe: Recipe) {
     console.log('==== adding object ====');
-
 
     let result = recipe.recipeid + ' ' + recipe.name + ' ' + recipe.type + '\n';
     recipe.ingredients.forEach( (ingredient) => {

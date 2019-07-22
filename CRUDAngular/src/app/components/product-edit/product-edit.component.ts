@@ -13,7 +13,6 @@ export class ProductEditComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ProductEditComponent>,
               @Inject(MAT_DIALOG_DATA) public product: Product) {}
 
-
   ngOnInit() {
   }
 
@@ -23,11 +22,12 @@ export class ProductEditComponent implements OnInit {
 
   validateProduct(product: Product): boolean {
     const validator = new Validator();
-    const isProteinValid = validator.isAmountValid(this.product.protein + '');
-    const isCarbsValid = validator.isAmountValid(this.product.carbs + '');
-    const isFatValid = validator.isAmountValid(this.product.fat + '');
-    const isKcalValid = validator.isAmountValid(this.product.kcal + '');
+    const isNameValid = validator.isProductNameValid(this.product.productname + '');
+    const isProteinValid = validator.isMacroValid(this.product.protein + '');
+    const isCarbsValid = validator.isMacroValid(this.product.carbs + '');
+    const isFatValid = validator.isMacroValid(this.product.fat + '');
+    const isKcalValid = validator.isMacroValid(this.product.kcal + '');
 
-    return (isProteinValid && isCarbsValid && isFatValid && isKcalValid);
+    return (isNameValid && isProteinValid && isCarbsValid && isFatValid && isKcalValid);
   }
 }
