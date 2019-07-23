@@ -1,0 +1,10 @@
+<div class="confirmation-dialog-container">
+  <h2 class="mat-h2">{{data.title}}</h2>
+
+  <p class="mat-body-1">{{data.message}}</p>
+
+  <div class="button-wrapper-center">
+    <button submit mat-flat-button color="primary" [mat-dialog-close]="true"> Tak </button>
+    <button reset mat-flat-button color="warn" (click)="onNoClick()"> Nie </button>
+  </div>
+</div>

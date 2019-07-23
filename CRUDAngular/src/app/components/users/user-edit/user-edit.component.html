@@ -1,0 +1,33 @@
+<form class="user-edit-container">
+
+  <div class="user-name-and-type-wrapper full-width">
+    <mat-form-field class="user-name flex-grow-10 margin-right-10">
+      <input matInput placeholder="Login" value="{{user.login}}" [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+
+  <div class="full-width flex flex-between">
+      <mat-form-field class="margin-right-10">
+        <input matInput placeholder="Imię" value="{{user.firstName}}"
+               [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}"/>
+      </mat-form-field>
+
+      <mat-form-field class="margin-left-10">
+        <input matInput placeholder="Nazwisko" value="{{user.lastName}}"
+               [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}"/>
+      </mat-form-field>
+    </div>
+
+    <div class="full-width flex flex-around margin-bottom-20">
+      <mat-checkbox class="margin-right-10" [checked]="user.isActive" color="primary" id="isActiveCheck">Aktywny</mat-checkbox>
+      <mat-checkbox class="margin-left-10" [checked]="user.isAdmin"  color="primary"  id="isAdminCheck">Administrator</mat-checkbox>
+    </div>
+
+  <div class="button-wrapper-center">
+    <button submit mat-flat-button color="primary" [mat-dialog-close]="user"
+            [disabled]="!validateUser(user)">Zapisz
+    </button>
+    <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
+  </div>
+
+</form>

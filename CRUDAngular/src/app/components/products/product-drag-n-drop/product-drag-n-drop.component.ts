@@ -2,8 +2,8 @@ import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angula
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort} from '@angular/material';
 import {IngredientAmountDialogComponent} from '../ingredient-amount-dialog/ingredient-amount-dialog.component';
-import {ProductsService} from '../../services/products.service';
-import {TransferredIngredient} from '../../models/TransferredIngredient';
+import {ProductsService} from '../../../services/products.service';
+import {TransferredIngredient} from '../../../models/TransferredIngredient';
 
 @Component({
   selector: 'app-product-drag-n-drop',

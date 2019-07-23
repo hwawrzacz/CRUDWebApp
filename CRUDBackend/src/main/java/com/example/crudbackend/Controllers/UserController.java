@@ -1,16 +1,13 @@
 package com.example.crudbackend.Controllers;
 
 import com.example.crudbackend.Models.Admin;
-import com.example.crudbackend.Models.Product;
 import com.example.crudbackend.Models.User;
-import com.example.crudbackend.Repositories.IProductRepository;
 import com.example.crudbackend.Repositories.IUserRepository;
 import com.example.crudbackend.Repositories.IAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import javax.persistence.EntityManager;
 
 @CrossOrigin
 @RestController
@@ -23,49 +20,17 @@ public class UserController {
     @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
+    private EntityManager entityManager;
 
-    //region Get users
-    @RequestMapping("/verifyuser")
-    public String verifyUser(@RequestParam("login") String login, @RequestParam("password") String password){
-        User user = getUserByLogin(login);
-        if (user != null){
-            if (user.getPassword().equals(password)){
-                if (isAdmin(user.getLogin())){
-                    return "Admin access granted";
-                }
-                return "User access granted";
-            }
-            else return "Access denied";
-        }
-        else return "User '"+ login +"' does not exist";
+    @GetMapping("/test")
+    public Object customQueryMethod(@RequestParam("login") String login){
+        return entityManager.createQuery("SELECT user FROM User user WHERE user.login=?1")
+                .setParameter(1,login)
+                .getSingleResult();
     }
 
-    @RequestMapping("/showallusers")
-    public String findAllUsers() {
-        String result = "<html><table>" +
-                "<tr> <td>Login</td> <td>Imię</td> <td>Nazwisko</td> <td>Hasło</td> <td>Aktywny</td> <td>Administrator</td> </tr>";
-        String isAdmin;
-
-        for (User user : userRepository.findAll()) {
-            isAdmin = "Nie";
-            if (isAdmin(user.getLogin())) isAdmin = "Tak";
-            result += "<tr><td>"+ user.getLogin() +"</td><td>"+ user.getFirstName() +"</td><td>"+ user.getLastName() +"</td>" +
-                    "<td>"+ user.getPassword() +"</td><td>"+ user.getIsActive() +"</td><td>"+ isAdmin +"</td> </tr>\n";
-        }
-
-        return result + "</table></html>";
-    }
-
-//    the same as above, but returns an ArrayList
-//    public ArrayList<User> findAllUsers() {
-//        ArrayList<User> userList = new ArrayList();
-//
-//        for (User user : userRepository.findAll()) {
-//            //userList.add(user);
-//        }
-//        return userList;
-//    }
-
+    //region Show users
     @RequestMapping("/showuserbylastname")
     public String getUserByLastName(@RequestParam("lastName") String lastName){
         String result = "";
@@ -76,6 +41,7 @@ public class UserController {
         return result;
     }
 
+
     @RequestMapping("/showuserbylogin")
     public String showUserById(String login){
         User user = getUserByLogin(login);
@@ -85,40 +51,6 @@ public class UserController {
         else {
             return "User '"+ login +"' does not exist";
         }
-    }
-    //endregion
-
-
-    //region Get admins
-    @RequestMapping("/showalladmins")
-    public String ShowAdmins(){
-        String result = "";
-        for (Admin admin: adminRepository.findAll()) {
-            result += admin.getLogin()+"\n";
-        }
-        return result;
-    }
-
-    @RequestMapping("/showadminbylogin")
-    public String ShowAdminsByLogin(@RequestParam("login") String login){
-        return getAdminByLogin(login).toString();
-    }
-
-    private boolean isAdmin(String login){
-        if (adminRepository.existsAdminByLogin(login)) return true;
-        return false;
-    }
-    //endregion
-
-
-    //region Add new user
-    @RequestMapping("/add")
-    public String saveUser(@RequestParam("login") String login, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
-                           @RequestParam("password") String password, boolean isActive){
-        try{
-            userRepository.save(new User(login, firstName, lastName, password, isActive));
-            return "Record added successfully";
-        } catch (Exception exc) { return "Error"; }
     }
     //endregion
 
@@ -148,14 +80,22 @@ public class UserController {
     //endregion
 
 
-    //region Update user
-    //http://localhost:8080/users/update?login=hubwaw&firstname=Hubert&lastname=wawrzacz&password=qwertyuiop&isadmin=true&isactive=true
-    @RequestMapping("/update")
-    public String updateUser(@RequestParam("login") String login, @RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
-                             @RequestParam("password") String password){
+    //region User
+    //create new user
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addUser(@RequestBody User user){
         try{
-            userRepository.save(new User(login, firstName, lastName, password, true));
+            userRepository.save(user);
             return "Record added successfully";
+        } catch (Exception exc) { return "Error"; }
+    }
+
+    //update user
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public String saveUser(@RequestBody User user){
+        try{
+            userRepository.save(user);
+            return "User updated successfully";
         } catch (Exception exc) { return "Error"; }
     }
 
@@ -170,6 +110,8 @@ public class UserController {
         if (toggleIsActive(login, true)) return "User '"+ login +"' activated";
         else return "User update failed";
     }
+    //endregion
+
 
     private boolean toggleIsActive(String login, boolean isActive){
         User userToUpdate = getUserByLogin(login);
@@ -186,6 +128,12 @@ public class UserController {
 
 
     //region Get user functions
+    @RequestMapping("/getallusers")
+    public Iterable<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+
     private User getUserByLogin(String login){
 
         return userRepository.findByLogin(login);

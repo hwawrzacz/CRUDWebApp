@@ -7,6 +7,7 @@ import {TransferredIngredient} from '../models/TransferredIngredient';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
+    'Access-Control-Allow-Origin': '*'
   })
 };
 
@@ -35,6 +36,6 @@ export class ProductsService {
 
     const jsonProduct = JSON.stringify(product);
     console.log(jsonProduct);
-    return (this.http.put<Product>(this.baseUrl + 'addnewproduct', jsonProduct));
+    return (this.http.put<Product>(this.baseUrl + 'addnewproduct/', jsonProduct, httpOptions  ));
   }
 }

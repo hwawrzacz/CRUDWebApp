@@ -3,12 +3,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {ProductsService} from '../../services/products.service';
-import {Observable} from 'rxjs';
-import {Recipe} from '../../models/Recipe';
-import {RecipeEditComponent} from "../recipe-edit/recipe-edit.component";
-import {MatDialog} from "@angular/material";
-import {ProductEditComponent} from "../product-edit/product-edit.component";
+import {ProductsService} from '../../../services/products.service';
+import {MatDialog} from '@angular/material';
+import {ProductEditComponent} from '../product-edit/product-edit.component';
 
 @Component({
   selector: 'app-products-list',
@@ -21,12 +18,11 @@ export class ProductsListComponent implements OnInit {
   products: Product[];
   emptyProduct: Product = new Product('', 0, 0, 0, 0);
 
-  constructor(private data: ProductsService, public dialog: MatDialog) {
-  }
-
   displayedColumns: string[] = ['name', 'protein', 'carbs', 'fat', 'kcal', 'edit', 'delete'];
   dataSource: MatTableDataSource<Product>;
   isLoading = true;
+
+  constructor(private data: ProductsService, public dialog: MatDialog) { }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

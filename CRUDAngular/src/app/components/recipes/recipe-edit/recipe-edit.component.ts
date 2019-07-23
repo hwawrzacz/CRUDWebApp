@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Recipe} from '../../models/Recipe';
-import {TransferredIngredient} from '../../models/TransferredIngredient';
-import {ProductsInRecipes} from '../../models/ProductsInRecipes';
-import {Validator} from '../../models/Validator';
+import {Recipe} from '../../../models/Recipe';
+import {TransferredIngredient} from '../../../models/TransferredIngredient';
+import {ProductsInRecipes} from '../../../models/ProductsInRecipes';
+import {Validator} from '../../../models/Validator';
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
@@ -37,15 +37,6 @@ export class RecipeEditComponent implements OnInit {
 
   validateRecipe(recipe: Recipe): boolean {
     const validator = new Validator();
-    const isNameValid = validator.isRecipeNameValid(recipe.name);
-    const isTypeValid = validator.isRecipeTypeValid(recipe.type);
-    const isIngredientListValid = validator.isIngredientListValid(recipe.ingredients);
-    const isDescriptionValid = validator.isDescriptionValid(recipe.description);
-
-    return (isNameValid && isTypeValid && isDescriptionValid && isIngredientListValid);
-  }
-
-  returnRecipe(recipe: Recipe): Recipe {
-    return recipe;
+    return validator.isRecipeValid(recipe);
   }
 }

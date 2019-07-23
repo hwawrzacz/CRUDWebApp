@@ -3,12 +3,12 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {RecipesService} from '../../services/recipes.service';
+import {RecipesService} from '../../../services/recipes.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
-import {AdvancedSearchComponent} from '../advanced-search/advanced-search.component';
-import {TransferredIngredient} from '../../models/TransferredIngredient';
+import {AdvancedSearchComponent} from '../../advanced-search/advanced-search.component';
+import {TransferredIngredient} from '../../../models/TransferredIngredient';
 
 @Component({
   selector: 'app-recipes-list',
