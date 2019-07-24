@@ -57,10 +57,13 @@ CHANGELOG
 	-- commit --
 	
 	
+	
 DOING	
 	=== 24.07.19 ===
-	User addition/edition/deletion
-	Fixing isActive isAdmin on editing user
+	Products addition/edition/deletion
+	
+	
+	
 
 TODO
 	Adding product

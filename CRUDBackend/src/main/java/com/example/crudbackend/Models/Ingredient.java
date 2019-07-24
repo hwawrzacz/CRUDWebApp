@@ -1,27 +1,23 @@
 package com.example.crudbackend.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@IdClass(ProductList.class)
+@IdClass(Ingredient.class)
 @Table(name = "productlists")
-public class ProductList implements Serializable {
+public class Ingredient implements Serializable {
 
     //region Fields
     //get mapped field as foreign key from 'products' table
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "productname")
     private Product product;
 
     //get mapped field as foreign key from 'recipes' table
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "recipeid")
     private Recipe recipe;
 
@@ -34,47 +30,26 @@ public class ProductList implements Serializable {
 
 
     //region Getters and setters
-    //productName
+    //productname
     public String getProductname() { return product.getProductname(); }
 
-    //product
-    public Product getProduct() {
-        return product;
-    }
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    //recipe
-    public Recipe getRecipe() {
-        return recipe;
-    }
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
+    //recipeid
+    public int getRecipeid() { return recipe.getRecipeid(); }
 
     //amount
-    public double getAmount() {
-        return amount;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
 
     //unit
-    public String getUnit() {
-        return unit;
-    }
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+    public String getUnit() { return unit; }
+    public void setUnit(String unit) { this.unit = unit; }
     //endregion
 
 
     //region Constructors
-    public ProductList(){}
+    public Ingredient(){}
 
-    public ProductList(Product product, Recipe recipe, double amount, String unit){
+    public Ingredient(Product product, Recipe recipe, double amount, String unit){
         this.product = product;
         this.recipe = recipe;
         this.amount = amount;

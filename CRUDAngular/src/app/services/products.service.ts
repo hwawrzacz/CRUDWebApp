@@ -17,25 +17,27 @@ const httpOptions = {
 
 export class ProductsService {
 
-  baseUrl = 'http://localhost:8080/recipes/';
+  baseUrl = 'http://localhost:8080/products/';
 
   constructor(private http: HttpClient) { }
 
   getProducts(name: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + 'getallproductsbyname?name=' + name);
+    return this.http.get<Product[]>(this.baseUrl + 'getallbyname?name=' + name);
   }
 
   getProductsToTransfer(name: string): Observable<TransferredIngredient[]> {
-    return this.http.get<TransferredIngredient[]>(this.baseUrl + 'getallproductsbyname?name=' + name);
+    return this.http.get<TransferredIngredient[]>(this.baseUrl + 'getallbyname?name=' + name);
   }
 
-  saveProduct(product: Product): Observable<Product> {
-    console.log(product.toString());
+  createProduct(product: Product): Observable<any> {
+    return (this.http.post(this.baseUrl + 'create', product, {responseType: 'text'}));
+  }
 
-    return this.http.post<Product>(this.baseUrl, product, httpOptions);
+  updateProduct(name: string, product: Product): Observable<any> {
+    return (this.http.put(this.baseUrl + 'update?name=' + name, product, {responseType: 'text'}));
+  }
 
-    const jsonProduct = JSON.stringify(product);
-    console.log(jsonProduct);
-    return (this.http.put<Product>(this.baseUrl + 'addnewproduct/', jsonProduct, httpOptions  ));
+  deleteProduct(name: string): Observable<any> {
+    return (this.http.delete(this.baseUrl + 'delete?name=' + name, {responseType: 'text'}));
   }
 }

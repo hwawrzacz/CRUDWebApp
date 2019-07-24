@@ -52,7 +52,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-mini-fab class="button-delete bg-white">
+        <button mat-mini-fab class="button-delete bg-white" (click)="showProductDeleteConfirmationDialog(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

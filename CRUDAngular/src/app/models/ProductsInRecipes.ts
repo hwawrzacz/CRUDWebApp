@@ -4,9 +4,9 @@ import {Product} from './Product';
 
 export class ProductsInRecipes {
 
-    //product: Product;
+    product: Product;
     productname: string;
-    //recipe: Recipe;
+    recipe: Recipe;
     recipeid: string;
     amount: number;
     unit: string;

@@ -36,6 +36,6 @@ export class UsersService {
 
   deleteUser(user: User): Observable<any> {
     console.log('Deleting user: ' + user.login);
-    return this.http.delete(this.baseUrl + 'delete/' + user.login, { responseType: 'text' });
+    return this.http.delete(this.baseUrl + 'delete?login=' + user.login, { responseType: 'text' });
   }
 }

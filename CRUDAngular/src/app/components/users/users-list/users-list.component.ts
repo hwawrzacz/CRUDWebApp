@@ -42,7 +42,7 @@ export class UsersListComponent implements OnInit {
       });
   }
 
-  // region Dialogs
+  // region Functions | Dialogs openers
   showUserEditDialog(user: User): void {
     const editDialogRef = this.dialog.open(UserEditComponent, {
       width: 'auto',
@@ -83,7 +83,6 @@ export class UsersListComponent implements OnInit {
       }
     });
   }
-
   // endregion
 
 
@@ -107,10 +106,4 @@ export class UsersListComponent implements OnInit {
   }
 
   // endregion
-
-  // customQuery() {
-  //   this.data.customQuery().subscribe((result) => {
-  //     console.log(result);
-  //   });
-  // }
 }

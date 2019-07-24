@@ -1,18 +1,15 @@
 import {ProductsInRecipes} from './ProductsInRecipes';
 
 export class Product {
-
-  // name: string;
   productname: string;
   protein: number;
   carbs: number;
   fat: number;
   kcal: number;
+  // recipes: ProductsInRecipes[];
 
-  recipes: ProductsInRecipes[];
-
-  constructor(productname?: string, protein?: number, carbs?: number, fat?: number, kcal?: number) {
-    this.productname = name;
+  constructor(productname?: string, protein?: number, carbs?: number, fat?: number, kcal?: number, recipes?: ProductsInRecipes[]) {
+    this.productname = productname;
     this.protein = protein;
     this.carbs = carbs;
     this.fat = fat;

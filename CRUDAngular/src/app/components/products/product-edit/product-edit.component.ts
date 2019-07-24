@@ -20,8 +20,8 @@ export class ProductEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  validateProduct(product: Product): boolean {
+  validateProduct(): boolean {
     const validator = new Validator();
-    return validator.isProductValid(product);
+    return validator.isProductValid(this.product);
   }
 }

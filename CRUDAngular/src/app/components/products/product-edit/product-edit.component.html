@@ -27,7 +27,7 @@
 
   <div class="button-wrapper-center">
     <button submit mat-flat-button color="primary" [mat-dialog-close]="product"
-            [disabled]="!validateProduct(product)">Zapisz
+            [disabled]="!validateProduct()">Zapisz
     </button>
     <button reset mat-flat-button color="warn" (click)="onNoClick()">Anuluj</button>
   </div>  

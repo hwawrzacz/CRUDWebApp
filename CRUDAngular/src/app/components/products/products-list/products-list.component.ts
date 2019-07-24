@@ -6,6 +6,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ProductsService} from '../../../services/products.service';
 import {MatDialog} from '@angular/material';
 import {ProductEditComponent} from '../product-edit/product-edit.component';
+import {User} from "../../../models/User";
+import {ConfirmationDialogComponent} from "../../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-products-list',
@@ -48,6 +50,7 @@ export class ProductsListComponent implements OnInit {
   }
 
 
+  // region Functions | Dialogs openers
   showProductEditDialog(product: Product): void {
     const editDialogRef = this.dialog.open(ProductEditComponent, {
       width: '80%',
@@ -63,15 +66,51 @@ export class ProductsListComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result: Product) => {
       if (result != null) {
         const newProduct = new Product(result.productname, result.protein, result.carbs, result.fat, result.kcal);
-        console.log("hereitis");
-        this.updateProduct(newProduct);
+        console.log(newProduct.toString());
+        if (product.productname === '') {
+          this.createProduct(newProduct);
+        } else {
+          this.updateProduct(product.productname, newProduct);
+        }
       }
     });
   }
 
-  updateProduct(product: Product) {
-    this.data.saveProduct(product).subscribe(response => {
+  showProductDeleteConfirmationDialog(product: Product): void {
+    const editDialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Usuń',
+        message: 'Czy na pewno chcesz usunąć produkt?'
+      }
+    });
+
+    editDialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteProduct(product.productname);
+      }
+    });
+  }
+  // endregion
+
+
+  // region Functions | Data manipulators
+  createProduct(product: Product) {
+    this.data.createProduct(product).subscribe(response => {
       console.log(response);
     });
   }
+
+  updateProduct(name: string, product: Product) {
+    this.data.updateProduct(name, product).subscribe(response => {
+      console.log(response);
+    });
+  }
+
+  deleteProduct(name: string) {
+    this.data.deleteProduct(name).subscribe(response => {
+      console.log(response);
+    });
+  }
+  // endregion
 }

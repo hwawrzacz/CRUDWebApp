@@ -88,9 +88,9 @@ public class UserController {
     //create user
     @PostMapping("/create")
     @Transactional
-    public String addUser(@RequestBody User user){
+    public String createUser(@RequestBody User user){
         if (doesUserExist(user.getLogin())){
-            return createUser(user);
+            return addUser(user);
         } else {
             return "User already exists";
         }
@@ -105,9 +105,9 @@ public class UserController {
     }
 
     //delete user
-    @DeleteMapping(value = "/delete/{login}")
+    @DeleteMapping(value = "/delete")
     @Transactional
-    public String deleteUser(@PathVariable("login") String login){
+    public String deleteUser(@RequestParam("login") String login){
         //return this.executeDeleteUserQuery(login);
         userRepository.deleteByLogin(login);
         return "deleted";
@@ -130,7 +130,7 @@ public class UserController {
         return (userRepository.findByLogin(login) == null);
     }
 
-    private String createUser(User user){
+    private String addUser(User user){
         try{
             userRepository.save(user);
             return "Record added successfully";
