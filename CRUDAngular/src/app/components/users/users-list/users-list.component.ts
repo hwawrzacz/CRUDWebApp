@@ -17,11 +17,10 @@ export class UsersListComponent implements OnInit {
   private emptyUser = new User('', '', '', '', false, false);
   private displayedColumns: string[] = ['login', 'firstname', 'lastname', 'isactive', 'isadmin', 'edit', 'delete'];
   private dataSource: MatTableDataSource<User>;
-  private userDeleteConfirmation;
   private isLoading = true;
 
 
-  constructor(private data: UsersService, public dialog: MatDialog) {
+  constructor(private service: UsersService, public dialog: MatDialog) {
   }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -33,7 +32,7 @@ export class UsersListComponent implements OnInit {
 
   refreshDataSource(filter: string) {
     this.isLoading = true;
-    this.data.getAllUsers().subscribe(
+    this.service.getAllUsers().subscribe(
       (data) => {
         this.users = data;
         this.dataSource = new MatTableDataSource<User>(this.users);
@@ -43,6 +42,7 @@ export class UsersListComponent implements OnInit {
       });
   }
 
+  // region Dialogs
   showUserEditDialog(user: User): void {
     const editDialogRef = this.dialog.open(UserEditComponent, {
       width: 'auto',
@@ -58,40 +58,59 @@ export class UsersListComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result: User) => {
       if (result != null) {
         const newUser = new User(result.login, result.firstName, result.lastName, '', result.isActive, result.isAdmin);
-        this.updateUser(newUser);
+        if (user.login === '') { // if new user is being created (empty user were passed to edit component)
+          this.createUser(newUser);
+        } else {
+          this.updateUser(user.login, newUser);
+        }
       }
     });
   }
 
-  deleteUser(user: User) {
-    this.userDeleteConfirmation = false;
-    this.showConfirmationDialog(user, 'Usuń', 'Czy na pewno chcesz usunąć użytkownika?');
-  }
-
-  showConfirmationDialog(user: User, dialogTitle: string, dialogMessage: string): void {
+  showUserDeleteConfirmationDialog(user: User): void {
     const editDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
       data: {
-        title: dialogTitle,
-        message: dialogMessage
+        title: 'Usuń',
+        message: 'Czy na pewno chcesz usunąć użytkownika?'
       }
     });
 
     editDialogRef.afterClosed().subscribe((result) => {
-      this.customQuery();
-      console.log('User ' + user.login + ' delete');
+      if (result) {
+        this.deleteUser(user);
+        console.log('User ' + user.login + ' delete');
+      }
     });
   }
 
-  updateUser(user: User) {
-    this.data.saveUser(user).subscribe((result) => {
-      console.log(result);
+  // endregion
+
+
+  // region Service communication
+  createUser(user: User) {
+    this.service.createUser(user).subscribe((response) => {
+      console.log(response);
     });
   }
 
-  customQuery() {
-    this.data.customQuery().subscribe((result) => {
-      console.log(result);
+  updateUser(login: string, user: User) {
+    this.service.updateUser(login, user).subscribe((response) => {
+      console.log(response);
     });
   }
+
+  deleteUser(user: User) {
+    this.service.deleteUser(user).subscribe( (response) => {
+      console.log(response);
+    });
+  }
+
+  // endregion
+
+  // customQuery() {
+  //   this.data.customQuery().subscribe((result) => {
+  //     console.log(result);
+  //   });
+  // }
 }

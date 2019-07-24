@@ -21,6 +21,16 @@ export class UserEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  changeIsActiveValue($event) {
+    console.log($event.checked);
+    this.user.isActive = $event.checked;
+  }
+
+  changeIsAdminValue($event) {
+    console.log($event.checked);
+    this.user.isAdmin = $event.checked;
+  }
+
   validateUser(user: User): boolean {
     const validator = new Validator();
     return validator.isUserValid(user);

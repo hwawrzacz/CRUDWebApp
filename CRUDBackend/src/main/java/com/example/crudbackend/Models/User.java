@@ -66,7 +66,7 @@ public class User{
 
     //isAdmin
     public boolean getIsAdmin() { return isAdmin; }
-    public void setIsAdmin(boolean isAdmin) { this.isActive = isAdmin; }
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
     //endregion
 
     //region Constructors

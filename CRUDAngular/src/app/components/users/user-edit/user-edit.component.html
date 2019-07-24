@@ -19,8 +19,12 @@
     </div>
 
     <div class="full-width flex flex-around margin-bottom-20">
-      <mat-checkbox class="margin-right-10" [checked]="user.isActive" color="primary" id="isActiveCheck">Aktywny</mat-checkbox>
-      <mat-checkbox class="margin-left-10" [checked]="user.isAdmin"  color="primary"  id="isAdminCheck">Administrator</mat-checkbox>
+      <mat-checkbox id="isActiveCheck" class="margin-right-10" color="primary" [checked]="user.isActive"
+                    [(ngModel)]="user.isActive" [ngModelOptions]="{standalone: true}"
+                    (change)="changeIsActiveValue($event)">Aktywny</mat-checkbox>
+      <mat-checkbox id="isAdminCheck" class="margin-left-10" color="primary" [checked]="user.isAdmin"
+                    [(ngModel)]="user.isAdmin" [ngModelOptions]="{standalone: true}"
+                    (change)="changeIsAdminValue($event)">Administrator</mat-checkbox>
     </div>
 
   <div class="button-wrapper-center">

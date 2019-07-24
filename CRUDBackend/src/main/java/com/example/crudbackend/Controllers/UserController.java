@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import javax.transaction.UserTransaction;
 
 @CrossOrigin
 @RestController
@@ -29,6 +31,8 @@ public class UserController {
                 .setParameter(1,login)
                 .getSingleResult();
     }
+
+    @GetMapping("/updateuser")
 
     //region Show users
     @RequestMapping("/showuserbylastname")
@@ -81,22 +85,32 @@ public class UserController {
 
 
     //region User
-    //create new user
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    //create user
+    @PostMapping("/create")
+    @Transactional
     public String addUser(@RequestBody User user){
-        try{
-            userRepository.save(user);
-            return "Record added successfully";
-        } catch (Exception exc) { return "Error"; }
+        if (doesUserExist(user.getLogin())){
+            return createUser(user);
+        } else {
+            return "User already exists";
+        }
     }
 
     //update user
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public String saveUser(@RequestBody User user){
-        try{
-            userRepository.save(user);
-            return "User updated successfully";
-        } catch (Exception exc) { return "Error"; }
+    @PutMapping("/update")
+    @Transactional
+    public String updateUser(@RequestParam("login") String login, @RequestBody User user) {
+        System.out.println(user.getLogin() + ' ' + user.getFirstName() + ' ' + user.getLastName() + ' ' + user.getIsActive() + ' ' + user.getIsAdmin());
+        return this.executeUpdateUserQuery(login, user);
+    }
+
+    //delete user
+    @DeleteMapping(value = "/delete/{login}")
+    @Transactional
+    public String deleteUser(@PathVariable("login") String login){
+        //return this.executeDeleteUserQuery(login);
+        userRepository.deleteByLogin(login);
+        return "deleted";
     }
 
     @RequestMapping("/deactivate")
@@ -110,6 +124,57 @@ public class UserController {
         if (toggleIsActive(login, true)) return "User '"+ login +"' activated";
         else return "User update failed";
     }
+
+
+    private boolean doesUserExist(String login) {
+        return (userRepository.findByLogin(login) == null);
+    }
+
+    private String createUser(User user){
+        try{
+            userRepository.save(user);
+            return "Record added successfully";
+        } catch (Exception exc) {
+            return "Error";
+        }
+    }
+
+    private String executeUpdateUserQuery(String login, User updatedUser){
+        try {
+            entityManager.createQuery("UPDATE User user SET user.login=?1, user.firstName=?2, user.lastName=?3, user.isActive=?4, user.isAdmin=?5 WHERE user.login=?6")
+                    .setParameter(1, updatedUser.getLogin())
+                    .setParameter(2, updatedUser.getFirstName())
+                    .setParameter(3, updatedUser.getLastName())
+                    .setParameter(4, updatedUser.getIsActive())
+                    .setParameter(5, updatedUser.getIsAdmin())
+                    .setParameter(6, login)
+                    .executeUpdate();
+            return "User updated";
+        }
+        catch (Exception exc){
+            return "User counldn't be updated. Error: " + exc.getMessage();
+        }
+    }
+
+    public String executeDeleteUserQuery(String login){
+        try{
+            entityManager.createNativeQuery("DELETE FROM User user WHERE user.login=?1")
+                    .setParameter(1, login)
+                    .executeUpdate();
+            return "User deleted";
+        } catch (Exception exc){
+            return "User couldn't be deleted. Error message: " + exc.getMessage();
+        }
+    }
+    private String deleteUser(User user){
+        try{
+            userRepository.delete(user);
+            return "User deleted";
+        } catch (Exception exc){
+            return "User couldn't be deleted. Error message: " + exc.getMessage();
+        }
+    }
+
     //endregion
 
 

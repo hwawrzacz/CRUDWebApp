@@ -47,12 +47,20 @@ CHANGELOG
 	Fixed displaying addition date in recipes list
 	
 	
+	=== 23.07.19 ===
+	Small step toward solving saving to database
 	
-DOING
-	=== 22.07.19 ===
-	Responsive navbar
-	Adding product
+
+	=== 24.07.19 ===
+	User addition/edition/deletion
+	Fixed isActive/isAdmin checkboxes
+	-- commit --
 	
+	
+DOING	
+	=== 24.07.19 ===
+	User addition/edition/deletion
+	Fixing isActive isAdmin on editing user
 
 TODO
 	Adding product

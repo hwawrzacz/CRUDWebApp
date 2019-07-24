@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from '../models/User';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   })
 };
@@ -18,17 +18,24 @@ export class UsersService {
 
   baseUrl = 'http://localhost:8080/users/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + 'getallusers');
   }
 
-  saveUser(user: User): Observable<User> {
-    return this.http.put<User>(this.baseUrl + 'save', user);
+  createUser(user: User): Observable<any> {
+    return this.http.post(this.baseUrl + 'create', user, { responseType: 'text' });
   }
 
-  customQuery() {
-    return this.http.get<User>(this.baseUrl + 'customquery');
+  updateUser(login: string, user: User): Observable<any> {
+    console.log(user.login + ' ' + user.firstName + ' ' + user.lastName + ' ' + user.isActive + ' ' + user.isAdmin);
+    return this.http.put(this.baseUrl + 'update?login=' + login, user, { responseType: 'text' });
+  }
+
+  deleteUser(user: User): Observable<any> {
+    console.log('Deleting user: ' + user.login);
+    return this.http.delete(this.baseUrl + 'delete/' + user.login, { responseType: 'text' });
   }
 }
