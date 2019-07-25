@@ -56,21 +56,24 @@ CHANGELOG
 	Fixed isActive/isAdmin checkboxes
 	-- commit --
 	
+	Products addition/edition/deletion
+	-- commit --
 	
+	=== 25.07.19 ===
+	Fix recipe search bar container appearance
+	Add 'add new product' button to drag'n'drop list
+	Add ingredient delete confirmation dialog
+	-- commit --
 	
 DOING	
-	=== 24.07.19 ===
-	Products addition/edition/deletion
+	=== 25.07.19 ===
 	
 	
 	
 
 TODO
-	Adding product
-	Adding recipe
 	Confirmation on delete ingredient from product
 	Fix advanced search button size and search bar position
 	Save recipe to database
 	Refresh recipes list after update/create.
 	Creating recipe.
-	Creating product.

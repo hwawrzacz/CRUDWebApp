@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TransferredIngredient} from '../../models/TransferredIngredient';
 import {Recipe} from "../../models/Recipe";
-import {ProductsInRecipes} from "../../models/ProductsInRecipes";
+import {Ingredient} from "../../models/Ingredient";
 
 @Component({
   selector: 'app-advanced-search',

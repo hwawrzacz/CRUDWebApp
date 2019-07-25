@@ -1,9 +1,9 @@
 import {Product} from "./Product";
-import {ProductsInRecipes} from "./ProductsInRecipes";
+import {Ingredient} from "./Ingredient";
 
 export interface  RecipeDetails {
   name: string;
   type: string;
-  ingredients: ProductsInRecipes[];
+  ingredients: Ingredient[];
   description: string;
 }

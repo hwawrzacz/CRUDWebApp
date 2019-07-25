@@ -1,9 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Recipe} from '../../../models/Recipe';
-import {TransferredIngredient} from '../../../models/TransferredIngredient';
-import {ProductsInRecipes} from '../../../models/ProductsInRecipes';
-import {Validator} from '../../../models/Validator';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {Recipe} from 'src/app/models/Recipe';
+import {TransferredIngredient} from 'src/app/models/TransferredIngredient';
+import {Ingredient} from 'src/app/models/Ingredient';
+import {Validator} from 'src/app/models/Validator';
+import {User} from "../../../models/User";
+import {ConfirmationDialogComponent} from "../../confirmation-dialog/confirmation-dialog.component";
+
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
@@ -12,8 +15,9 @@ import {Validator} from '../../../models/Validator';
 export class RecipeEditComponent implements OnInit {
 
   constructor(
-  public dialogRef: MatDialogRef<RecipeEditComponent>,
-  @Inject(MAT_DIALOG_DATA) public recipe: Recipe) {}
+    public dialogRef: MatDialogRef<RecipeEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public recipe: Recipe) {
+  }
 
   recipesTypes = ['Śniadanie', 'Obiad', 'Kolacja', 'Przekąska'];
 
@@ -26,10 +30,10 @@ export class RecipeEditComponent implements OnInit {
   }
 
   updateIngredients(changedIngredients: TransferredIngredient[]) {
-    const convertedIngredients: ProductsInRecipes[] = [];
+    const convertedIngredients: Ingredient[] = [];
 
-    changedIngredients.forEach( (ingredient) => {
-      convertedIngredients.push(new ProductsInRecipes(ingredient));
+    changedIngredients.forEach((ingredient) => {
+      convertedIngredients.push(new Ingredient(ingredient));
     });
 
     this.recipe.ingredients = convertedIngredients;

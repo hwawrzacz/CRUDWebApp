@@ -1,4 +1,4 @@
-import {ProductsInRecipes} from './ProductsInRecipes';
+import {Ingredient} from './Ingredient';
 import {User} from './User';
 import {Recipe} from './Recipe';
 import {Product} from './Product';
@@ -43,7 +43,7 @@ export class Validator {
     return regexAmount.test(amount);
   }
 
-  isProductListValid(ingredients: ProductsInRecipes[]): boolean {
+  isProductListValid(ingredients: Ingredient[]): boolean {
     return (ingredients.length > 0);
   }
 
@@ -65,7 +65,7 @@ export class Validator {
     return (description.length > 0);
   }
 
-  isIngredientListValid(ingredients: ProductsInRecipes[]): boolean {
+  isIngredientListValid(ingredients: Ingredient[]): boolean {
     return (ingredients.length > 0);
   }
 

@@ -1,4 +1,4 @@
-import {ProductsInRecipes} from './ProductsInRecipes';
+import {Ingredient} from './Ingredient';
 
 export class TransferredIngredient {
   productname: string;
@@ -8,7 +8,7 @@ export class TransferredIngredient {
   carbs: number;
   fat: number;
   kcal: number;
-  recipes: ProductsInRecipes[];
+  recipes: Ingredient[];
 
   constructor(productname: string, amount: number, unit: string) {
     this.productname = productname;

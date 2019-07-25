@@ -1,14 +1,14 @@
-import { ProductsInRecipes } from './ProductsInRecipes';
+import { Ingredient } from './Ingredient';
 export class Recipe {
 
     recipeid: number;
     name: string;
     type: string;
     additiondate: string;
-    ingredients: ProductsInRecipes[];
+    ingredients: Ingredient[];
     description: string;
 
-    constructor(name: string = '', type: string = '', additiondate: string, ingredients: ProductsInRecipes[] = [], description: string = '') {
+    constructor(name: string = '', type: string = '', additiondate: string, ingredients: Ingredient[] = [], description: string = '') {
         this.name = name;
         this.type = type;
         this.additiondate = additiondate;

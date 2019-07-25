@@ -2,7 +2,7 @@ import { Recipe } from './Recipe';
 import { TransferredIngredient } from './TransferredIngredient';
 import {Product} from './Product';
 
-export class ProductsInRecipes {
+export class Ingredient {
 
     product: Product;
     productname: string;

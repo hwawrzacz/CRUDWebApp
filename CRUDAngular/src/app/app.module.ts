@@ -27,7 +27,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {RecipesListComponent} from './components/recipes/recipes-list/recipes-list.component';
 import {ProductsListComponent} from './components/products/products-list/products-list.component';
 import {RecipeDetailsComponent} from './components/recipes/recipe-details/recipe-details.component';
-import {ProductDragNDropComponent} from './components/products/product-drag-n-drop/product-drag-n-drop.component';
+import {IngredientDragNDropComponent} from './components/products/ingredient-drag-n-drop/ingredient-drag-n-drop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {IngredientAmountDialogComponent} from './components/products/ingredient-amount-dialog/ingredient-amount-dialog.component';
 import {RecipeEditComponent} from './components/recipes/recipe-edit/recipe-edit.component';
@@ -47,7 +47,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     RecipesListComponent,
     ProductsListComponent,
     RecipeDetailsComponent,
-    ProductDragNDropComponent,
+    IngredientDragNDropComponent,
     IngredientAmountDialogComponent,
     RecipeEditComponent,
     ProductEditComponent,
