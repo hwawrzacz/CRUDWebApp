@@ -1,5 +1,8 @@
 package com.example.crudbackend.Models;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,12 +15,14 @@ public class Ingredient implements Serializable {
     //get mapped field as foreign key from 'products' table
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference(value = "productname")
     @JoinColumn(name = "productname")
     private Product product;
 
     //get mapped field as foreign key from 'recipes' table
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference(value = "recipeid")
     @JoinColumn(name = "recipeid")
     private Recipe recipe;
 
@@ -28,38 +33,80 @@ public class Ingredient implements Serializable {
     private String unit;
     //endregion
 
-
     //region Getters and setters
     //productname
-    public String getProductname() { return product.getProductname(); }
+    @JsonAlias("productname")
+    public String getProductname() {
+        return product.getProductname();
+    }
+    @JsonAlias("productname")
+    public void setProductname(String productname) {
+        this.product.setProductname(productname);
+    }
+
+    //product
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     //recipeid
-    public int getRecipeid() { return recipe.getRecipeid(); }
+    @JsonAlias("recipeid")
+    public int getRecipeid() {
+        return recipe.getRecipeid();
+    }
+    @JsonAlias("recipeid")
+    public void setRecipeId(int recipeid) {
+        this.recipe.setRecipeid(recipeid);
+    }
+
+    //recipe
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 
     //amount
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
     //unit
-    public String getUnit() { return unit; }
-    public void setUnit(String unit) { this.unit = unit; }
-    //endregion
+    public String getUnit() {
+        return unit;
+    }
 
-
-    //region Constructors
-    public Ingredient(){}
-
-    public Ingredient(Product product, Recipe recipe, double amount, String unit){
-        this.product = product;
-        this.recipe = recipe;
-        this.amount = amount;
+    public void setUnit(String unit) {
         this.unit = unit;
     }
     //endregion
 
 
+    //region Constructors
+    public Ingredient() {
+    }
+
+//    public Ingredient(Product product, Recipe recipe, double amount, String unit){
+//        this.product = product;
+//        this.recipe = recipe;
+//        this.amount = amount;
+//        this.unit = unit;
+//    }
+    //endregion
+
+
     @Override
-    public String toString(){
-        return product.getProductname() +" "+ amount +" "+ unit;
+    public String toString() {
+        return product.getProductname() + " " + amount + " " + unit;
     }
 }

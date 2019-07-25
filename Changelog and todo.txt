@@ -65,15 +65,16 @@ CHANGELOG
 	Add ingredient delete confirmation dialog
 	-- commit --
 	
+	
+	
+	
+	
 DOING	
 	=== 25.07.19 ===
-	
+	Fixing ingredient drag'n'drop index crash
 	
 	
 
 TODO
-	Confirmation on delete ingredient from product
-	Fix advanced search button size and search bar position
-	Save recipe to database
+	Create recipe and save it to database
 	Refresh recipes list after update/create.
-	Creating recipe.

@@ -93,3 +93,8 @@ h2{
 .empty-space-as-searchbar{
   min-height: 67.5px;
 }
+
+::ng-deep .cdk-global-scrollblock {
+  top: 0 !important;
+}
+

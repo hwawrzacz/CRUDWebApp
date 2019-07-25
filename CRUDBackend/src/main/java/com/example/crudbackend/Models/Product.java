@@ -1,5 +1,7 @@
 package com.example.crudbackend.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Product {
 
     //map foreign key in 'productlist' table
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "productname")
     private List<Ingredient> recipes;
 
     @Column(name = "protein")

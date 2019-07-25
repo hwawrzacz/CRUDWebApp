@@ -34,7 +34,7 @@ import {RecipeEditComponent} from './components/recipes/recipe-edit/recipe-edit.
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ProductEditComponent } from './components/products/product-edit/product-edit.component';
-import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
+import { AdvancedSearchComponent } from './components/recipes/advanced-search/advanced-search.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';

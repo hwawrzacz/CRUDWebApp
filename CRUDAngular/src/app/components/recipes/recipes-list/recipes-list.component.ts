@@ -7,8 +7,9 @@ import {RecipesService} from '../../../services/recipes.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
-import {AdvancedSearchComponent} from '../../advanced-search/advanced-search.component';
+import {AdvancedSearchComponent} from '../advanced-search/advanced-search.component';
 import {TransferredIngredient} from '../../../models/TransferredIngredient';
+import {Ingredient} from '../../../models/Ingredient';
 
 @Component({
   selector: 'app-recipes-list',
@@ -34,7 +35,7 @@ export class RecipesListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    this.refreshDataSource('');
+    this.applyNameFilter('');
   }
 
   returnEmptyRecipe(): Recipe {
@@ -57,14 +58,19 @@ export class RecipesListComponent implements OnInit {
         recipeid: recipe.recipeid,
         name: recipe.name,
         type: recipe.type,
+        additiondate: recipe.additiondate,
         ingredients: recipe.ingredients,
         description: recipe.description
       }
     });
+    console.log("show:");
+    console.log(recipe);
 
     editDialogRef.afterClosed().subscribe((result: Recipe) => {
       if (result != null) {
-        this.updateRecipe(result);
+        console.log("after: ");
+        console.log(result);
+        this.addRecipe(result);
       }
     });
   }
@@ -80,29 +86,17 @@ export class RecipesListComponent implements OnInit {
 
     advancedDialogRef.afterClosed().subscribe((result: TransferredIngredient[]) => {
       if (result != null) {
-        const ingredients = this.getIngredientsNamesList(result);
-        this.searchByIngredients(ingredients);
+        const ingredientsNames = this.getIngredientsNamesList(result);
+        this.applyIngredientFilter(ingredientsNames);
       }
     });
   }
+
   // endregion
 
 
   // region Functions | Data manipulators
   applyNameFilter(filter: string) {
-    this.refreshDataSource(filter);
-  }
-
-  searchByIngredients(ingredientsNames: string[]) {
-    // getRecipesByIngredients();
-    console.log('Getting recipes by ingredients: ');
-    ingredientsNames.forEach((ingredientName: string) => {
-      console.log(ingredientName);
-    });
-  }
-
-
-  refreshDataSource(filter: string) {
     this.isLoading = true;
     this.data.getRecipes(filter).subscribe(
       (data) => {
@@ -115,17 +109,27 @@ export class RecipesListComponent implements OnInit {
   }
 
 
-  updateRecipe(recipe: Recipe) {
-    console.log('==== adding object ====');
-
-    let result = recipe.recipeid + ' ' + recipe.name + ' ' + recipe.type + '\n';
-    recipe.ingredients.forEach( (ingredient) => {
-      result += '    ' + ingredient.productname + '\n';
-    });
-    result += recipe.description;
-
-    console.log(result);
+  applyIngredientFilter(ingredientsNames: string[]) {
+    this.isLoading = true;
+    this.data.getRecipesByIngredients(ingredientsNames).subscribe(
+      (data) => {
+        this.recipes = data;
+        this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoading = false;
+      });
   }
+
+
+  addRecipe(recipe: Recipe): void {
+    console.log("add recipe: ");
+    console.log(recipe);
+    this.data.addRecipe(recipe).subscribe((response) => {
+      console.log(response);
+    });
+  }
+
   // endregion
 
 
@@ -133,11 +137,20 @@ export class RecipesListComponent implements OnInit {
   getIngredientsNamesList(ingredients: TransferredIngredient[]): string[] {
     const names: string[] = [];
 
-    ingredients.forEach( (ingredient) => {
+    ingredients.forEach((ingredient) => {
       names.push(ingredient.productname);
     });
 
     return names;
   }
+
+  convertTransferredListToingredientsList(transferred: TransferredIngredient[]): Ingredient[] {
+    const ingredients: Ingredient[] = [];
+    transferred.forEach((element) => {
+      ingredients.push(new Ingredient((element)));
+    });
+    return ingredients;
+  }
+
   // endregion
 }

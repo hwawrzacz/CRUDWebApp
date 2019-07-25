@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 @CrossOrigin
 @RestController
@@ -19,28 +21,65 @@ public class RecipeController {
     @Autowired
     private EntityManager entityManager;
 
+
+
     //region Recipes
+    @GetMapping("/getjsonobject")
+    public Recipe getRecipeString(){
+        return getRecipeById(1);
+    }
+
     @GetMapping("/getallrecipesbyname")
     public Iterable<Recipe> getRecipeContainingName(@RequestParam("name") String name){
         return recipeRepository.findAllByNameContaining(name);
     }
 
-    @PutMapping("/addrecipe")
-    public String addRecipe(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("type") String type){
-        if (saveRecipe(new Recipe(name, description, type)))
+    @PostMapping("/create")
+    public String addRecipe(@RequestBody Recipe recipe){
+        if (!recipeExist(recipe)){
+            addRecipe(recipe);
             return "Recipe updated";
+        }
         else
             return "Recipe update failed";
     }
 
-//    private getRecipeByIngredients(Iterable<Ingredient>){
-//        try{
-//            String query = "SELECT recipe.recipeid FROM Recipe recipe, Ingredients ingredient WHERE recipe.ingredients";
-//            entityManager.createQuery(""){
-//
-//            }
-//        }
-//    }
+    @PostMapping("/getbyingredients")
+    public ArrayList<Recipe> getRecipeByIngredients(@RequestBody ArrayList<String> ingredientsNames){
+        ArrayList<Recipe> matchingRecipes = new ArrayList<>();
+        try{
+            String queryGetAllRecipes = "SELECT rcp FROM Recipe rcp JOIN rcp.ingredients GROUP BY rcp";
+            Iterable<Recipe> recipes = entityManager.createQuery(queryGetAllRecipes).getResultList();
+
+            for (Recipe recipe: recipes){
+                if (this.doesRecipeContainsIngredients(recipe, ingredientsNames)){
+                    matchingRecipes.add(recipe);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matchingRecipes;
+    }
+
+
+    private boolean doesRecipeContainsIngredients(Recipe recipe, ArrayList<String> ingredientsNames) {
+        int matchingIngredients = 0;
+
+        for (Ingredient recipeIngredient: recipe.getIngredients()) {
+            for (String givenIngredientName: ingredientsNames){
+                if (recipeIngredient.getProductname().equals(givenIngredientName)){
+                    matchingIngredients++;
+                }
+                System.out.println(" " + matchingIngredients);
+            }
+        }
+        if (matchingIngredients == ingredientsNames.size()){
+            return true;
+        }
+        return false;
+    }
+
 
     private boolean saveRecipe(Recipe recipe){
         try{
@@ -52,8 +91,12 @@ public class RecipeController {
         }
     }
 
-    private Recipe doesRecipeExist(int id) {
+    private Recipe getRecipeById(int id){
         return recipeRepository.findById(id);
+    }
+
+    private boolean recipeExist(Recipe recipe) {
+        return (getRecipeById(recipe.getRecipeid()) != null);
     }
     //endregion
 }

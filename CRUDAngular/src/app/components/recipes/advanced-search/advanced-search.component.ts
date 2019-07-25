@@ -1,8 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {TransferredIngredient} from '../../models/TransferredIngredient';
-import {Recipe} from "../../models/Recipe";
-import {Ingredient} from "../../models/Ingredient";
+import {TransferredIngredient} from '../../../models/TransferredIngredient';
+import {Recipe} from '../../../models/Recipe';
 
 @Component({
   selector: 'app-advanced-search',
@@ -18,11 +17,7 @@ export class AdvancedSearchComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public recipe: Recipe) {
   }
 
-  ngOnInit() {
-    // this.ingredients.forEach( (ingredient) => {
-    //   console.log(ingredient.productname);
-    // });
-  }
+  ngOnInit() { }
 
   onNoClick() {
     this.dialogRef.close();
@@ -31,9 +26,5 @@ export class AdvancedSearchComponent implements OnInit {
   validateIngredientList(ingredients: TransferredIngredient[]) {
     if (ingredients.length > 0) { return true; }
     return false;
-  }
-
-  searchByIngredients(ingredients: TransferredIngredient[]) {
-    console.log('Search started');
   }
 }

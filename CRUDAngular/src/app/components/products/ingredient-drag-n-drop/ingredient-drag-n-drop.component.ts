@@ -52,7 +52,7 @@ export class IngredientDragNDropComponent implements OnInit {
   drop(event: CdkDragDrop<TransferredIngredient[]>) {
     if (event.previousContainer !== event.container) { // if element is dropped on another container
       const newProduct = event.previousContainer.data[event.previousIndex];
-
+      console.log('currentIndex: ' + event.currentIndex + ' previusIndex: ' + event.previousIndex);
       if (!this.isProductAdded(newProduct)) {
         if (this.getDetails) {
           this.showIngredientAmountDialog(newProduct, event.currentIndex);

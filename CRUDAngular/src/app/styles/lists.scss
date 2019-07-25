@@ -1,38 +1,39 @@
 @import 'src/app/styles/colors-fonts-themes.scss';
+@import 'src/app/styles/common.scss';
 
-.list-wrapper{
+.list-wrapper {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 50px;
+
+  h1 {
+    text-align: left;
+  }
+
+  table {
     width: 100%;
-    padding: 20px;
-    margin-bottom: 50px;
+    margin: 0 auto;
 
-    h1{
-       text-align: left; 
+    mat-cell, mat-header-cell {
+      justify-content: center;
     }
+  }
 
-    table{
-        width: 100%;
-        margin: 0 auto;
+  .button-delete {
+    color: $redAction;
+    box-shadow: none;
+  }
 
-        mat-cell, mat-header-cell{
-            justify-content: center;
-        }
+  .button-edit {
+    box-shadow: none;
+  }
 
-        .button-delete{
-            color: $redAction;
-            box-shadow: none;
-        }
-
-        .button-edit{
-            box-shadow: none;
-        }
-
-        .bg-white{
-            background-color: white;
-        }
-    }
-
-    mat-paginator{
-      margin-bottom: 20px;
-    }
-
+  .bg-white {
+    background-color: white;
+  }
 }
+
+mat-paginator {
+  margin-bottom: 20px;
+}
+

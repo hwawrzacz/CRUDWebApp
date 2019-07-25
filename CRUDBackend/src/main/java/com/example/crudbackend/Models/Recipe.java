@@ -1,5 +1,7 @@
 package com.example.crudbackend.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,21 +15,23 @@ public class Recipe {
     @Column(name = "recipeid")
     private int recipeid;
 
-    //map foreign key in 'productlist' table
-    @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
-    private List<Ingredient> ingredients;
-
     @Column(name = "name")
     private String name;
-
-    @Column(name = "description")
-    private String description;
 
     @Column(name = "type")
     private String type;
 
     @Column(name = "additiondate")
-    private String additionDate;
+    private String additiondate;
+
+    @Column(name = "description")
+    private String description;
+
+    //map foreign key in 'productlist' table
+    @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "recipeid")
+    private List<Ingredient> ingredients;
+
     //endregion
 
 
@@ -48,14 +52,6 @@ public class Recipe {
         this.name = name;
     }
 
-    //description
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     //type
     public String getType() {
         return type;
@@ -64,12 +60,18 @@ public class Recipe {
         this.type = type;
     }
 
+    public String getAdditiondate() {
+        return additiondate;
+    }
+    public void setAdditiondate(String additionDate) { this.additiondate = additionDate; }
+
     //recipes
     public List<Ingredient> getIngredients() { return ingredients; }
+    public void setIngredients(List<Ingredient> ingredients) { this.ingredients = ingredients; }
 
-    public String getAdditiondate() {
-        return additionDate;
-    }
+    //description
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
     //endregion
 
 
