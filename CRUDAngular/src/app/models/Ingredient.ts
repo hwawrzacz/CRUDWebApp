@@ -3,18 +3,15 @@ import { TransferredIngredient } from './TransferredIngredient';
 import {Product} from './Product';
 
 export class Ingredient {
-
-    product: Product;
-    productname: string;
-    recipe: Recipe;
-    recipeid: string;
+    product: Product = new Product();
+    recipe: Recipe = new Recipe();
     amount: number;
     unit: string;
 
-    constructor(ingredient: TransferredIngredient) {
-      this.productname = ingredient.productname;
-      this.amount = ingredient.amount;
-      this.unit = ingredient.unit;
+    constructor(productname: string) {
+      this.product.productname = productname;
+      this.amount = 0;
+      this.unit = 'g';
     }
 
     // constructor(productname: string, amount: number, unit: string) {

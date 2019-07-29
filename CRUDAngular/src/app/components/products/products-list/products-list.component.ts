@@ -66,7 +66,6 @@ export class ProductsListComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result: Product) => {
       if (result != null) {
         const newProduct = new Product(result.productname, result.protein, result.carbs, result.fat, result.kcal);
-        console.log(newProduct.toString());
         if (product.productname === '') {
           this.createProduct(newProduct);
         } else {

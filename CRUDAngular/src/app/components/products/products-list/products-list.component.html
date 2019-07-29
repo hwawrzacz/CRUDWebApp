@@ -3,10 +3,16 @@
   <h1 class="mat-h1">Produkty</h1>
 
   <!-- Search bar -->
-  <mat-form-field class="full-width margin-bottom-20" appearance="outline">
-    <mat-icon matPrefix>search</mat-icon>
-    <input matInput placeholder="Szukaj produktu po nazwie" (keyup)="applyNameFilter($event.target.value)">
-  </mat-form-field>
+  <div class="full-width flex flex-between margin-bottom-20">
+    <mat-form-field class="full-width margin-bottom-20" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Szukaj produktu po nazwie" (keyup)="applyNameFilter($event.target.value)">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-center margin-left-10" (click)="applyNameFilter('')">
+      Pokaż wszystkie
+    </button>
+  </div>
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- name column -->

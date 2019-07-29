@@ -4,7 +4,7 @@
   <div class="recipe-details-list-image-wrapper flex-around flex-row">
     <mat-list role="list">
       <h2 class="mat-h2 full-width" color="primary">Składniki</h2>
-      <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients"><strong>{{ingredient.productname}}&nbsp;</strong>  {{ingredient.amount}} {{ingredient.unit}}</mat-list-item>
+      <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients"><strong>{{ingredient.product.productname}}&nbsp;</strong>  {{ingredient.amount}} {{ingredient.unit}}</mat-list-item>
     </mat-list>
     <img mat-card-image src="assets/images/{{recipe.type}}.jpg"/>
   </div>

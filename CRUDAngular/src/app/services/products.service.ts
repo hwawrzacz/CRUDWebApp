@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Product} from '../models/Product';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {TransferredIngredient} from '../models/TransferredIngredient';
+import {Ingredient} from "../models/Ingredient";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,10 +23,6 @@ export class ProductsService {
 
   getProducts(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + 'getallbyname?name=' + name);
-  }
-
-  getProductsToTransfer(name: string): Observable<TransferredIngredient[]> {
-    return this.http.get<TransferredIngredient[]>(this.baseUrl + 'getallbyname?name=' + name);
   }
 
   createProduct(product: Product): Observable<any> {

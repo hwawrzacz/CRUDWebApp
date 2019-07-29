@@ -1,11 +1,2 @@
 @import 'src/app/styles/lists.scss';
 @import 'src/app/styles/common.scss';
-
-::ng-deep .mat-form-field-wrapper {
-  width: 100%;
-  margin: 0 auto;
-}
-
-::ng-deep .mat-form-field-wrapper{
-  padding-bottom: 0;
-}

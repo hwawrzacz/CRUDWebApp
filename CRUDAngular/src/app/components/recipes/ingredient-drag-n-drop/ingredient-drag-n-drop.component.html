@@ -13,16 +13,16 @@
          (cdkDropListDropped)="drop($event)">
 
       <div class="drag-n-drop-element mat-body-1 selected-ingredient"
-           *ngFor="let selectedProduct of selectedIngredients" cdkDrag>
+           *ngFor="let ingredient of selectedIngredients" cdkDrag>
         <div class="product-details">
-          {{selectedProduct.productname}} {{selectedProduct.amount}} {{selectedProduct.unit}}
+          {{ingredient.product.productname}} {{ingredient.amount}} {{ingredient.unit}}
         </div>
 
-        <button *ngIf="getDetails" mat-icon-button (click)="editSelectedProduct(selectedProduct)">
+        <button mat-icon-button (click)="editSelectedProduct(ingredient)">
           <mat-icon matSuffix>edit</mat-icon>
         </button>
 
-        <button mat-icon-button (click)="showIngredientDeleteConfirmationDialog(selectedProduct)">
+        <button mat-icon-button (click)="showIngredientDeleteConfirmationDialog(ingredient)">
           <mat-icon matSuffix>close</mat-icon>
         </button>
       </div>
@@ -45,8 +45,8 @@
          cdkDropListSortingDisabled
          [cdkDropListEnterPredicate]="preventDrop"
          (cdkDropListDropped)="drop($event)">
-      <div class="drag-n-drop-element mat-body-1" *ngFor="let product of allProducts"
-           cdkDrag>{{product.productname}}</div>
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let ingredient of allProducts"
+           cdkDrag>{{ingredient.product.productname}}</div>
 
       <div *ngIf="isLoading" class="full-width flex flex-center">
         <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
@@ -54,7 +54,7 @@
     </div>
 
     <div class="button-wrapper-center">
-      <button mat-raised-button color="primary" (click)="showProductEditDialog(emptyProduct)">Dodaj nowy produkt
+      <button mat-raised-button color="primary" (click)="showProductCreateDialog(emptyProduct)">Dodaj nowy produkt
         <mat-icon>add</mat-icon>
       </button>
     </div>

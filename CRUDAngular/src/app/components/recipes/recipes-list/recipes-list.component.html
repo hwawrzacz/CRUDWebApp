@@ -8,7 +8,11 @@
       <input matInput placeholder="Szukaj przepisu po nazwie" class="full-width" (keyup)="applyNameFilter($event.target.value)">
     </mat-form-field>
 
-      <button mat-raised-button color="primary" class="flex flex-grow-2 flex-center margin-left-10" (click)="showAdvancedSearchDialog(returnEmptyRecipe())">
+    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-center margin-left-10 margin-right-10" (click)="applyNameFilter('')">
+      Pokaż wszystkie
+    </button>
+
+    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-center margin-left-10" (click)="showAdvancedSearchDialog(returnEmptyRecipe())">
       Wyszukiwanie zaawansowane
     </button>
   </div>
@@ -37,7 +41,7 @@
     <!-- addition data column -->
     <ng-container matColumnDef="additiondate">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Data dodania</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.additiondate}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{ this.datepipe.transform(element.additiondate, 'yyyy-MM-dd') }} </mat-cell>
     </ng-container>
 
     <!-- details column -->

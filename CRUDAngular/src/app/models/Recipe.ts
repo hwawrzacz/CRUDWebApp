@@ -1,31 +1,19 @@
-import { Ingredient } from './Ingredient';
+import {Ingredient} from './Ingredient';
+
 export class Recipe {
+  recipeid: number;
+  name: string;
+  type: string;
+  additiondate: Date;
+  description: string;
+  ingredients: Ingredient[];
 
-    recipeid: number;
-    name: string;
-    type: string;
-    additiondate: string;
-    ingredients: Ingredient[];
-    description: string;
-
-    constructor(name: string = '', type: string = '', additiondate: string = '', ingredients: Ingredient[] = [], description: string = '') {
-        this.recipeid=0;
-        this.name = name;
-        this.type = type;
-        this.additiondate = additiondate;
-        this.ingredients = ingredients;
-        this.description = description;
-    }
-
-    public toString(): string {
-      let result = this.name + ' ' + this.type + '\n';
-
-      this.ingredients.forEach( (ingredient) => {
-        result += '    ' + ingredient.productname + '\n';
-      });
-
-      result += this.description;
-
-      return result;
-    }
+  constructor(name: string = '', type: string = '', additiondate: Date = new Date(), description: string = '', ingredients: Ingredient[] = []) {
+    this.recipeid = 0;
+    this.name = name;
+    this.type = type;
+    this.additiondate = additiondate;
+    this.description = description;
+    this.ingredients = ingredients;
+  }
 }

@@ -3,14 +3,13 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort} from '@angular/material';
 import {IngredientAmountDialogComponent} from '../ingredient-amount-dialog/ingredient-amount-dialog.component';
 import {ProductsService} from '../../../services/products.service';
-import {TransferredIngredient} from '../../../models/TransferredIngredient';
 import {Product} from '../../../models/Product';
-import {ProductEditComponent} from '../product-edit/product-edit.component';
+import {ProductEditComponent} from '../../products/product-edit/product-edit.component';
 import {Ingredient} from '../../../models/Ingredient';
 import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'app-product-drag-n-drop',
+  selector: 'app-ingredient-drag-n-drop',
   templateUrl: './ingredient-drag-n-drop.component.html',
   styleUrls: ['./ingredient-drag-n-drop.component.scss']
 })
@@ -18,22 +17,21 @@ import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmatio
 export class IngredientDragNDropComponent implements OnInit {
 
   // region Fields
-  selectedIngredients: TransferredIngredient[];
-  allProducts: TransferredIngredient[] = [];
+  selectedIngredients: Ingredient[];
+  allProducts: Ingredient[];
   emptyProduct: Product = new Product('', 0, 0, 0, 0);
   isLoading = true;
-  getDetails = true;
   // endregion
 
 
   // region Decorators
-  @Input() ingredientsInput: TransferredIngredient[];
+  @Input() ingredientsInput: Ingredient[];
   @Input() details: boolean;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  @Output() ingredientsChanged = new EventEmitter<TransferredIngredient[]>();
+  @Output() ingredientsChanged = new EventEmitter<Ingredient[]>();
 
   // endregion
 
@@ -44,43 +42,42 @@ export class IngredientDragNDropComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedIngredients = this.ingredientsInput;
-    this.getDetails = this.details;
     this.refreshDataSource('');
+    console.log(this.selectedIngredients);
   }
 
 
-  drop(event: CdkDragDrop<TransferredIngredient[]>) {
+  drop(event: CdkDragDrop<Ingredient[]>) {
     if (event.previousContainer !== event.container) { // if element is dropped on another container
-      const newProduct = event.previousContainer.data[event.previousIndex];
+      const newIngredient = event.previousContainer.data[event.previousIndex];
+      console.log("Nowy: ");
+      console.log(newIngredient);
       console.log('currentIndex: ' + event.currentIndex + ' previusIndex: ' + event.previousIndex);
-      if (!this.isProductAdded(newProduct)) {
-        if (this.getDetails) {
-          this.showIngredientAmountDialog(newProduct, event.currentIndex);
-        } else {
-          this.selectedIngredients.push(newProduct);
-        }
-      } else {
+      if (this.isIngredientAdded(newIngredient)) {
         this.openSnackBar('Składnik został już dodany', 'Ok');
+      } else {
+        // display the dialog in order to set the amount and unit of the specific ingredient
+        this.showIngredientAmountDialog(newIngredient, event.currentIndex);
       }
     }
   }
 
-
-  emitIngredientsChangedEvent() {
-    this.ingredientsChanged.emit(this.selectedIngredients);
-  }
-
-
   // region Functions | Dialog openers
-  showIngredientAmountDialog(ingredient: TransferredIngredient, index: number): void {
+  showIngredientAmountDialog(ingredient: Ingredient, index: number): void {
     const dialogRef = this.dialog.open(IngredientAmountDialogComponent, {
       width: 'auto',
-      data: {productname: ingredient.productname, amount: ingredient.amount, unit: ingredient.unit}
+      data: {
+        product: {
+          productname: ingredient.product.productname
+        },
+        amount: ingredient.amount,
+        unit: ingredient.unit
+      }
     });
 
-    dialogRef.afterClosed().subscribe((result: TransferredIngredient) => {
+    dialogRef.afterClosed().subscribe((result: Ingredient) => {
       if (result != null) {
-        if (this.isProductAdded(result)) {
+        if (this.isIngredientAdded(result)) {
           this.replaceProduct(result, index);
         } else {
           this.insertProduct(result, index);
@@ -89,16 +86,10 @@ export class IngredientDragNDropComponent implements OnInit {
     });
   }
 
-  showProductEditDialog(product: Product): void {
+  showProductCreateDialog(product: Product): void {
     const editDialogRef = this.dialog.open(ProductEditComponent, {
       width: '80%',
-      data: {
-        productname: product.productname,
-        protein: product.protein,
-        carbs: product.carbs,
-        fat: product.fat,
-        kcal: product.kcal
-      }
+      data: product
     });
 
     editDialogRef.afterClosed().subscribe((result: Product) => {
@@ -111,7 +102,7 @@ export class IngredientDragNDropComponent implements OnInit {
     });
   }
 
-  showIngredientDeleteConfirmationDialog(ingredient: TransferredIngredient): void {
+  showIngredientDeleteConfirmationDialog(ingredient: Ingredient): void {
     const editDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
       data: {
@@ -123,7 +114,7 @@ export class IngredientDragNDropComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.deleteProduct(ingredient);
-        console.log(ingredient.productname + ' deleted');
+        console.log(ingredient.product.productname + ' deleted');
       }
     });
   }
@@ -136,7 +127,7 @@ export class IngredientDragNDropComponent implements OnInit {
 
 
   // region Functions | Called from HTML
-  editSelectedProduct(item: TransferredIngredient) {
+  editSelectedProduct(item: Ingredient) {
     this.showIngredientAmountDialog(item, this.getProductIndex(item));
   }
 
@@ -148,16 +139,16 @@ export class IngredientDragNDropComponent implements OnInit {
 
 
   // region Functions | Helpers
-  getProductIndex(product: TransferredIngredient): number {
+  getProductIndex(product: Ingredient): number {
     return this.selectedIngredients.indexOf(product);
   }
 
 
-  isProductAdded(newProduct: TransferredIngredient): boolean {
+  isIngredientAdded(newProduct: Ingredient): boolean {
     let check = 0;
 
     this.selectedIngredients.forEach((product) => {
-      if (product.productname === newProduct.productname) {
+      if (product.product.productname === newProduct.product.productname) {
         check++;
       }
     });
@@ -179,31 +170,37 @@ export class IngredientDragNDropComponent implements OnInit {
 
   refreshDataSource(filter: string) {
     this.isLoading = true;
-    this.data.getProductsToTransfer(filter).subscribe(
+    this.data.getProducts(filter).subscribe(
       (data) => {
-        this.allProducts = data;
+        const ingredients = this.convertProductsToIngredients(data);
+        this.allProducts = ingredients;
         this.isLoading = false;
       });
   }
 
+  convertProductsToIngredients(products: Product[]): Ingredient[] {
+    const ingredients: Ingredient[] = [];
+    products.forEach( (product: Product) => {
+        const ingredient = new Ingredient(product.productname);
+        ingredients.push(ingredient);
+      });
+    return ingredients;
+  }
 
-  insertProduct(product: TransferredIngredient, index: number) {
+  insertProduct(product: Ingredient, index: number) {
     this.selectedIngredients.splice(index, 0, product);
-    this.emitIngredientsChangedEvent();
   }
 
 
-  replaceProduct(product: TransferredIngredient, index: number) {
+  replaceProduct(product: Ingredient, index: number) {
     this.selectedIngredients.splice(index, 1, product);
-    this.emitIngredientsChangedEvent();
   }
 
 
   // this function does not get index as a parameter, because it is called from HTML
-  deleteProduct(product: TransferredIngredient) {
+  deleteProduct(product: Ingredient) {
     const index = this.getProductIndex(product);
     this.selectedIngredients.splice(index, 1);
-    this.emitIngredientsChangedEvent();
   }
 
   createProduct(product: Product) {

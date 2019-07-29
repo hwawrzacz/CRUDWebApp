@@ -10,6 +10,11 @@ import {Observable} from 'rxjs';
 export class RecipesService {
 
   baseUrl = 'http://localhost:8080/recipes/';
+  header = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+  }
 
   constructor(private http: HttpClient) {
   }
@@ -23,8 +28,13 @@ export class RecipesService {
   }
 
   addRecipe(recipe: Recipe): Observable<any> {
-    console.log('Service: ');
     console.log(recipe);
-    return this.http.post(this.baseUrl + 'create', recipe);
+    return this.http.post(this.baseUrl + 'create', recipe, {responseType: 'text'});
   }
+
+  updateRecipe(recipe: Recipe): Observable<any> {
+    console.log(recipe);
+    return this.http.put(this.baseUrl + 'update', recipe, {responseType: 'text'});
+  }
+
 }

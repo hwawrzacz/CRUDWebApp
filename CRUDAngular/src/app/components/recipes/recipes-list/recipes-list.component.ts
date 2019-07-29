@@ -8,8 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
 import {AdvancedSearchComponent} from '../advanced-search/advanced-search.component';
-import {TransferredIngredient} from '../../../models/TransferredIngredient';
 import {Ingredient} from '../../../models/Ingredient';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-recipes-list',
@@ -28,7 +28,9 @@ export class RecipesListComponent implements OnInit {
 
   // endregion
 
-  constructor(private data: RecipesService, public dialog: MatDialog) {
+  constructor(private data: RecipesService,
+              public dialog: MatDialog,
+              public datepipe: DatePipe) {
   }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -39,14 +41,15 @@ export class RecipesListComponent implements OnInit {
   }
 
   returnEmptyRecipe(): Recipe {
-    return this.emptyRecipe = new Recipe('', '', '', [], '');
+    return this.emptyRecipe = new Recipe('', '', new Date(), '', []);
   }
 
   // region Functions | Dialog openers
   showRecipeDetailsDialog(recipe: Recipe): void {
-    const detailsDialogRef = this.dialog.open(RecipeDetailsComponent, {
+    console.log(recipe);
+    this.dialog.open(RecipeDetailsComponent, {
       width: 'auto',
-      data: {name: recipe.name, type: recipe.type, ingredients: recipe.ingredients, description: recipe.description}
+      data: recipe
     });
   }
 
@@ -54,23 +57,24 @@ export class RecipesListComponent implements OnInit {
   showRecipeEditDialog(recipe: Recipe): void {
     const editDialogRef = this.dialog.open(RecipeEditComponent, {
       width: '80%',
-      data: {
-        recipeid: recipe.recipeid,
-        name: recipe.name,
-        type: recipe.type,
-        additiondate: recipe.additiondate,
-        ingredients: recipe.ingredients,
-        description: recipe.description
-      }
+      data: recipe
+      //   {
+      //   recipeid: recipe.recipeid,
+      //   name: recipe.name,
+      //   type: recipe.type,
+      //   description: recipe.description,
+      //   additiondate: recipe.additiondate,
+      //   ingredients: recipe.ingredients,
+      // }
     });
-    console.log("show:");
-    console.log(recipe);
 
     editDialogRef.afterClosed().subscribe((result: Recipe) => {
       if (result != null) {
-        console.log("after: ");
-        console.log(result);
-        this.addRecipe(result);
+        if (result.recipeid === 0) { // new recipe is being created
+          this.addRecipe(result);
+        } else {
+          this.updateRecipe(result);
+        }
       }
     });
   }
@@ -84,7 +88,7 @@ export class RecipesListComponent implements OnInit {
       }
     });
 
-    advancedDialogRef.afterClosed().subscribe((result: TransferredIngredient[]) => {
+    advancedDialogRef.afterClosed().subscribe((result: Ingredient[]) => {
       if (result != null) {
         const ingredientsNames = this.getIngredientsNamesList(result);
         this.applyIngredientFilter(ingredientsNames);
@@ -100,11 +104,7 @@ export class RecipesListComponent implements OnInit {
     this.isLoading = true;
     this.data.getRecipes(filter).subscribe(
       (data) => {
-        this.recipes = data;
-        this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.isLoading = false;
+        this.refreshDataSource(data);
       });
   }
 
@@ -113,19 +113,31 @@ export class RecipesListComponent implements OnInit {
     this.isLoading = true;
     this.data.getRecipesByIngredients(ingredientsNames).subscribe(
       (data) => {
-        this.recipes = data;
-        this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.isLoading = false;
+        this.refreshDataSource(data);
       });
   }
 
 
+  refreshDataSource(data: Recipe[]) {
+    this.recipes = data;
+    this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.isLoading = false;
+  }
+
+
   addRecipe(recipe: Recipe): void {
-    console.log("add recipe: ");
     console.log(recipe);
     this.data.addRecipe(recipe).subscribe((response) => {
+      console.log(response);
+    });
+  }
+
+
+  updateRecipe(recipe: Recipe): void {
+    console.log(recipe);
+    this.data.updateRecipe(recipe).subscribe((response) => {
       console.log(response);
     });
   }
@@ -134,22 +146,14 @@ export class RecipesListComponent implements OnInit {
 
 
   // region Helpers
-  getIngredientsNamesList(ingredients: TransferredIngredient[]): string[] {
+  getIngredientsNamesList(ingredients: Ingredient[]): string[] {
     const names: string[] = [];
 
     ingredients.forEach((ingredient) => {
-      names.push(ingredient.productname);
+      names.push(ingredient.product.productname);
     });
 
     return names;
-  }
-
-  convertTransferredListToingredientsList(transferred: TransferredIngredient[]): Ingredient[] {
-    const ingredients: Ingredient[] = [];
-    transferred.forEach((element) => {
-      ingredients.push(new Ingredient((element)));
-    });
-    return ingredients;
   }
 
   // endregion

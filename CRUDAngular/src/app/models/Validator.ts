@@ -2,7 +2,6 @@ import {Ingredient} from './Ingredient';
 import {User} from './User';
 import {Recipe} from './Recipe';
 import {Product} from './Product';
-import {TransferredIngredient} from './TransferredIngredient';
 
 export class Validator {
 
@@ -16,8 +15,8 @@ export class Validator {
     return (amount > 0);
   }
 
-  isIngredientValid(ingredient: TransferredIngredient): boolean {
-    const isNameValid = this.isProductNameValid(ingredient.productname);
+  isIngredientValid(ingredient: Ingredient): boolean {
+    const isNameValid = this.isProductNameValid(ingredient.product.productname);
     const isAmountValid = this.isIngredientAmountValid(ingredient.amount);
     const isUnitValid = this.isUnitValid(ingredient.unit);
 

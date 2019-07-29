@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {TransferredIngredient} from '../../../models/TransferredIngredient';
+import {Ingredient} from '../../../models/Ingredient';
 import {Validator} from '../../../models/Validator';
 
 @Component({
@@ -13,7 +13,7 @@ export class IngredientAmountDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<IngredientAmountDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public ingredient: TransferredIngredient) {
+    @Inject(MAT_DIALOG_DATA) public ingredient: Ingredient) {
   }
 
   onNoClick(): any {
@@ -21,7 +21,7 @@ export class IngredientAmountDialogComponent {
   }
 
 
-  validateIngredient(ingredient: TransferredIngredient): boolean {
+  validateIngredient(ingredient: Ingredient): boolean {
     const validator = new Validator();
     const isAmountValid = validator.isAmountValid(this.ingredient.amount + '');
     const isUnitValid = validator.isUnitValid(this.ingredient.unit);

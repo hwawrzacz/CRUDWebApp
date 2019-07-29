@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {TransferredIngredient} from '../../../models/TransferredIngredient';
 import {Recipe} from '../../../models/Recipe';
+import {Ingredient} from '../../../models/Ingredient';
 
 @Component({
   selector: 'app-advanced-search',
@@ -9,8 +9,6 @@ import {Recipe} from '../../../models/Recipe';
   styleUrls: ['./advanced-search.component.scss']
 })
 export class AdvancedSearchComponent implements OnInit {
-
-  Localingredients: TransferredIngredient[];
 
   constructor(
     public dialogRef: MatDialogRef<AdvancedSearchComponent>,
@@ -23,7 +21,7 @@ export class AdvancedSearchComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  validateIngredientList(ingredients: TransferredIngredient[]) {
+  validateIngredientList(ingredients: Ingredient[]) {
     if (ingredients.length > 0) { return true; }
     return false;
   }

@@ -1,0 +1,52 @@
+<div class="product-drag-n-drop-container" style="position: relative" >
+  <div class="drag-n-drop-list-wrapper margin-right-10">
+    <h2 class="mat-h2">Wybrane składniki</h2>
+
+    <div class="empty-space-as-searchbar">
+    </div>
+
+    <div class="drag-n-drop-list"
+         cdkDropList
+         #todoList="cdkDropList"
+         [cdkDropListData]="selectedIngredients"
+         [cdkDropListConnectedTo]="[doneList]"
+         (cdkDropListDropped)="drop($event)">
+
+      <div class="drag-n-drop-element mat-body-1 selected-ingredient"
+           *ngFor="let ingredient of selectedIngredients" cdkDrag>
+        <div class="product-details">
+          {{ingredient.product.productname}}
+        </div>
+
+        <button mat-icon-button (click)="showIngredientDeleteConfirmationDialog(ingredient)">
+          <mat-icon matSuffix>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="drag-n-drop-list-wrapper margin-left-10">
+    <h2 class="mat-h2">Wszystkie produkty</h2>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Szukaj składnika po nazwie" (keyup)="applyNameFilter($event.target.value)">
+    </mat-form-field>
+
+    <div class="drag-n-drop-list margin-bottom-20"
+         cdkDropList
+         #doneList="cdkDropList"
+         [cdkDropListData]="allProducts"
+         [cdkDropListConnectedTo]="[todoList]"
+         cdkDropListSortingDisabled
+         [cdkDropListEnterPredicate]="preventDrop"
+         (cdkDropListDropped)="drop($event)">
+      <div class="drag-n-drop-element mat-body-1" *ngFor="let ingredient of allProducts"
+           cdkDrag>{{ingredient.product.productname}}</div>
+
+      <div *ngIf="isLoading" class="full-width flex flex-center">
+        <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>

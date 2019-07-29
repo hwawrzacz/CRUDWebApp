@@ -27,9 +27,9 @@ import {HeaderComponent} from './components/header/header.component';
 import {RecipesListComponent} from './components/recipes/recipes-list/recipes-list.component';
 import {ProductsListComponent} from './components/products/products-list/products-list.component';
 import {RecipeDetailsComponent} from './components/recipes/recipe-details/recipe-details.component';
-import {IngredientDragNDropComponent} from './components/products/ingredient-drag-n-drop/ingredient-drag-n-drop.component';
+import {IngredientDragNDropComponent} from './components/recipes/ingredient-drag-n-drop/ingredient-drag-n-drop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {IngredientAmountDialogComponent} from './components/products/ingredient-amount-dialog/ingredient-amount-dialog.component';
+import {IngredientAmountDialogComponent} from './components/recipes/ingredient-amount-dialog/ingredient-amount-dialog.component';
 import {RecipeEditComponent} from './components/recipes/recipe-edit/recipe-edit.component';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -38,7 +38,9 @@ import { AdvancedSearchComponent } from './components/recipes/advanced-search/ad
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component'; // for responsive header
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { AdvancedSearchDragNDropComponent } from './components/recipes/advanced-search-drag-n-drop/advanced-search-drag-n-drop.component';
+import {DatePipe} from "@angular/common"; // for responsive header
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     AdvancedSearchComponent,
     UsersListComponent,
     UserEditComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AdvancedSearchDragNDropComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     UserEditComponent,
     ConfirmationDialogComponent
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 

@@ -3,12 +3,15 @@ package com.example.crudbackend.Controllers;
 import com.example.crudbackend.Models.Recipe;
 import com.example.crudbackend.Models.Ingredient;
 import com.example.crudbackend.Repositories.IRecipeRepository;
+import com.example.crudbackend.Repositories.IProductRepository;
+import com.example.crudbackend.Repositories.IngredientRepository;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 @CrossOrigin
 @RestController
@@ -19,15 +22,12 @@ public class RecipeController {
     private IRecipeRepository recipeRepository;
 
     @Autowired
+    private IngredientRepository ingredientRepository;
+
+    @Autowired
     private EntityManager entityManager;
 
 
-
-    //region Recipes
-    @GetMapping("/getjsonobject")
-    public Recipe getRecipeString(){
-        return getRecipeById(1);
-    }
 
     @GetMapping("/getallrecipesbyname")
     public Iterable<Recipe> getRecipeContainingName(@RequestParam("name") String name){
@@ -35,13 +35,18 @@ public class RecipeController {
     }
 
     @PostMapping("/create")
-    public String addRecipe(@RequestBody Recipe recipe){
-        if (!recipeExist(recipe)){
-            addRecipe(recipe);
-            return "Recipe updated";
+    public String addNewRecipe(@RequestBody Recipe recipe){
+        if (recipeExist(recipe)){
+            return "Recipe already exists";
         }
-        else
-            return "Recipe update failed";
+        else{
+            return addRecipe(recipe);
+        }
+    }
+
+    @PutMapping("/update")
+    public String updateRecipe(@RequestBody Recipe recipe){
+        return addRecipe(recipe);
     }
 
     @PostMapping("/getbyingredients")
@@ -62,19 +67,46 @@ public class RecipeController {
         return matchingRecipes;
     }
 
+    private String addRecipe(Recipe recipe) {
+        try{
+            System.out.println("saving recipe id: " + recipe.getRecipeid());
+            this.recipeRepository.save(recipe);
+            System.out.println(recipe);
+            this.addIngredientsToRecipe(recipe);
+            return "Saved";
+        }
+        catch (Exception exc){
+            return "Not saved. Exception: " + exc.getMessage();
+        }
+    }
+
+    private void addIngredientsToRecipe (Recipe recipe) {
+        System.out.println("Adding recipe ingredients");
+        for (Ingredient ingredient: recipe.getIngredients()) {
+
+            String query = "INSERT INTO Ingredient ('recipeid', 'productname','amount', 'value') " +
+                    "VALUES (?1, ?2, ?3, ?4)";
+
+            entityManager.createNativeQuery(query)
+                    .setParameter(1, recipe.getRecipeid())
+                    .setParameter(2, ingredient.getProduct().getProductname())
+                    .setParameter(3, ingredient.getAmount())
+                    .setParameter(4, ingredient.getUnit())
+                    .executeUpdate();
+        }
+    }
 
     private boolean doesRecipeContainsIngredients(Recipe recipe, ArrayList<String> ingredientsNames) {
         int matchingIngredients = 0;
 
         for (Ingredient recipeIngredient: recipe.getIngredients()) {
-            for (String givenIngredientName: ingredientsNames){
-                if (recipeIngredient.getProductname().equals(givenIngredientName)){
+            for (String givenIngredientName: ingredientsNames) {
+                if (recipeIngredient.getProduct().getProductname().equals(givenIngredientName)) {
                     matchingIngredients++;
                 }
-                System.out.println(" " + matchingIngredients);
             }
         }
-        if (matchingIngredients == ingredientsNames.size()){
+        if (matchingIngredients == ingredientsNames.size()) {
             return true;
         }
         return false;
@@ -92,11 +124,10 @@ public class RecipeController {
     }
 
     private Recipe getRecipeById(int id){
-        return recipeRepository.findById(id);
+        return recipeRepository.findByRecipeid(id);
     }
 
     private boolean recipeExist(Recipe recipe) {
         return (getRecipeById(recipe.getRecipeid()) != null);
     }
-    //endregion
 }
