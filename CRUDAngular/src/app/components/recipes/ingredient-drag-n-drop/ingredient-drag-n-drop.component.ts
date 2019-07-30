@@ -64,11 +64,18 @@ export class IngredientDragNDropComponent implements OnInit {
 
   // region Functions | Dialog openers
   showIngredientAmountDialog(ingredient: Ingredient, index: number): void {
+    const newIngredient = ingredient;
     const dialogRef = this.dialog.open(IngredientAmountDialogComponent, {
       width: 'auto',
       data: {
         product: {
-          productname: ingredient.product.productname
+          productname: ingredient.product.productname,
+          protein: ingredient.product.protein,
+          carbs: ingredient.product.carbs,
+          fat: ingredient.product.fat,
+          kcal: ingredient.product.kcal,
+          recipes: ingredient.product.recipes,
+
         },
         amount: ingredient.amount,
         unit: ingredient.unit

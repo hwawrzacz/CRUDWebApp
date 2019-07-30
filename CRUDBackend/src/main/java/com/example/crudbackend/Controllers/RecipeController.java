@@ -1,5 +1,6 @@
 package com.example.crudbackend.Controllers;
 
+import com.example.crudbackend.Models.IngredientId;
 import com.example.crudbackend.Models.Recipe;
 import com.example.crudbackend.Models.Ingredient;
 import com.example.crudbackend.Repositories.IRecipeRepository;
@@ -34,21 +35,6 @@ public class RecipeController {
         return recipeRepository.findAllByNameContaining(name);
     }
 
-    @PostMapping("/create")
-    public String addNewRecipe(@RequestBody Recipe recipe){
-        if (recipeExist(recipe)){
-            return "Recipe already exists";
-        }
-        else{
-            return addRecipe(recipe);
-        }
-    }
-
-    @PutMapping("/update")
-    public String updateRecipe(@RequestBody Recipe recipe){
-        return addRecipe(recipe);
-    }
-
     @PostMapping("/getbyingredients")
     public ArrayList<Recipe> getRecipeByIngredients(@RequestBody ArrayList<String> ingredientsNames){
         ArrayList<Recipe> matchingRecipes = new ArrayList<>();
@@ -67,12 +53,43 @@ public class RecipeController {
         return matchingRecipes;
     }
 
+    @PostMapping("/create")
+    public String addNewRecipe(@RequestBody Recipe recipe){
+        if (recipeExist(recipe)){
+            return "Recipe already exists";
+        }
+        else{
+            return addRecipe(recipe);
+        }
+    }
+
+    @PutMapping("/update")
+    @Transactional
+    public String updateRecipe(@RequestBody Recipe recipe){
+        return executeUpdateRecipeQuery(recipe);
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteRecipe(@RequestParam("id") long id){
+        try {
+            recipeRepository.deleteById(id);
+            return "Deleted";
+        }
+        catch (Exception exc){
+            return "Not deleted. Exception: " + exc.getMessage();
+        }
+    }
+
     private String addRecipe(Recipe recipe) {
         try{
             System.out.println("saving recipe id: " + recipe.getRecipeid());
+            System.out.println("before save");
             this.recipeRepository.save(recipe);
-            System.out.println(recipe);
-            this.addIngredientsToRecipe(recipe);
+            System.out.println("after save");
+            System.out.println("before ingredients save");
+            this.ingredientRepository.saveAll(recipe.getIngredients());
+            //this.addIngredientsToRecipe(recipe);
+            System.out.println("after ingredients save");
             return "Saved";
         }
         catch (Exception exc){
@@ -81,19 +98,45 @@ public class RecipeController {
     }
 
     private void addIngredientsToRecipe (Recipe recipe) {
-        System.out.println("Adding recipe ingredients");
-        for (Ingredient ingredient: recipe.getIngredients()) {
+        System.out.println("Adding recipe ingredients: " + recipe.getIngredients().size());
+        ingredientRepository.saveAll(recipe.getIngredients());
 
-            String query = "INSERT INTO Ingredient ('recipeid', 'productname','amount', 'value') " +
-                    "VALUES (?1, ?2, ?3, ?4)";
+//        for (Ingredient ingredient: recipe.getIngredients()) {
+//            Ingredient newIngredient = new Ingredient(ingredient.getRecipe(), ingredient.getProduct(),
+//                    ingredient.getAmount(),ingredient.getUnit());
+//            System.out.println("Ingredient: " + " " + ingredient.getRecipe().getRecipeid() + " " +
+//                    newIngredient.getProduct().getProductname() + " " +
+//                    newIngredient.getAmount() + " " + newIngredient.getUnit() );
+//            ingredientRepository.save(newIngredient);
 
-            entityManager.createNativeQuery(query)
-                    .setParameter(1, recipe.getRecipeid())
-                    .setParameter(2, ingredient.getProduct().getProductname())
-                    .setParameter(3, ingredient.getAmount())
-                    .setParameter(4, ingredient.getUnit())
+//            System.out.println(ingredient.toString());
+//            String query = "INSERT INTO Ingredient ('recipeid', 'productname','amount', 'unit') VALUES (?1, ?2, ?3, ?4)";
+//
+//            entityManager.createNativeQuery(query)
+//                    .setParameter(1, recipe.getRecipeid())
+//                    .setParameter(2, ingredient.getProduct().getProductname())
+//                    .setParameter(3, ingredient.getAmount())
+//                    .setParameter(4, ingredient.getUnit())
+//                    .executeUpdate();
+//        }
+    }
+
+    private String executeUpdateRecipeQuery(Recipe updatedRecipe) {
+        //try{
+            entityManager.createQuery("UPDATE Recipe recipe " +
+                    "SET recipe.name=?1, recipe.type=?2, recipe.description=?3," +
+                    " recipe.additiondate=?4 WHERE recipe.recipeid=?5")
+                    .setParameter(1, updatedRecipe.getName())
+                    .setParameter(2, updatedRecipe.getType())
+                    .setParameter(3, updatedRecipe.getDescription())
+                    .setParameter(4, updatedRecipe.getAdditiondate())
+                    .setParameter(5, updatedRecipe.getRecipeid())
                     .executeUpdate();
-        }
+            addIngredientsToRecipe(updatedRecipe);
+            return "Recipe updated";
+//        } catch (Exception exc){
+//            return "Recipe couldn't be updated. Error message: "+ exc.getMessage();
+//        }
     }
 
     private boolean doesRecipeContainsIngredients(Recipe recipe, ArrayList<String> ingredientsNames) {
@@ -123,7 +166,7 @@ public class RecipeController {
         }
     }
 
-    private Recipe getRecipeById(int id){
+    private Recipe getRecipeById(long id){
         return recipeRepository.findByRecipeid(id);
     }
 

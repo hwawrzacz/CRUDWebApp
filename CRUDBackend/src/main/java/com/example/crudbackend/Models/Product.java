@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "Product")
 @Table(name = "products")
 public class Product {
 
@@ -28,7 +28,7 @@ public class Product {
     @Column(name = "kcal")
     private int kcal;
 
-    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Ingredient> recipes;
     //endregion
@@ -36,7 +36,6 @@ public class Product {
 
     //region Getters and setters
     //name
-
     public String getProductname() { return productname; }
     public void setProductname(String productname) { this.productname = productname; }
 
@@ -72,9 +71,9 @@ public class Product {
         this.kcal = kcal;
     }
 
-    //recipes
-//    public List<Ingredient> getRecipes() { return recipes; }
-//    public void setRecipes(List<Ingredient> recipes){ this.recipes = recipes; }
+    // recipes
+    public List<Ingredient> getRecipes() { return recipes; }
+    public void setRecipes(List<Ingredient> recipes) { this.recipes = recipes; }
     //endregion
     // endregion
 
@@ -156,9 +155,5 @@ public class Product {
     @Override
     public String toString() {
         return productname +" "+ protein +" "+ carbs +" "+ fat +" "+ kcal;
-    }
-
-    public String toHtmlTableRow(){
-        return String.format("<tr><td>%s</td> <td>%.2f</td> <td>%.2f</td> <td>%.2f</td> <td>%d</td></tr>", productname, protein, carbs, fat, kcal);
     }
 }

@@ -79,9 +79,7 @@ public class ProductController {
 
     private String executeDeleteProductQuery(String name){
         try{
-            entityManager.createQuery("DELETE FROM Product product WHERE product.productname=?1")
-                    .setParameter(1, name)
-                    .executeUpdate();
+            productRepository.deleteByProductname(name);
             return "Product deleted";
         } catch (Exception exc){
             return "Product couldn't be deleted. Error message: "+ exc.getMessage();

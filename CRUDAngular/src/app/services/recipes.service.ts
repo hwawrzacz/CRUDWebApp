@@ -37,4 +37,8 @@ export class RecipesService {
     return this.http.put(this.baseUrl + 'update', recipe, {responseType: 'text'});
   }
 
+  deleteRecipe(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'delete?id=' + id, {responseType: 'text'});
+  }
+
 }

@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
-@Entity(name = "products_in_recipes")
-@IdClass(Ingredient.class)
+@Entity(name = "Ingredient")
+@Table(name = "ingredients")
+@IdClass(IngredientId.class)
 public class Ingredient implements Serializable {
 
     // region Test version
@@ -29,6 +31,9 @@ public class Ingredient implements Serializable {
 
     //region Getters and setters
     //amount
+//    public IngredientId getId() { return id; }
+//    public void setId(IngredientId id) { this.id = id; }
+
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
 
@@ -37,15 +42,16 @@ public class Ingredient implements Serializable {
     public void setUnit(String unit) { this.unit = unit; }
 
     //recipeid
-//    public Recipe getRecipe() { return recipe; }
+    public Recipe getRecipe() { return recipe; }
     public void setRecipe(Recipe recipe) { this.recipe = recipe; }
-    public void setRecipeid(int id) { this.recipe.setRecipeid(id); }
+
+    //public void setRecipeid(int id) { this.recipe.setRecipeid(id); }
 
     //product
     public Product getProduct() { return product; }
     public void setProduct(Product product) { this.product = product; }
 
-    //productname
+    // productname
 //    public void setProductname(String productname) { this.product.setProductname(productname); }
 //    public String getProductname() { return product.getProductname(); }
     //endregion
@@ -55,12 +61,23 @@ public class Ingredient implements Serializable {
     // region Constructors
     public Ingredient() {
     }
-    //endregion
+
+    public Ingredient(Recipe recipe, Product product, double amount, String unit) {
+        this.recipe = recipe;
+        this.product = product;
+        this.amount = amount;
+        this.unit = unit;
+    }
+
+//    public Ingredient(IngredientId id, double amount, String unit) {
+//        this.id = id;
+//        this.amount = amount;
+//        this.unit = unit;
+//    }
+//endregion
 
     @Override
     public String toString() {
-        return product.getProductname() + " " + amount + " " + unit;
+        return /*getId()*/ getRecipe().getRecipeid() + " " + getProduct().getProductname() + " " + amount + " " + unit;
     }
-
-
 }

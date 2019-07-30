@@ -70,6 +70,7 @@ export class RecipesListComponent implements OnInit {
 
     editDialogRef.afterClosed().subscribe((result: Recipe) => {
       if (result != null) {
+        console.log(result);
         if (result.recipeid === 0) { // new recipe is being created
           this.addRecipe(result);
         } else {
@@ -100,6 +101,12 @@ export class RecipesListComponent implements OnInit {
 
 
   // region Functions | Data manipulators
+  deleteRecipe(recipe: Recipe) {
+    this.data.deleteRecipe(recipe.recipeid).subscribe( (response) => {
+      console.log(response);
+    });
+  }
+
   applyNameFilter(filter: string) {
     this.isLoading = true;
     this.data.getRecipes(filter).subscribe(

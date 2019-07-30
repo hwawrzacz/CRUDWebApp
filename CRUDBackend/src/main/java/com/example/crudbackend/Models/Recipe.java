@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(name = "Recipe")
 @Table(name = "recipes")
 public class Recipe {
 
@@ -17,7 +17,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "recipeid")
-    private int recipeid;
+    private long recipeid;
 
     @Column(name = "name")
     private String name;
@@ -31,7 +31,7 @@ public class Recipe {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JsonIgnore
     @JsonManagedReference(value = "recipe_id_ref")
     private List<Ingredient> ingredients;
@@ -41,12 +41,8 @@ public class Recipe {
 
     // region Getters and Setters
     // recipeid
-    public int getRecipeid() {
-        return recipeid;
-    }
-    public void setRecipeid(int recipeid) {
-        this.recipeid = recipeid;
-    }
+    public long getRecipeid() { return recipeid; }
+    public void setRecipeid(long recipeid) { this.recipeid = recipeid; }
 
     // name
     public String getName() {
@@ -65,7 +61,7 @@ public class Recipe {
     }
 
     public Date getAdditiondate() { return additiondate; }
-    // public void setAdditiondate(String additionDate) { this.additiondate = additionDate; }
+    public void setAdditiondate(Date additionDate) { this.additiondate = additionDate; }
 
     // recipes
     public List<Ingredient> getIngredients() { return ingredients; }
@@ -76,73 +72,6 @@ public class Recipe {
     public void setDescription(String description) { this.description = description; }
     // endregion
     // endregion
-
-
-//    // region New version
-//    // region Fields
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "recipeid")
-//    private int recipeid;
-//
-//    @Column(name = "name")
-//    private String name;
-//
-//    @Column(name = "type")
-//    private String type;
-//
-//    @Column(name = "additiondate")
-//    private String additiondate;
-//
-//    @Column(name = "description")
-//    private String description;
-//
-//    @ManyToMany(mappedBy = "recipe",fetch = FetchType.EAGER)
-//    private List<Ingredient> ingredients;
-//
-//    // endregion
-//
-//
-//    // region Getters and Setters
-//    // recipeid
-//    public int getRecipeid() {
-//        return recipeid;
-//    }
-//    public void setRecipeid(int recipeid) {
-//        this.recipeid = recipeid;
-//    }
-//
-//    // name
-//    public String getName() {
-//        return name;
-//    }
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    // type
-//    public String getType() {
-//        return type;
-//    }
-//    public void setType(String type) {
-//        this.type = type;
-//    }
-//
-//    public String getAdditiondate() {
-//        return additiondate;
-//    }
-//    public void setAdditiondate(String additionDate) { this.additiondate = additionDate; }
-//
-//    // recipes
-//    public List<Ingredient> getIngredients() { return ingredients; }
-//    public void setIngredients(List<Ingredient> ingredients) { this.ingredients = ingredients; }
-//
-//    // description
-//    public String getDescription() { return description; }
-//    public void setDescription(String description) { this.description = description; }
-//    // endregion
-//    // endregion
-
 
     //region Constructors
     public Recipe(){}
