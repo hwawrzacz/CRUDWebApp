@@ -31,7 +31,7 @@ public class Recipe {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
     @JsonIgnore
     @JsonManagedReference(value = "recipe_id_ref")
     private List<Ingredient> ingredients;

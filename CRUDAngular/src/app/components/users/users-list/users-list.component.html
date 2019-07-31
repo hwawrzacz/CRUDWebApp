@@ -10,31 +10,31 @@
     </ng-container>
 
     <!-- protein column -->
-    <ng-container matColumnDef="firstname">
+    <ng-container matColumnDef="firstName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Imię </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
     </ng-container>
 
     <!-- carbs column -->
-    <ng-container matColumnDef="lastname">
+    <ng-container matColumnDef="lastName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwisko </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
     </ng-container>
 
     <!-- fat column -->
-    <ng-container matColumnDef="isactive">
+    <ng-container matColumnDef="isActive">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Aktywny </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.isActive}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="isadmin">
+    <ng-container matColumnDef="isAdmin">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Administrator </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.isAdmin}} </mat-cell>
     </ng-container>
 
     <!-- edit column -->
     <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Edytuj</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-header> Edytuj</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-mini-fab class="button-edit bg-white" (click)="showUserEditDialog(element)">
           <mat-icon>edit</mat-icon>
@@ -44,10 +44,10 @@
 
     <!-- delete column -->
     <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-header> Usuń </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-mini-fab class="button-delete bg-white" (click)="showUserDeleteConfirmationDialog(element)">
-          <mat-icon>delete</mat-icon>
+        <button mat-mini-fab class="button-delete bg-white" color="warn" (click)="showUserDeleteConfirmationDialog(element)">
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

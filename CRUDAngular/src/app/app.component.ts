@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
-import {RecipesListComponent} from "./components/recipes/recipes-list/recipes-list.component";
-import {ProductsListComponent} from "./components/products/products-list/products-list.component";
+import {RecipesListComponent} from './components/recipes/recipes-list/recipes-list.component';
+import {ProductsListComponent} from './components/products/products-list/products-list.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,8 @@ import {ProductsListComponent} from "./components/products/products-list/product
 })
 
 export class AppComponent {
-  title = 'CRUDAngular';
+  private title = 'CRUDAngular';
+  hasAdminAccess = false;
 
   constructor() {
   }

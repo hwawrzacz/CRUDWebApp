@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {User} from 'src/app/models/User';
 import {UsersService} from 'src/app/services/users.service';
@@ -13,12 +13,13 @@ import {ConfirmationDialogComponent} from 'src/app/components/confirmation-dialo
 
 export class UsersListComponent implements OnInit {
 
+  @Input() adminAccess: boolean;
+
   private users: User[]
   private emptyUser = new User('', '', '', '', false, false);
-  private displayedColumns: string[] = ['login', 'firstname', 'lastname', 'isactive', 'isadmin', 'edit', 'delete'];
+  private displayedColumns: string[] = ['login', 'firstName', 'lastName', 'isActive', 'isAdmin', 'edit', 'delete'];
   private dataSource: MatTableDataSource<User>;
   private isLoading = true;
-
 
   constructor(private service: UsersService, public dialog: MatDialog) {
   }

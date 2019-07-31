@@ -67,14 +67,17 @@ CHANGELOG
 	
 	
 	
+	=== 31.07.19 ===
+	Add recipe addition/edition/deletion
+	Admin access control on Front
+	
+	
 	
 	
 DOING	
-	=== 25.07.19 ===
-	Fixing ingredient drag'n'drop index crash
+	=== 31.07.19 ===
 	
 	
 
 TODO
-	Create recipe and save it to database
 	Refresh recipes list after update/create.

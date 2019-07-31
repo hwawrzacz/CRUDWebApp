@@ -1,13 +1,12 @@
 import {Product} from 'src/app/models/Product';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ProductsService} from '../../../services/products.service';
 import {MatDialog} from '@angular/material';
 import {ProductEditComponent} from '../product-edit/product-edit.component';
-import {User} from "../../../models/User";
-import {ConfirmationDialogComponent} from "../../confirmation-dialog/confirmation-dialog.component";
+import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-products-list',
@@ -17,10 +16,11 @@ import {ConfirmationDialogComponent} from "../../confirmation-dialog/confirmatio
 
 export class ProductsListComponent implements OnInit {
 
+  @Input() adminAccess: boolean;
   products: Product[];
   emptyProduct: Product = new Product('', 0, 0, 0, 0);
 
-  displayedColumns: string[] = ['name', 'protein', 'carbs', 'fat', 'kcal', 'edit', 'delete'];
+  displayedColumns: string[] = ['productname', 'protein', 'carbs', 'fat', 'kcal', 'edit'];
   dataSource: MatTableDataSource<Product>;
   isLoading = true;
 
@@ -30,6 +30,10 @@ export class ProductsListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
+    console.log('Admin acess: ' + this.adminAccess);
+    if (this.adminAccess) {
+      this.displayedColumns.push('delete');
+    }
     this.refreshDataSource('');
   }
 

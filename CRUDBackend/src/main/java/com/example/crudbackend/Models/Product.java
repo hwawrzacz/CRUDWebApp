@@ -28,7 +28,7 @@ public class Product {
     @Column(name = "kcal")
     private int kcal;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Ingredient> recipes;
     //endregion

@@ -9,18 +9,21 @@ import java.util.Objects;
 
 @Entity(name = "Ingredient")
 @Table(name = "ingredients")
-@IdClass(IngredientId.class)
+//@IdClass(IngredientId.class)
 public class Ingredient implements Serializable {
 
     // region Test version
     // region Fields
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long id;
+
     @ManyToOne
     @JsonBackReference(value = "recipe_id_ref")
     @JoinColumn(name = "recipeid")
     private Recipe recipe;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "productname")
     private Product product;
@@ -31,8 +34,8 @@ public class Ingredient implements Serializable {
 
     //region Getters and setters
     //amount
-//    public IngredientId getId() { return id; }
-//    public void setId(IngredientId id) { this.id = id; }
+    public long getId() { return this.id; }
+    public void setId(long id) { this.id = id; }
 
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }

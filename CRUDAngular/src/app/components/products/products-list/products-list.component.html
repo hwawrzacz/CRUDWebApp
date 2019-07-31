@@ -15,7 +15,7 @@
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- name column -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="productname">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.productname}} </mat-cell>
     </ng-container>
@@ -45,7 +45,7 @@
 
     <!-- edit column -->
     <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Edytuj</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-header> Edytuj</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-mini-fab class="button-edit bg-white" (click)="showProductEditDialog(element)">
           <mat-icon>edit</mat-icon>
@@ -54,11 +54,11 @@
     </ng-container>
 
     <!-- delete column -->
-    <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń</mat-header-cell>
+    <ng-container matColumnDef="delete" *ngIf="adminAccess">
+      <mat-header-cell *matHeaderCellDef mat-header> Usuń</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-mini-fab class="button-delete bg-white" (click)="showProductDeleteConfirmationDialog(element)">
-          <mat-icon>delete</mat-icon>
+        <button mat-mini-fab class="button-delete bg-white" color="warn"(click)="showProductDeleteConfirmationDialog(element)">
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

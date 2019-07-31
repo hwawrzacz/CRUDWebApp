@@ -1,12 +1,9 @@
 package com.example.crudbackend.Controllers;
 
-import com.example.crudbackend.Models.IngredientId;
 import com.example.crudbackend.Models.Recipe;
 import com.example.crudbackend.Models.Ingredient;
 import com.example.crudbackend.Repositories.IRecipeRepository;
-import com.example.crudbackend.Repositories.IProductRepository;
 import com.example.crudbackend.Repositories.IngredientRepository;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -70,8 +67,10 @@ public class RecipeController {
     }
 
     @DeleteMapping("/delete")
+    @Transactional
     public String deleteRecipe(@RequestParam("id") long id){
         try {
+            deleteIngredientsFromRecipe(getRecipeById(id));
             recipeRepository.deleteById(id);
             return "Deleted";
         }
@@ -83,12 +82,8 @@ public class RecipeController {
     private String addRecipe(Recipe recipe) {
         try{
             System.out.println("saving recipe id: " + recipe.getRecipeid());
-            System.out.println("before save");
             this.recipeRepository.save(recipe);
-            System.out.println("after save");
-            System.out.println("before ingredients save");
-            this.ingredientRepository.saveAll(recipe.getIngredients());
-            //this.addIngredientsToRecipe(recipe);
+            this.addIngredientsToRecipe(recipe);
             System.out.println("after ingredients save");
             return "Saved";
         }
@@ -99,30 +94,20 @@ public class RecipeController {
 
     private void addIngredientsToRecipe (Recipe recipe) {
         System.out.println("Adding recipe ingredients: " + recipe.getIngredients().size());
-        ingredientRepository.saveAll(recipe.getIngredients());
-
-//        for (Ingredient ingredient: recipe.getIngredients()) {
-//            Ingredient newIngredient = new Ingredient(ingredient.getRecipe(), ingredient.getProduct(),
-//                    ingredient.getAmount(),ingredient.getUnit());
-//            System.out.println("Ingredient: " + " " + ingredient.getRecipe().getRecipeid() + " " +
-//                    newIngredient.getProduct().getProductname() + " " +
-//                    newIngredient.getAmount() + " " + newIngredient.getUnit() );
-//            ingredientRepository.save(newIngredient);
-
-//            System.out.println(ingredient.toString());
-//            String query = "INSERT INTO Ingredient ('recipeid', 'productname','amount', 'unit') VALUES (?1, ?2, ?3, ?4)";
-//
-//            entityManager.createNativeQuery(query)
-//                    .setParameter(1, recipe.getRecipeid())
-//                    .setParameter(2, ingredient.getProduct().getProductname())
-//                    .setParameter(3, ingredient.getAmount())
-//                    .setParameter(4, ingredient.getUnit())
-//                    .executeUpdate();
-//        }
+        for (Ingredient ingredient: recipe.getIngredients()) {
+            Ingredient newIngredient = new Ingredient(recipe, ingredient.getProduct(), ingredient.getAmount(), ingredient.getUnit());
+            System.out.println("ingredient: " + newIngredient.getRecipe().getRecipeid() + " " + newIngredient.getProduct().getProductname());
+            try{
+                ingredientRepository.save(newIngredient);
+            } catch (Exception exc) {
+                System.out.println("Exception while saving ingredient: " + exc.getMessage());
+            }
+        }
     }
 
     private String executeUpdateRecipeQuery(Recipe updatedRecipe) {
-        //try{
+        try{
+            deleteIngredientsFromRecipe(updatedRecipe);
             entityManager.createQuery("UPDATE Recipe recipe " +
                     "SET recipe.name=?1, recipe.type=?2, recipe.description=?3," +
                     " recipe.additiondate=?4 WHERE recipe.recipeid=?5")
@@ -134,9 +119,20 @@ public class RecipeController {
                     .executeUpdate();
             addIngredientsToRecipe(updatedRecipe);
             return "Recipe updated";
-//        } catch (Exception exc){
-//            return "Recipe couldn't be updated. Error message: "+ exc.getMessage();
-//        }
+        } catch (Exception exc){
+            return "Recipe couldn't be updated. Error message: "+ exc.getMessage();
+        }
+    }
+
+    private String deleteIngredientsFromRecipe(Recipe recipe) {
+        try{
+            ingredientRepository.deleteAllByRecipe(recipe);
+            return "Ingredient deleted";
+        } catch (Exception exc){
+            System.out.println("Ingredients not deleted: Exception: " + exc.getMessage());
+            return "Ingredients not deleted";
+        }
+        //ingredientRepository.deleteAllByRecipeid(recipe.getRecipeidgetRecipeid());
     }
 
     private boolean doesRecipeContainsIngredients(Recipe recipe, ArrayList<String> ingredientsNames) {

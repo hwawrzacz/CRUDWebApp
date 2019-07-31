@@ -1,5 +1,5 @@
 import {Recipe} from 'src/app/models/Recipe';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,6 +10,7 @@ import {RecipeEditComponent} from '../recipe-edit/recipe-edit.component';
 import {AdvancedSearchComponent} from '../advanced-search/advanced-search.component';
 import {Ingredient} from '../../../models/Ingredient';
 import {DatePipe} from '@angular/common';
+import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-recipes-list',
@@ -20,12 +21,12 @@ import {DatePipe} from '@angular/common';
 export class RecipesListComponent implements OnInit {
 
   // region Fields
+  @Input() adminAccess: boolean;
   emptyRecipe: Recipe;
   recipes: Recipe[];
   dataSource: MatTableDataSource<Recipe>;
-  displayedColumns: string[] = ['id', 'name', 'type', 'additiondate', 'details', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'type', 'additiondate', 'details', 'edit'];
   isLoading = true;
-
   // endregion
 
   constructor(private data: RecipesService,
@@ -37,6 +38,9 @@ export class RecipesListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
+    if (this.adminAccess) {
+      this.displayedColumns.push('delete');
+    }
     this.applyNameFilter('');
   }
 
@@ -58,14 +62,6 @@ export class RecipesListComponent implements OnInit {
     const editDialogRef = this.dialog.open(RecipeEditComponent, {
       width: '80%',
       data: recipe
-      //   {
-      //   recipeid: recipe.recipeid,
-      //   name: recipe.name,
-      //   type: recipe.type,
-      //   description: recipe.description,
-      //   additiondate: recipe.additiondate,
-      //   ingredients: recipe.ingredients,
-      // }
     });
 
     editDialogRef.afterClosed().subscribe((result: Recipe) => {
@@ -97,6 +93,22 @@ export class RecipesListComponent implements OnInit {
     });
   }
 
+
+  showRecipeDeleteConfirmationDialog(recipe: Recipe): void {
+    const deleteDialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Usuń',
+        message: 'Czy na pewno chcesz usunąć przepis?'
+      }
+    });
+
+    deleteDialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteRecipe(recipe);
+      }
+    });
+  }
   // endregion
 
 

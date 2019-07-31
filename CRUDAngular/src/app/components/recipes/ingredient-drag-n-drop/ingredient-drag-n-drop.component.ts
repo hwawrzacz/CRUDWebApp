@@ -19,14 +19,13 @@ export class IngredientDragNDropComponent implements OnInit {
   // region Fields
   selectedIngredients: Ingredient[];
   allProducts: Ingredient[];
-  emptyProduct: Product = new Product('', 0, 0, 0, 0);
+  emptyProduct: Product;
   isLoading = true;
   // endregion
 
 
   // region Decorators
   @Input() ingredientsInput: Ingredient[];
-  @Input() details: boolean;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -46,6 +45,9 @@ export class IngredientDragNDropComponent implements OnInit {
     console.log(this.selectedIngredients);
   }
 
+  returnEmptyProduct(): Product {
+    return this.emptyProduct = new Product('', 0, 0, 0, 0);
+  }
 
   drop(event: CdkDragDrop<Ingredient[]>) {
     if (event.previousContainer !== event.container) { // if element is dropped on another container
@@ -74,8 +76,6 @@ export class IngredientDragNDropComponent implements OnInit {
           carbs: ingredient.product.carbs,
           fat: ingredient.product.fat,
           kcal: ingredient.product.kcal,
-          recipes: ingredient.product.recipes,
-
         },
         amount: ingredient.amount,
         unit: ingredient.unit

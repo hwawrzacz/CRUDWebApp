@@ -10,15 +10,9 @@ import java.util.Objects;
 public class IngredientId implements Serializable {
 
     private Recipe recipe;
-
     private Product product;
 
-//    private long recipeid;
-//    private String productname;
-
     // region Getters and setters
-
-
     //recipe
     public Recipe getRecipe() { return recipe; }
     public void setRecipe(Recipe recipe) { this.recipe = recipe; }
@@ -26,14 +20,6 @@ public class IngredientId implements Serializable {
     // product
     public Product getProduct() { return product; }
     public void setProduct(Product product) { this.product = product; }
-
-//    // productname
-//    public String getProductname() { return productname; }
-//    public void setProductname(String productname) { this.productname = productname; }
-//
-//    // recipeid
-//    public Long getRecipeid() { return recipeid; }
-//    public void setRecipeid(Long recipeid) { this.recipeid = recipeid; }
     // endregion
 
 

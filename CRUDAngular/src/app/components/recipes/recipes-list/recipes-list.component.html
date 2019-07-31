@@ -20,11 +20,6 @@
 
   <!--#region Recipes table -->
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <!-- id column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.recipeid}} </mat-cell>
-    </ng-container>
 
     <!-- name column -->
     <ng-container matColumnDef="name">
@@ -46,7 +41,7 @@
 
     <!-- details column -->
     <ng-container matColumnDef="details">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Szczegóły</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-header> Szczegóły</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-raised-button color="primary" (click)="showRecipeDetailsDialog(element)"> Pokaż</button>
       </mat-cell>
@@ -54,7 +49,7 @@
 
     <!-- edit column -->
     <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Edytuj</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-header> Edytuj</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-mini-fab class="button-edit bg-white" (click)="showRecipeEditDialog(element)">
           <mat-icon>edit</mat-icon>
@@ -63,11 +58,11 @@
     </ng-container>
 
     <!-- delete column -->
-    <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuń</mat-header-cell>
+    <ng-container matColumnDef="delete" *ngIf="adminAccess">
+      <mat-header-cell *matHeaderCellDef mat-header> Usuń</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-mini-fab class="button-delete bg-white" (click)="deleteRecipe(element)">
-          <mat-icon>delete</mat-icon>
+        <button mat-mini-fab class="button-delete bg-white" color="warn" [disabled]="false" (click)="showRecipeDeleteConfirmationDialog(element)">
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
