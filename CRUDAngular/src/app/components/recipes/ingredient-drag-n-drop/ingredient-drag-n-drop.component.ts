@@ -42,7 +42,6 @@ export class IngredientDragNDropComponent implements OnInit {
   ngOnInit(): void {
     this.selectedIngredients = this.ingredientsInput;
     this.refreshDataSource('');
-    console.log(this.selectedIngredients);
   }
 
   returnEmptyProduct(): Product {
@@ -52,9 +51,6 @@ export class IngredientDragNDropComponent implements OnInit {
   drop(event: CdkDragDrop<Ingredient[]>) {
     if (event.previousContainer !== event.container) { // if element is dropped on another container
       const newIngredient = event.previousContainer.data[event.previousIndex];
-      console.log("Nowy: ");
-      console.log(newIngredient);
-      console.log('currentIndex: ' + event.currentIndex + ' previusIndex: ' + event.previousIndex);
       if (this.isIngredientAdded(newIngredient)) {
         this.openSnackBar('Składnik został już dodany', 'Ok');
       } else {
@@ -102,8 +98,6 @@ export class IngredientDragNDropComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result: Product) => {
       if (result != null) {
         const newProduct = new Product(result.productname, result.protein, result.carbs, result.fat, result.kcal);
-        console.log(newProduct.toString());
-
         this.createProduct(newProduct);
       }
     });
@@ -121,7 +115,6 @@ export class IngredientDragNDropComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.deleteProduct(ingredient);
-        console.log(ingredient.product.productname + ' deleted');
       }
     });
   }

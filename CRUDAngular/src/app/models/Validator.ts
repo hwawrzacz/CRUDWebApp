@@ -2,6 +2,7 @@ import {Ingredient} from './Ingredient';
 import {User} from './User';
 import {Recipe} from './Recipe';
 import {Product} from './Product';
+import {UserBasic} from "./UserBasic";
 
 export class Validator {
 
@@ -60,10 +61,6 @@ export class Validator {
 
 
   // region Recipe
-  isDescriptionValid(description: string): boolean {
-    return (description.length > 0);
-  }
-
   isIngredientListValid(ingredients: Ingredient[]): boolean {
     return (ingredients.length > 0);
   }
@@ -77,7 +74,7 @@ export class Validator {
     const isNameValid = this.isNameValid(recipe.name);
     const isTypeValid = this.isRecipeTypeValid(recipe.type);
     const isListValid = this.isIngredientListValid(recipe.ingredients);
-    const isDescValid = this.isDescriptionValid(recipe.description);
+    const isDescValid = this.isTextNotEmptyOrWhitepace(recipe.description);
 
     return (isNameValid && isTypeValid && isListValid && isDescValid);
   }
@@ -98,11 +95,23 @@ export class Validator {
     return (loginValid && fnameValid && lnameValid);
   }
 
+  isUserForLoginValid(user: UserBasic): boolean{
+    const loginValid = this.isLoginValid(user.login);
+    const passValid = this.isTextNotEmptyOrWhitepace(user.password);
+
+    return (loginValid  && passValid);
+  }
+
   // endregion
 
-  // common
+  // region Common
+  isTextNotEmptyOrWhitepace(text: string): boolean {
+    return (text.trim().length > 0);
+  }
+
   isNameValid(name: string): boolean {
     const regexName = /^[A-ZĄĆĘŁŃÓŚŻŹ][A-ZĄĆĘŁŃÓŚŻŹa-ząćęłńóśżź \,\-]{0,100}$/;
     return regexName.test(name);
   }
+  // endregion
 }

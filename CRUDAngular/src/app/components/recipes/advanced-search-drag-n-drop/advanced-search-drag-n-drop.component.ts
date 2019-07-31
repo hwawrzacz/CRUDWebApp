@@ -45,16 +45,13 @@ export class AdvancedSearchDragNDropComponent implements OnInit {
     this.selectedIngredients = this.ingredientsInput;
     this.getDetails = this.details;
     this.refreshDataSource('');
-    console.log(this.selectedIngredients);
   }
 
 
   drop(event: CdkDragDrop<Ingredient[]>) {
     if (event.previousContainer !== event.container) { // if element is dropped on another container
       const newIngredient = event.previousContainer.data[event.previousIndex];
-      console.log("Nowy: ");
-      console.log(newIngredient);
-      console.log('currentIndex: ' + event.currentIndex + ' previusIndex: ' + event.previousIndex);
+
       if (this.isIngredientAdded(newIngredient)) {
         this.openSnackBar('Składnik został już dodany', 'Ok');
       } else {
@@ -78,7 +75,6 @@ export class AdvancedSearchDragNDropComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.deleteProduct(ingredient);
-        console.log(ingredient.product.productname + ' deleted');
       }
     });
   }
@@ -146,7 +142,6 @@ export class AdvancedSearchDragNDropComponent implements OnInit {
     const ingredients: Ingredient[] = [];
     products.forEach( (product: Product) => {
       const ingredient = new Ingredient(product.productname);
-      console.log(ingredient);
       ingredients.push(ingredient);
     });
     return ingredients;

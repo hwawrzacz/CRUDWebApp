@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {User} from '../models/User';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {UserBasic} from "../models/UserBasic";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -37,5 +38,9 @@ export class UsersService {
   deleteUser(user: User): Observable<any> {
     console.log('Deleting user: ' + user.login);
     return this.http.delete(this.baseUrl + 'delete?login=' + user.login, { responseType: 'text' });
+  }
+
+  getUserByLoginAndPassword(user: UserBasic): Observable<UserBasic> {
+    return this.http.post<UserBasic>(this.baseUrl + 'login', user);
   }
 }

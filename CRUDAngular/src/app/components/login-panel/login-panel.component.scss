@@ -1,0 +1,24 @@
+@import 'src/app/styles/common.scss';
+
+.login-panel-container{
+  position: relative;
+  top: 100px;
+  left: 0;
+  width: 100vw;
+  height: auto;
+}
+
+form {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+mat-card {
+border: 2px solid #ccc;
+}
+
+mat-card-title {
+  text-align: left;
+  margin-bottom: 20px;
+}

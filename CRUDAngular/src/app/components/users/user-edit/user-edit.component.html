@@ -6,7 +6,7 @@
     </mat-form-field>
   </div>
 
-  <div class="full-width flex flex-between">
+  <div class="full-width flex flex-h-between">
       <mat-form-field class="margin-right-10">
         <input matInput placeholder="Imię" value="{{user.firstName}}"
                [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}"/>
@@ -18,7 +18,7 @@
       </mat-form-field>
     </div>
 
-    <div class="full-width flex flex-around margin-bottom-20">
+    <div class="full-width flex flex-h-around margin-bottom-20">
       <mat-checkbox id="isActiveCheck" class="margin-right-10" color="primary" [checked]="user.isActive"
                     [(ngModel)]="user.isActive" [ngModelOptions]="{standalone: true}"
                     (change)="changeIsActiveValue($event)">Aktywny</mat-checkbox>

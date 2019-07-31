@@ -3,18 +3,15 @@ CHANGELOG
 	Created basic view features.
 	-- commit --
 	
-	
 	=== 17.07.19 ===
 	Ingredients drag'n'drop in edition.
 	-- commit --
-	
 	
 	=== 18.07.19 ===
 	Fixed no ingredient name on ingredient amount popup.
 	Fixed drop position - after drop, element is placed at certain index, not at the bottom.
 	Ingredient validation on adding or editing in recipe.
 	-- commit --
-	
 	Ingredient list updated in recipe-edit component, when it has changed in drag'n'drop component.
 	Recipe vadiation.
 	Fixed ingredient selection one way.
@@ -25,37 +22,30 @@ CHANGELOG
 	Display different image in recipe details window depending on what type of recipe is.
 	-- commit --
 	
-	
 	=== 19.07.19 ===
 	Id is correctry transfered betwen list and edit recipe component
 	Added spinner on table loading
 	Improved header buttons
 	-- commit --
-	
 	Created Validator class
 	Added recipe create/edit dialog
 	Added navigation from header
 	-- commit --	
-	
 	Advanced search dialog
 	Optimised search dialog for returning list of ingredients
 	-- commit --
-	
 	
 	=== 22.07.19 ===
 	Fixed returning null when closing recipe/product edition dialog
 	Fixed displaying addition date in recipes list
 	
-	
 	=== 23.07.19 ===
 	Small step toward solving saving to database
 	
-
 	=== 24.07.19 ===
 	User addition/edition/deletion
 	Fixed isActive/isAdmin checkboxes
 	-- commit --
-	
 	Products addition/edition/deletion
 	-- commit --
 	
@@ -63,20 +53,17 @@ CHANGELOG
 	Fix recipe search bar container appearance
 	Add 'add new product' button to drag'n'drop list
 	Add ingredient delete confirmation dialog
-	-- commit --
-	
-	
+	-- commit --	
 	
 	=== 31.07.19 ===
 	Add recipe addition/edition/deletion
-	Admin access control on Front
-	
+	Admin access control on front
+	Add primitive and not secure user authentication
 	
 	
 	
 DOING	
 	=== 31.07.19 ===
-	
 	
 
 TODO

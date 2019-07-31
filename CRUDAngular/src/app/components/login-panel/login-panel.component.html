@@ -1,0 +1,24 @@
+<div class="login-panel-container flex flex-h-center flex-v-center flex-column">
+  <mat-card class="mat-elevation-z8" >
+    <mat-card-title class="full-width">Logowanie</mat-card-title>
+
+    <mat-card-content>
+      <form>
+        <mat-form-field class="full-width" appearance="outline">
+          <input matInput type="text" placeholder="Login" class="full-width"
+                 [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}" required/>
+
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <input matInput type="password" placeholder="Hasło" class="full-width"
+                 [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" required />
+        </mat-form-field>
+
+        <div class="button-wrapper-center">
+          <button submit mat-flat-button color="primary" disabled="{{!isUserValid(user)}}" (click)="emitLoginEvent()"> Zaloguj</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

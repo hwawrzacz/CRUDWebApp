@@ -1,7 +1,7 @@
 <form class="ingredient-amount-dialog-container">
   <h1 class="mat-h1">{{ingredient.productname}}</h1>
 
-  <div class="flex flex-around" mat-dialog-content>
+  <div class="flex flex-h-around" mat-dialog-content>
     <mat-form-field>
       <input matInput type="number" min="0" placeholder="Ilość" value="{{ingredient.amount}}" [(ngModel)]="ingredient.amount"  [ngModelOptions]="{standalone: true}" />
     </mat-form-field>

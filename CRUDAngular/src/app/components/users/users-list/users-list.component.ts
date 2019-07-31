@@ -13,8 +13,6 @@ import {ConfirmationDialogComponent} from 'src/app/components/confirmation-dialo
 
 export class UsersListComponent implements OnInit {
 
-  @Input() adminAccess: boolean;
-
   private users: User[]
   private emptyUser = new User('', '', '', '', false, false);
   private displayedColumns: string[] = ['login', 'firstName', 'lastName', 'isActive', 'isAdmin', 'edit', 'delete'];
@@ -80,7 +78,6 @@ export class UsersListComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.deleteUser(user);
-        console.log('User ' + user.login + ' delete');
       }
     });
   }

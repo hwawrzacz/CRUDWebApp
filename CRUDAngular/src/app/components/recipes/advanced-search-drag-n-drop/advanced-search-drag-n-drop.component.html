@@ -44,7 +44,7 @@
       <div class="drag-n-drop-element mat-body-1" *ngFor="let ingredient of allProducts"
            cdkDrag>{{ingredient.product.productname}}</div>
 
-      <div *ngIf="isLoading" class="full-width flex flex-center">
+      <div *ngIf="isLoading" class="full-width flex flex-h-center">
         <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
       </div>
     </div>

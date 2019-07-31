@@ -1,7 +1,7 @@
 <div class="recipe-details-container">
   <h1 class="mat-h1 recipe-details-header">{{recipe.name}}</h1>
 
-  <div class="recipe-details-list-image-wrapper flex-around flex-row">
+  <div class="recipe-details-list-image-wrapper flex-h-around flex-row">
     <mat-list role="list">
       <h2 class="mat-h2 full-width" color="primary">Składniki</h2>
       <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients"><strong>{{ingredient.product.productname}}&nbsp;</strong>  {{ingredient.amount}} {{ingredient.unit}}</mat-list-item>

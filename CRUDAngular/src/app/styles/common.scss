@@ -22,16 +22,19 @@
   flex-wrap: wrap;
 }
 
-.flex-center{
-  justify-content: center;
-
+.flex-v-center{
+  align-items: center;
 }
 
-.flex-around{
+.flex-h-center{
+  justify-content: center;
+}
+
+.flex-h-around{
   justify-content: space-around;
 }
 
-.flex-between{
+.flex-h-between{
   justify-content: space-between;
 }
 

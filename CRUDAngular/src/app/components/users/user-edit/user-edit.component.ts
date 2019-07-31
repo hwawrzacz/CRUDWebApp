@@ -22,12 +22,10 @@ export class UserEditComponent implements OnInit {
   }
 
   changeIsActiveValue($event) {
-    console.log($event.checked);
     this.user.isActive = $event.checked;
   }
 
   changeIsAdminValue($event) {
-    console.log($event.checked);
     this.user.isAdmin = $event.checked;
   }
 

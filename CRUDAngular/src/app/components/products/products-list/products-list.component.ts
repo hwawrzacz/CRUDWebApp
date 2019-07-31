@@ -30,7 +30,6 @@ export class ProductsListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    console.log('Admin acess: ' + this.adminAccess);
     if (this.adminAccess) {
       this.displayedColumns.push('delete');
     }

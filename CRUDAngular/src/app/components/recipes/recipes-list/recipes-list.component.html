@@ -2,17 +2,17 @@
   <h1 class="mat-h1">Przepisy</h1>
 
   <!--#region Search bar -->
-  <div class="full-width flex flex-between margin-bottom-20">
+  <div class="full-width flex flex-h-between margin-bottom-20">
     <mat-form-field class="flex flex-grow-10 margin-right-10" appearance="outline">
       <mat-icon matPrefix>search</mat-icon>
       <input matInput placeholder="Szukaj przepisu po nazwie" class="full-width" (keyup)="applyNameFilter($event.target.value)">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-center margin-left-10 margin-right-10" (click)="applyNameFilter('')">
+    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-h-center margin-left-10 margin-right-10" (click)="applyNameFilter('')">
       Pokaż wszystkie
     </button>
 
-    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-center margin-left-10" (click)="showAdvancedSearchDialog(returnEmptyRecipe())">
+    <button mat-raised-button color="primary" class="flex flex-grow-1 flex-h-center margin-left-10" (click)="showAdvancedSearchDialog(returnEmptyRecipe())">
       Wyszukiwanie zaawansowane
     </button>
   </div>
@@ -72,7 +72,7 @@
   </table>
 
   <!-- spinner -->
-  <mat-card *ngIf="isLoading" class="full-width flex flex-center mat-elevation-z0">
+  <mat-card *ngIf="isLoading" class="full-width flex flex-h-center mat-elevation-z0">
     <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
   </mat-card>
 

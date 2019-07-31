@@ -22,7 +22,7 @@ export class RecipesListComponent implements OnInit {
 
   // region Fields
   @Input() adminAccess: boolean;
-  emptyRecipe: Recipe;
+  emptyRecipe: Recipe = new Recipe('', '', new Date(), '', []);
   recipes: Recipe[];
   dataSource: MatTableDataSource<Recipe>;
   displayedColumns: string[] = ['name', 'type', 'additiondate', 'details', 'edit'];
@@ -50,7 +50,6 @@ export class RecipesListComponent implements OnInit {
 
   // region Functions | Dialog openers
   showRecipeDetailsDialog(recipe: Recipe): void {
-    console.log(recipe);
     this.dialog.open(RecipeDetailsComponent, {
       width: 'auto',
       data: recipe
@@ -66,7 +65,6 @@ export class RecipesListComponent implements OnInit {
 
     editDialogRef.afterClosed().subscribe((result: Recipe) => {
       if (result != null) {
-        console.log(result);
         if (result.recipeid === 0) { // new recipe is being created
           this.addRecipe(result);
         } else {
@@ -147,7 +145,6 @@ export class RecipesListComponent implements OnInit {
 
 
   addRecipe(recipe: Recipe): void {
-    console.log(recipe);
     this.data.addRecipe(recipe).subscribe((response) => {
       console.log(response);
     });
@@ -155,7 +152,6 @@ export class RecipesListComponent implements OnInit {
 
 
   updateRecipe(recipe: Recipe): void {
-    console.log(recipe);
     this.data.updateRecipe(recipe).subscribe((response) => {
       console.log(response);
     });

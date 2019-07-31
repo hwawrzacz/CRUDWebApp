@@ -2,10 +2,16 @@
   <app-header (addNewRecipeButtonClicked)="openNewRecipeDialog($event)"
               (addNewProductButtonClicked)="openNewProductDialog($event)"
               (advancedSearchButtonClicked)="openAdvancedSearchDialog($event)"
-              (logoutButtonClicked)="logout($event)">
+              (logoutButtonClicked)="logout()"
+              [isLogged]=isLogged>
   </app-header>
-  <app-users-list *ngIf="hasAdminAccess"></app-users-list>
-  <app-recipes-list [adminAccess]="hasAdminAccess"></app-recipes-list>
-  <app-products-list [adminAccess]="hasAdminAccess"></app-products-list>
-  <router-outlet></router-outlet>
+
+  <app-login-panel *ngIf="!isLogged" (StartLoginProcedure)="tryToLogUserIn($event)"></app-login-panel>
+
+  <div class="wrapper" *ngIf="isLogged">
+    <app-users-list *ngIf="hasAdminAccess"></app-users-list>
+    <app-recipes-list [adminAccess]="hasAdminAccess"></app-recipes-list>
+    <app-products-list [adminAccess]="hasAdminAccess"></app-products-list>
+    <router-outlet></router-outlet>
+  </div>
 </div>

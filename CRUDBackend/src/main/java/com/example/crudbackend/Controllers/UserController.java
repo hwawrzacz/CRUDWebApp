@@ -113,6 +113,10 @@ public class UserController {
         else return "User update failed";
     }
 
+    @PostMapping("/login")
+    public User getUserByLoginAndPassword(@RequestBody User user){
+        return userRepository.getByLoginAndPassword(user.getLogin(), user.getPassword());
+    }
 
     private boolean doesUserExist(String login) {
         return (userRepository.findByLogin(login) == null);
