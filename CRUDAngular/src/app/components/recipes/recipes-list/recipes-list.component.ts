@@ -11,6 +11,7 @@ import {AdvancedSearchComponent} from '../advanced-search/advanced-search.compon
 import {Ingredient} from '../../../models/Ingredient';
 import {DatePipe} from '@angular/common';
 import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-recipes-list',
@@ -22,6 +23,7 @@ export class RecipesListComponent implements OnInit {
 
   // region Fields
   @Input() adminAccess: boolean;
+
   emptyRecipe: Recipe = new Recipe('', '', new Date(), '', []);
   recipes: Recipe[];
   dataSource: MatTableDataSource<Recipe>;
@@ -31,16 +33,22 @@ export class RecipesListComponent implements OnInit {
 
   constructor(private data: RecipesService,
               public dialog: MatDialog,
-              public datepipe: DatePipe) {
+              public datepipe: DatePipe,
+              private route: ActivatedRoute) {
   }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    if (this.adminAccess) {
-      this.displayedColumns.push('delete');
-    }
+    this.route.params.subscribe(params => {
+      this.adminAccess = params.adminAccess;
+
+      if (this.adminAccess) {
+        this.displayedColumns.push('delete');
+      }
+    });
+
     this.applyNameFilter('');
   }
 

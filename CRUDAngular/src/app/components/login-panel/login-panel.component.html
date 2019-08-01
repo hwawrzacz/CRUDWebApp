@@ -7,7 +7,7 @@
         <mat-form-field class="full-width" appearance="outline">
           <input matInput type="text" placeholder="Login" class="full-width"
                  [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}" required/>
-
+          <mat-error></mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
@@ -16,7 +16,7 @@
         </mat-form-field>
 
         <div class="button-wrapper-center">
-          <button submit mat-flat-button color="primary" disabled="{{!isUserValid(user)}}" (click)="emitLoginEvent()"> Zaloguj</button>
+          <button submit mat-flat-button color="primary" disabled="{{!isUserValid(user)}}" (click)="tryToLogUserIn(user)"> Zaloguj</button>
         </div>
       </form>
     </mat-card-content>

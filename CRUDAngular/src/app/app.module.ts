@@ -40,8 +40,9 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AdvancedSearchDragNDropComponent } from './components/recipes/advanced-search-drag-n-drop/advanced-search-drag-n-drop.component';
-import {DatePipe} from "@angular/common";
-import { LoginPanelComponent } from './components/login-panel/login-panel.component'; // for responsive header
+import {DatePipe} from '@angular/common';
+import { LoginPanelComponent } from './components/login-panel/login-panel.component';
+import { ChangePasswordDialogComponent } from './components/users/change-password-dialog/change-password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { LoginPanelComponent } from './components/login-panel/login-panel.compon
     UserEditComponent,
     ConfirmationDialogComponent,
     AdvancedSearchDragNDropComponent,
-    LoginPanelComponent
+    LoginPanelComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,8 @@ import { LoginPanelComponent } from './components/login-panel/login-panel.compon
     ProductEditComponent,
     AdvancedSearchComponent,
     UserEditComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ChangePasswordDialogComponent
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

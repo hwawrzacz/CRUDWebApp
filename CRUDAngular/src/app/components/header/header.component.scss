@@ -14,9 +14,28 @@ nav {
 }
 
 mat-toolbar {
-  height: 60px;
+  height: auto;
 
-  //background-color: $main;
+  mat-toolbar-row{
+    position: relative;
+
+    &:first-child{
+      z-index: 1;
+      box-shadow: 0 5px 10px -5px #333;
+    }
+    &:last-child{
+      z-index: 0;
+    }
+  }
+}
+
+.sub-header{
+  background: #542f96;
+  z-index: 0;
+
+  button{
+    color: white;
+  }
 }
 
 button {
@@ -35,11 +54,33 @@ p {
   font-size: 30px;
 }
 
+//
+//.separator{
+//  display: block;
+//  border-right: 2px solid white;
+//  padding-right: 10px;
+//}
+//
+//.no-separator{
+//  display: block;
+//  border-right: none;
+//  padding-right: 10px;
+//}
+
 .button-logout {
-  margin-left: auto;
   color: white;
+  height: 36.3px;
 }
 
-.menu-spacer {
-  flex: 1 1 auto;
+.menu-buttons-left {
+  margin-left: 10px;
+}
+
+.header-logout-wrapper {
+  margin-left: auto;
+}
+
+.logged-user {
+  font-size: 0.75em;
+  margin-right: 20px;
 }

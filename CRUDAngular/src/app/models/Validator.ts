@@ -35,7 +35,10 @@ export class Validator {
 
   isMacroValid(macro: string): boolean {
     const regexAmount = /^(?!\-)(([0-9]+[\.\,][0-9]+)|([0-9]+))$/;
-    return regexAmount.test(macro);
+    if (macro !== null) {
+      return regexAmount.test(macro);
+    }
+    return false;
   }
 
   isAmountValid(amount: string): boolean {
@@ -49,10 +52,10 @@ export class Validator {
 
   isProductValid(product: Product): boolean {
     const isNameValid = this.isProductNameValid(product.productname);
-    const isProteinValid = this.isAmountValid(product.protein.toString());
-    const isCarbsValid = this.isAmountValid(product.carbs.toString());
-    const isFatValid = this.isAmountValid(product.fat.toString());
-    const isKcalValid = this.isAmountValid(product.kcal.toString());
+    const isProteinValid = this.isMacroValid(product.protein.toString());
+    const isCarbsValid = this.isMacroValid(product.carbs.toString());
+    const isFatValid = this.isMacroValid(product.fat.toString());
+    const isKcalValid = this.isMacroValid(product.kcal.toString());
 
     return (isNameValid && isProteinValid && isCarbsValid && isFatValid && isKcalValid);
   }

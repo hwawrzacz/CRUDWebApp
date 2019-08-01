@@ -10,6 +10,8 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   @Input() isLogged: boolean;
+  @Input() userLogin: boolean;
+  @Input() isAdmin: boolean;
 
   @Output()  addNewRecipeButtonClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()  addNewProductButtonClicked = new EventEmitter<boolean>();

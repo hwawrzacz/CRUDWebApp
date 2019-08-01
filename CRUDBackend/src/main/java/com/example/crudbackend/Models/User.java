@@ -17,13 +17,13 @@ public class User{
     @Column(name = "lastname")
     private String lastName;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="isactive")
+    @Column(name = "isactive")
     private boolean isActive;
 
-    @Column(name="isadmin")
+    @Column(name = "isadmin")
     private boolean isAdmin;
     //endregion
 

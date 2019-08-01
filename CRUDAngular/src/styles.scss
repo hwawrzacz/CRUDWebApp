@@ -1,4 +1,30 @@
 @import 'src/app/styles/colors-fonts-themes';
+$purplePrimary: #673AB7;
+
+::selection{
+  background-color: rebeccapurple !important;
+  color: white !important;
+}
+
+// region Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+  transition: 0.3s;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $purplePrimary;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #5E35B1;
+  }
+
+  &:active{
+    background-color: #542f96;
+  }
+}
+// endregion
 
 *{
     box-sizing: border-box;

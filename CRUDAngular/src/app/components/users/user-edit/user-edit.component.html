@@ -1,9 +1,13 @@
 <form class="user-edit-container">
-
-  <div class="user-name-and-type-wrapper full-width">
-    <mat-form-field class="user-name flex-grow-10 margin-right-10">
+  <h2 class="mat-h2">Edycja użytkownika</h2>
+  <div class="flex flex-h-between full-width">
+    <mat-form-field class="flex-grow-1 margin-right-10">
       <input matInput placeholder="Login" value="{{user.login}}" [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
+
+    <div class="flex flex-v-center flex-h-center flex-grow-1 margin-left-10">
+      <button mat-flat-button color="primary" (click)="openChangePasswordDialog()">Zmień hasło</button>
+    </div>
   </div>
 
   <div class="full-width flex flex-h-between">

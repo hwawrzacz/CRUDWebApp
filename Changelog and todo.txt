@@ -59,12 +59,16 @@ CHANGELOG
 	Add recipe addition/edition/deletion
 	Admin access control on front
 	Add primitive and not secure user authentication
+	-- commit --
+	
+	=== 01.08.19 ===
+	Add user password change to user edit panel
 	
 	
 	
 DOING	
 	=== 31.07.19 ===
-	
+	Tried to create routing, but it sucks when uses primitive security
 
 TODO
 	Refresh recipes list after update/create.

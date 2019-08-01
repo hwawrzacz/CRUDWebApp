@@ -49,6 +49,7 @@ export class UsersListComponent implements OnInit {
         login: user.login,
         firstName: user.firstName,
         lastName: user.lastName,
+        password: user.password,
         isActive: user.isActive,
         isAdmin: user.isAdmin
       }
@@ -56,7 +57,7 @@ export class UsersListComponent implements OnInit {
 
     editDialogRef.afterClosed().subscribe((result: User) => {
       if (result != null) {
-        const newUser = new User(result.login, result.firstName, result.lastName, '', result.isActive, result.isAdmin);
+        const newUser = new User(result.login, result.firstName, result.lastName, result.password, result.isActive, result.isAdmin);
         if (user.login === '') { // if new user is being created (empty user were passed to edit component)
           this.createUser(newUser);
         } else {

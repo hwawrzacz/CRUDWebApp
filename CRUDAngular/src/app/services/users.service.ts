@@ -31,7 +31,6 @@ export class UsersService {
   }
 
   updateUser(login: string, user: User): Observable<any> {
-    console.log(user.login + ' ' + user.firstName + ' ' + user.lastName + ' ' + user.isActive + ' ' + user.isAdmin);
     return this.http.put(this.baseUrl + 'update?login=' + login, user, { responseType: 'text' });
   }
 

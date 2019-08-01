@@ -136,6 +136,7 @@ public class UserController {
             User user = userRepository.findByLogin(login);
             user.setFirstName(updatedUser.getFirstName());
             user.setLastName(updatedUser.getLastName());
+            user.setPassword(updatedUser.getPassword());
             user.setIsActive(updatedUser.getIsActive());
             user.setIsAdmin(updatedUser.getIsAdmin());
             userRepository.save(user);
