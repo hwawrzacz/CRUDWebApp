@@ -10,4 +10,5 @@ public interface IUserRepository extends JpaRepository<User, String> {
     User findByLogin(String login);
     void deleteByLogin(String login);
     User getByLoginAndPassword(String login, String password);
+    Iterable<User> getByLoginContainingIgnoreCaseOrderByLoginAsc(String login);
 }

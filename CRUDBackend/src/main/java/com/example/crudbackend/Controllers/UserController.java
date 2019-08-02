@@ -37,6 +37,10 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/getallbylogin")
+    public Iterable<User> getAllByLogin(@RequestParam("login") String login){
+        return userRepository.getByLoginContainingIgnoreCaseOrderByLoginAsc(login);
+    }
 
     @RequestMapping("/showuserbylogin")
     public String showUserById(String login) {

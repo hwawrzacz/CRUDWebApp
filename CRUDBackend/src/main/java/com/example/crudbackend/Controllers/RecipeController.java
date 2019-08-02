@@ -29,7 +29,7 @@ public class RecipeController {
 
     @GetMapping("/getallrecipesbyname")
     public Iterable<Recipe> getRecipeContainingName(@RequestParam("name") String name){
-        return recipeRepository.findAllByNameContaining(name);
+        return recipeRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
     }
 
     @PostMapping("/getbyingredients")

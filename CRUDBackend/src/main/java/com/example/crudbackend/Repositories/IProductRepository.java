@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IProductRepository extends JpaRepository<Product, Integer> {
     Product findByProductname(String name);
-    Iterable<Product> findByProductnameContaining(String name);
+    Iterable<Product> findByProductnameContainingIgnoreCaseOrderByProductnameAsc(String name);
     void deleteByProductname(String name);
 }

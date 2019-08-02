@@ -1,5 +1,5 @@
 import {Recipe} from 'src/app/models/Recipe';
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -11,7 +11,6 @@ import {AdvancedSearchComponent} from '../advanced-search/advanced-search.compon
 import {Ingredient} from '../../../models/Ingredient';
 import {DatePipe} from '@angular/common';
 import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-recipes-list',
@@ -22,34 +21,31 @@ import {ActivatedRoute} from '@angular/router';
 export class RecipesListComponent implements OnInit {
 
   // region Fields
+  // Inputs
   @Input() adminAccess: boolean;
 
-  emptyRecipe: Recipe = new Recipe('', '', new Date(), '', []);
-  recipes: Recipe[];
-  dataSource: MatTableDataSource<Recipe>;
-  displayedColumns: string[] = ['name', 'type', 'additiondate', 'details', 'edit'];
-  isLoading = true;
+  // Data
+  private emptyRecipe: Recipe = new Recipe('', '', new Date(), '', []);
+  private recipes: Recipe[];
+  private dataSource: MatTableDataSource<Recipe>;
+  private displayedColumns: string[] = ['name', 'type', 'additiondate', 'details', 'edit'];
+  private isLoading = true;
+
   // endregion
 
   constructor(private data: RecipesService,
               public dialog: MatDialog,
-              public datepipe: DatePipe,
-              private route: ActivatedRoute) {
+              public datepipe: DatePipe) {
   }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.adminAccess = params.adminAccess;
-
       if (this.adminAccess) {
         this.displayedColumns.push('delete');
       }
-    });
-
-    this.applyNameFilter('');
+      this.applyNameFilter('');
   }
 
   returnEmptyRecipe(): Recipe {
@@ -68,7 +64,14 @@ export class RecipesListComponent implements OnInit {
   showRecipeEditDialog(recipe: Recipe): void {
     const editDialogRef = this.dialog.open(RecipeEditComponent, {
       width: '80%',
-      data: recipe
+      data: {
+        recipeid: recipe.recipeid,
+        name: recipe.name,
+        description: recipe.description,
+        additiondate: recipe.additiondate,
+        type: recipe.type,
+        ingredients: recipe.ingredients
+      }
     });
 
     editDialogRef.afterClosed().subscribe((result: Recipe) => {
@@ -155,6 +158,7 @@ export class RecipesListComponent implements OnInit {
   addRecipe(recipe: Recipe): void {
     this.data.addRecipe(recipe).subscribe((response) => {
       console.log(response);
+      this.applyNameFilter('');
     });
   }
 
@@ -162,6 +166,7 @@ export class RecipesListComponent implements OnInit {
   updateRecipe(recipe: Recipe): void {
     this.data.updateRecipe(recipe).subscribe((response) => {
       console.log(response);
+      this.applyNameFilter('');
     });
   }
 

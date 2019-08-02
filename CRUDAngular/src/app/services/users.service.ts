@@ -22,8 +22,8 @@ export class UsersService {
   constructor(private http: HttpClient) {
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + 'getallusers');
+  getAllUsersByLogin(login: string): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + '/getallbylogin?login=' + login);
   }
 
   createUser(user: User): Observable<any> {

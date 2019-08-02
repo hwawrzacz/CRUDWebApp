@@ -24,7 +24,7 @@ public class ProductController {
     //region Products
     @GetMapping("/getallbyname")
     public Iterable<Product> getProductsContainingName(@RequestParam("name") String name) {
-        return productRepository.findByProductnameContaining(name);
+        return productRepository.findByProductnameContainingIgnoreCaseOrderByProductnameAsc(name);
     }
 
     @PostMapping("/create")

@@ -63,12 +63,22 @@ CHANGELOG
 	
 	=== 01.08.19 ===
 	Add user password change to user edit panel
+	Made simple routing, but it doesn't work as suspected
+	-- commit --
+	
+	=== 02.08.19 ===
+	Return to no-routing version
+	Updated header functionality and appearance
+	Add filter users by login
+	Add ignore case in filter by name
+	Add sorting data received from server
+	Add refreshing data in table after element is update
+	-- commit --
 	
 	
 	
 DOING	
-	=== 31.07.19 ===
-	Tried to create routing, but it sucks when uses primitive security
+	=== 02.08.19 ===
+	Documentation
 
 TODO
-	Refresh recipes list after update/create.

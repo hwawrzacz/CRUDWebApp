@@ -6,32 +6,10 @@ import {ProductsListComponent} from './components/products/products-list/product
 import {UsersListComponent} from './components/users/users-list/users-list.component';
 
 
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    component: LoginPanelComponent
-  },
-  {
-    path: 'recipes/:adminAccess',
-    component: RecipesListComponent
-  },
-  {
-    path: 'products',
-    component: ProductsListComponent
-  },
-  {
-    path: 'users',
-    component: UsersListComponent
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

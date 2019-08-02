@@ -1,6 +1,17 @@
 <div class="list-wrapper">
-
   <h1 class="mat-h1">Użytkownicy</h1>
+
+  <!-- Search bar -->
+  <div class="full-width flex flex-h-between margin-bottom-20">
+    <mat-form-field class="flex-grow-10" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Szukaj użytkownika po loginie" (keyup)="applyNameFilter($event.target.value)">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="flex flex-grow-2 flex-h-center margin-left-10" (click)="applyNameFilter('')">
+      Pokaż wszystkie
+    </button>
+  </div>
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- name column -->

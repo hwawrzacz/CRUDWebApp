@@ -1,23 +1,11 @@
-<nav>
+<nav [ngClass]="getWindowScroll() > 0 ? 'scrolled' : ''">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <h1 class="mat-h1 nav-header-title" fxHide.lt-md>Recipe
-        Manager</h1>
+      <h1 class="mat-h1 nav-header-title">Recipe Manager</h1>
       <div *ngIf="isLogged" fxShow="true" class="full-width flex flex-row">
-        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-<!--        <div class="menu-buttons-left flex-v-center">-->
-<!--          <button mat-button class="header-action-button" (click)="callAddNewRecipeButtonClicked()">-->
-<!--            <strong> Dodaj nowyprzepis </strong>-->
-<!--          </button>-->
-<!--          <button mat-button class="header-action-button" (click)="callAddNewProductButtonClicked()">-->
-<!--            <strong> Dodaj nowy produkt </strong>-->
-<!--          </button>-->
-<!--          <button mat-button class="header-action-button" (click)="callAdvancedSearchButtonClicked()">-->
-<!--            <strong> Wyszukiwanie zaawansowane </strong>-->
-<!--          </button>-->
-<!--        </div>-->
+
         <div class="header-logout-wrapper flex flex-h-between flex-v-center">
-          <span class="logged-user margin-right-10"> Zalogowany jako <strong>{{userLogin}}</strong>   </span>
+          <span class="logged-user margin-right-10"> Zalogowany użytkownik: <strong>{{userLogin}}</strong> </span>
           <button mat-raised-button class="button-logout" (click)="callLogoutButtonClicked()" color="warn">
             <strong> Wyloguj </strong>
           </button>
@@ -26,9 +14,9 @@
     </mat-toolbar-row>
 
     <mat-toolbar-row *ngIf="isLogged" class="sub-header flex flex-h-around">
-      <button mat-button [routerLink]="['/recipes', isAdmin]">Przepisy</button>
-      <button mat-button [routerLink]="['/products', isAdmin]">Produkty</button>
-      <button *ngIf="isAdmin" [routerLink]="['/users', isAdmin]" mat-button routerLink="/users">Użytkownicy</button>
+      <button mat-button (click)="callScrollAction('recipes')"> Przepisy </button>
+      <button mat-button (click)="callScrollAction('products')"> Produkty </button>
+      <button *ngIf="isAdmin" mat-button (click)="callScrollAction('users')">Użytkownicy</button>
     </mat-toolbar-row>
   </mat-toolbar>
 </nav>

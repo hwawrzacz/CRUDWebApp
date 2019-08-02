@@ -16,7 +16,7 @@
         </mat-form-field>
 
         <div class="button-wrapper-center">
-          <button submit mat-flat-button color="primary" disabled="{{!isUserValid(user)}}" (click)="tryToLogUserIn(user)"> Zaloguj</button>
+          <button submit mat-flat-button color="primary" disabled="{{!isUserValid(user)}}" (click)="emitLoginEvent()"> Zaloguj</button>
         </div>
       </form>
     </mat-card-content>

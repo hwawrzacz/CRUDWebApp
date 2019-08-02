@@ -33,14 +33,10 @@ export class ProductsListComponent implements OnInit {
     if (this.adminAccess) {
       this.displayedColumns.push('delete');
     }
-    this.refreshDataSource('');
+    this.applyNameFilter('');
   }
 
   applyNameFilter(filter: string) {
-    this.refreshDataSource(filter);
-  }
-
-  refreshDataSource(filter: string) {
     this.isLoading = true;
     this.data.getProducts(filter).subscribe(
       (data) => {
@@ -100,18 +96,21 @@ export class ProductsListComponent implements OnInit {
   createProduct(product: Product) {
     this.data.createProduct(product).subscribe(response => {
       console.log(response);
+      this.applyNameFilter('');
     });
   }
 
   updateProduct(name: string, product: Product) {
     this.data.updateProduct(name, product).subscribe(response => {
       console.log(response);
+      this.applyNameFilter('');
     });
   }
 
   deleteProduct(name: string) {
     this.data.deleteProduct(name).subscribe(response => {
       console.log(response);
+      this.applyNameFilter('');
     });
   }
   // endregion

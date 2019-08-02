@@ -31,7 +31,7 @@ export class UsersListComponent implements OnInit {
 
   refreshDataSource(filter: string) {
     this.isLoading = true;
-    this.service.getAllUsers().subscribe(
+    this.service.getAllUsersByLogin(filter).subscribe(
       (data) => {
         this.users = data;
         this.dataSource = new MatTableDataSource<User>(this.users);
@@ -63,6 +63,8 @@ export class UsersListComponent implements OnInit {
         } else {
           this.updateUser(user.login, newUser);
         }
+
+        this.refreshDataSource('');
       }
     });
   }
@@ -80,6 +82,8 @@ export class UsersListComponent implements OnInit {
       if (result) {
         this.deleteUser(user);
       }
+
+      this.refreshDataSource('');
     });
   }
   // endregion
@@ -105,4 +109,7 @@ export class UsersListComponent implements OnInit {
   }
 
   // endregion
+  applyNameFilter(login: string) {
+    this.refreshDataSource(login);
+  }
 }

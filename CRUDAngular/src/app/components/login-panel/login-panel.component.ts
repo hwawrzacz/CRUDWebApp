@@ -38,28 +38,4 @@ export class LoginPanelComponent implements OnInit {
     const validator = new Validator();
     return validator.isUserForLoginValid(this.user);
   }
-
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {duration: 5000});
-  }
-  // endregion
-
-  tryToLogUserIn(user: UserBasic) {
-    this.service.getUserByLoginAndPassword(user).subscribe( (response) => {
-      if (response) {
-        this.isLogged = response.isActive;
-        this.hasAdminAccess = response.isAdmin;
-        this.userLogin = response.login;
-
-        this.router.navigate(['/recipes', this.hasAdminAccess && this.isLogged]);
-
-        if (!this.isLogged) {
-          this.openSnackBar('Użytkownik jest nieaktywny. Skontaktuj się z administratorem.', 'Ok');
-        }
-      } else {
-        this.openSnackBar('Nieprawidłowe dane logowania', 'Ok');
-      }
-    });
-  }
 }
