@@ -1,9 +1,7 @@
 package com.example.crudbackend.Controllers;
 
-import com.example.crudbackend.Models.Admin;
 import com.example.crudbackend.Models.User;
 import com.example.crudbackend.Repositories.IUserRepository;
-import com.example.crudbackend.Repositories.IAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +14,10 @@ import javax.transaction.Transactional;
 public class UserController {
 
     @Autowired
-    IAdminRepository adminRepository;
-
-    @Autowired
     private IUserRepository userRepository;
 
     @Autowired
     private EntityManager entityManager;
-
-    @GetMapping("/updateuser")
 
     //region Show users
     @RequestMapping("/showuserbylastname")
@@ -49,29 +42,6 @@ public class UserController {
             return user.toString();
         } else {
             return "User '" + login + "' does not exist";
-        }
-    }
-    //endregion
-
-
-    //region Update admin
-    @RequestMapping("/grantadminaccess")
-    public String grantAdminAccess(@RequestParam("login") String login) {
-        try {
-            adminRepository.save(new Admin(login));
-            return "Granted admin access for user '" + login + "'";
-        } catch (Exception exc) {
-            return "User update failed";
-        }
-    }
-
-    @RequestMapping("/revokeadminaccess")
-    public String revokeAdminAccess(@RequestParam("login") String login) {
-        try {
-            adminRepository.deleteById(login);
-            return "Revoked admin access for user '" + login + "'";
-        } catch (Exception exc) {
-            return "User update failed";
         }
     }
     //endregion
@@ -176,11 +146,6 @@ public class UserController {
     private User getUserByLogin(String login) {
 
         return userRepository.findByLogin(login);
-    }
-
-    private Admin getAdminByLogin(String login) {
-
-        return adminRepository.findByLogin(login);
     }
     //endregion
 }
