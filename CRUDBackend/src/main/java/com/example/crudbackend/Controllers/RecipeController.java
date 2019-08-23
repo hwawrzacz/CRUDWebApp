@@ -45,6 +45,7 @@ public class RecipeController {
                 }
             }
         } catch (Exception e) {
+            //TODO: MG: nie powinno się logować błędów w ten sposób (odpowieni logger i informacja bardziej czytelna co się stało)
             e.printStackTrace();
         }
         return matchingRecipes;
@@ -81,6 +82,7 @@ public class RecipeController {
 
     private String addRecipe(Recipe recipe) {
         try{
+            //TODO: MG: tak szczegółowe logowanie powinno raczej być do loggera jako debug
             System.out.println("saving recipe id: " + recipe.getRecipeid());
             this.recipeRepository.save(recipe);
             this.addIngredientsToRecipe(recipe);
